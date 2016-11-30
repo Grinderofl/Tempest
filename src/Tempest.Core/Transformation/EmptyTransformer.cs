@@ -1,7 +1,7 @@
 using System.IO;
-using Tempest.Utils;
+using Tempest.Core.Utils;
 
-namespace Tempest.Transformation
+namespace Tempest.Core.Transformation
 {
     public class EmptyTransformer : Transformer
     {

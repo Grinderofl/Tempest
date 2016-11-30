@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tempest.Utils
+namespace Tempest.Core.Utils
 {
     public static class StreamExtensions
     {

@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tempest.Transformation
+namespace Tempest.Core.Transformation
 {
     public class TransformationResult
     {

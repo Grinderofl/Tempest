@@ -1,4 +1,4 @@
-﻿namespace Tempest.Emission
+﻿namespace Tempest.Core.Emission
 {
     /// <summary>
     /// Emits the input stream into ... wherever

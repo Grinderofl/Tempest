@@ -1,20 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Tempest.Emission;
-using Tempest.Generation;
-using Tempest.Transformation;
+using Tempest.Core.Emission;
+using Tempest.Core.Sourcing;
+using Tempest.Core.Transformation;
 
-namespace Tempest
+namespace Tempest.Core
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-        }
-    }
-
-
     public class EngineBase
     {
         // Engine has steps it needs to take for each ... file? Item? what now?
@@ -61,12 +51,12 @@ namespace Tempest
 
     public class TemplateStep
     {
-        public TemplateStep(Generator generator)
+        public TemplateStep(Source source)
         {
-            Generator = generator;
+            Source = source;
         }
 
-        public Generator Generator { get; }
+        public Source Source { get; }
         public IEnumerable<Transformer> Transformers { get; set; }
         public IEnumerable<Emitter> Emitters { get; set; }
     }

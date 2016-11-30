@@ -1,4 +1,4 @@
-namespace Tempest.Emission
+namespace Tempest.Core.Emission
 {
     public class EmissionResult
     {

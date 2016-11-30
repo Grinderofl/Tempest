@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-namespace Tempest.Generation
+namespace Tempest.Core.Sourcing
 {
-    public class GenerationResult
+    public class SourcingResult
     {
         public Stream OutputStream { get; set; }
     }

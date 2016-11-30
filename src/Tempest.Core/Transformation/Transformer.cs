@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using Tempest.Generation;
 
-namespace Tempest.Transformation
+namespace Tempest.Core.Transformation
 {
     /// <summary>
     /// Transforms the input stream into output transformation result
