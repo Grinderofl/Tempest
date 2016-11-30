@@ -14,9 +14,15 @@ namespace Tempest.Generator.Empty
             "Tempest.Generator.Empty.xproj"
         };
 
+        private string _projectName;
+
         public EmptyGenerator()
         {
-            
+            Console.WriteLine("Give me your project's name");
+            _projectName = Console.ReadLine();
+            Copy.Template("project.json").ToFile("project.json");
+            Copy.Template("Program.cs").ToFile("Program.cs");
+            Copy.Template("Template.xproj").ToFile(() => $"{_projectName}");
         }
 
 
