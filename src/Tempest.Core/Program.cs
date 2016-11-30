@@ -40,7 +40,7 @@ namespace Tempest.Core
         
         public TemplateStep FromString(string source)
         {
-            return new TemplateStep(Generators.FromString(source));
+            return new TemplateStep(Sources.FromString(source));
         }
     }
 

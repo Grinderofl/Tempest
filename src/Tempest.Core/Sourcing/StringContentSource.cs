@@ -18,9 +18,4 @@ namespace Tempest.Core.Sourcing
             return _string.ToStream();
         }
     }
-
-    public class Generators
-    {
-        public static Source FromString(string source) => new StringContentSource(source);
-    }
 }
