@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Tempest.Generator.Empty
 {
-    public class EmptyGenerator
+    public class EmptyGenerator : Core.Generator
     {
         public IEnumerable<string> FilesToHaveAtTheEnd { get; set; } = new[]
         {
@@ -13,5 +13,12 @@ namespace Tempest.Generator.Empty
             "EmptyGenerator.cs",
             "Tempest.Generator.Empty.xproj"
         };
+
+        public EmptyGenerator()
+        {
+            
+        }
+
+
     }
 }
