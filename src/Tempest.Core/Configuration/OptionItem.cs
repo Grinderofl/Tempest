@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace Tempest.Core.Configuration
 {
-    public class OptionItem : OptionItemBase
+    public abstract class OptionItem : OptionItemBase
     {
+        
         public Action<string> Action { get; protected set; }
 
         public Func<bool> Condition { get; protected set; }

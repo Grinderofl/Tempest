@@ -1,5 +1,10 @@
 ﻿{
   "version": "1.0.0-*",
+  
+  "description": "Empty .NET Core Console Application Template for Tempest",
+  "packOptions": {
+    "licenseUrl": ""
+  },
 
   "dependencies": {
     "NETStandard.Library": "1.6.1",
@@ -11,7 +16,6 @@
       "imports": "dnxcore50"
     }
   },
-
   "buildOptions": {
     "copyToOutput": {
       "include": "Template/*.*"

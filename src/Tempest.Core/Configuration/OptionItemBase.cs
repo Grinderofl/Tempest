@@ -6,7 +6,8 @@ namespace Tempest.Core.Configuration
     {
         protected IList<OptionChoice> OptionChoices = new List<OptionChoice>();
         public string Title { get; protected set; }
-        public OptionType Type { get; protected set; }
+        //public OptionType Type { get; protected set; }
+        public abstract OptionTypeRenderer Renderer { get; }
         public IEnumerable<OptionChoice> Choices => OptionChoices;
     }
 }

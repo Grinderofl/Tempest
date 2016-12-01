@@ -9,5 +9,7 @@ namespace Tempest.Core.Configuration
             Title = optionTitle;
             Action = action;
         }
+
+        public override OptionTypeRenderer Renderer => new InputOptionRenderer();
     }
 }

@@ -10,10 +10,13 @@ namespace Tempest
         {
             var codeBase = typeof(TempestRunner).GetTypeInfo().Assembly.CodeBase;
             var builder = new UriBuilder(codeBase);
-            var path = Uri.UnescapeDataString(builder.Path);
+            var filePath = Uri.UnescapeDataString(builder.Path);
+            var path = Path.Combine(Path.GetDirectoryName(filePath), "Generators");
             if(Directory.Exists(path))
                 return new DirectoryInfo(path);
-            return null;
+
+            // Technically should try to find from nuget
+            throw new Exception("No generators installed");
         }
     }
 }

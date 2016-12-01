@@ -10,7 +10,6 @@ namespace Tempest
             var arguments = new RunnerArgumentFactory().Create(args);
             var runner = BuildRunner(arguments);
             runner.Execute();
-
         }
 
         private static TempestRunner BuildRunner(RunnerArguments arguments)

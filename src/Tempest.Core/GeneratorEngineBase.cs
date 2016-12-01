@@ -97,7 +97,7 @@ namespace Tempest.Core
             foreach (var item in options)
             {
                 if (item.ShouldRender(results))
-                    results.Add(item.Type.Renderer.Render(item));
+                    results.Add(item.Renderer.Render(item));
             }
         }
     }

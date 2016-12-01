@@ -26,5 +26,7 @@ namespace Tempest.Core.Configuration
             OptionChoices.Add(new OptionChoice(optionText, id));
             return this;
         }
+
+        public override OptionTypeRenderer Renderer => new ListOptionRenderer();
     }
 }
