@@ -52,7 +52,7 @@ namespace Tempest.Generator.Empty
         {
             Copy.Template("project.json").ToFile("project.json");
             Copy.Template("Program.cs").ToFile("Program.cs");
-            Copy.Template("Template.xproj").ToFile(() => $"{_projectName}.xproj");
+            Copy.Template("ReplaceMe.cs").ToFile(() => $"{_projectName}.cs");
         }
 
 
