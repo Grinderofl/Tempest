@@ -8,7 +8,8 @@
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
-    }
+    },
+    "Tempest.Core": "1.0.0-*" 
   },
 
   "frameworks": {
