@@ -22,7 +22,7 @@ namespace Tempest.Core.Transformation
 
         protected virtual Stream TransformCore(TransformerContext context)
         {
-            return context.InputStream;
+            return context.TransformationStream;
         }
     }
 }

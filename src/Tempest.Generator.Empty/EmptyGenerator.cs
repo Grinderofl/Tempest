@@ -9,17 +9,16 @@ namespace Tempest.Generator.Empty
 {
     public class EmptyGenerator : GeneratorBase
     {
-        public IEnumerable<string> FilesToHaveAtTheEnd { get; set; } = new[]
-        {
-            "project.json",
-            "EmptyGenerator.cs",
-            "Tempest.Generator.Empty.xproj"
-        };
+        private readonly Dictionary<string, Action> _projectFactories;
 
-        private class OptionValues
+        public EmptyGenerator()
         {
-            public const string NewProject = "new";
+            _projectFactories = new Dictionary<string, Action>()
+            {
+                [OptionValues.NewProject] = CreateNewProject
+            };
         }
+        
 
         private string _projectName;
         private string _projectType;
@@ -30,22 +29,39 @@ namespace Tempest.Generator.Empty
             // Split into SimpleList and ComplexList
             // Simple list is for stuff where choices only return one value performed by list
             // Complex list is for stuff where choices all do their own thing
+            // Better polymorphism and API.
             yield return 
                 Options
                     .List("Welcome to empty Tempest template generator!", value => { _projectType = value; })
-                    .Choice("New project", "new");
+                    .Choice("New project", OptionValues.NewProject);
 
             yield return 
                 Options
                     .Input("Please choose the name for your generator", value => { _projectName = value; })
-                    .When(() => _projectType == "new");
+                    .When(() => _projectType == OptionValues.NewProject);
         }
 
         protected override void ExecuteCore()
         {
+            SetTargetSubDirectory(_projectName);
+            _projectFactories[_projectType]();
+        }
+        
+
+        private void CreateNewProject()
+        {
             Copy.Template("project.json").ToFile("project.json");
             Copy.Template("Program.cs").ToFile("Program.cs");
             Copy.Template("Template.xproj").ToFile(() => $"{_projectName}.xproj");
+        }
+
+
+        /// <summary>
+        /// Parameters used for possible input options
+        /// </summary>
+        private static class OptionValues
+        {
+            public const string NewProject = "new";
         }
     }
 }

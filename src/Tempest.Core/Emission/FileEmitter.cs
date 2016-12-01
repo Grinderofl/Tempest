@@ -21,8 +21,8 @@ namespace Tempest.Core.Emission
             var absolutePath = Path.Combine(context.TargetDirectory.FullName, _relativePath);
             using (var fs = File.Create(absolutePath))
             {
-                context.InputStream.Seek(0, SeekOrigin.Begin);
-                context.InputStream.CopyTo(fs);
+                context.EmissionStream.Seek(0, SeekOrigin.Begin);
+                context.EmissionStream.CopyTo(fs);
             }
             return new EmissionResult() ;
             //using (var fs = new FileStream(absolutePath, FileMode.CreateNew, FileAccess.Write))

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using Tempest.Core.Configuration;
+using Tempest.Core.Emission;
 using Tempest.Core.Sourcing;
 using Tempest.Core.Transformation;
 
@@ -18,6 +21,11 @@ namespace Tempest.Core
         
         public IList<Transformer> GlobalTransformers { get; set; } = new List<Transformer>();
 
+        protected virtual DirectoryInfo BuildTargetPath(RunnerContext runnerContext)
+        {
+            return runnerContext.WorkingDirectory;
+        }
+
         /// <summary>
         /// Setup the options
         /// </summary>
@@ -34,29 +42,63 @@ namespace Tempest.Core
             // This is where the pipeline should fill Steps and GlobalGenerators
             // It'll also set up the target directory depending on whatever variables, yes? There should be a function to set target directory.
 
-            var options = SetupOptions();
-
-            List<string> results = new List<string>();
-            foreach (var item in options)
-            {
-                if(item.ShouldRender(results))
-                    results.Add(item.Type.Renderer.Render(item));
-            }
+            ExecuteOptions();
 
             // Now run steps
 
             var sourcingContext = new SourcingContext()
             {
-                TemplateRoot = context.TempestDirectory + "/templates",
-                TargetRoot = context.WorkingDirectory + projectnamefromsomewhere
+                TemplateRoot = context.TempestDirectory.GetDirectories("Templates").FirstOrDefault(),
+                TargetRoot = BuildTargetPath(context)
             };
 
             foreach (var step in Steps)
             {
                 var source = step.GetSource();
-                source.Generate()
+                var sourceResult = source.Generate(sourcingContext);
+
+                var transformerContext = new TransformerContext()
+                {
+                    TransformationStream = sourceResult.OutputStream
+                };
+                foreach (var globalTransformer in GlobalTransformers)
+                {
+                    var globalTransformationResult = globalTransformer.Transform(transformerContext);
+                    transformerContext.TransformationStream = globalTransformationResult.OutputStream;
+                }
+
+                foreach (var transformer in step.GetTransformers())
+                {
+                    var transformResult = transformer.Transform(transformerContext);
+                    transformerContext.TransformationStream = transformResult.OutputStream;
+                }
+
+                var emissionContext = new EmissionContext()
+                {
+                    EmissionStream = transformerContext.TransformationStream
+                };
+
+                foreach (var emitter in step.GetEmitters())
+                {
+                    emitter.Emit(emissionContext);
+                }
             }
 
+            // ...
+            // ... done ?
+
+        }
+
+        protected virtual void ExecuteOptions()
+        {
+            var options = SetupOptions();
+
+            List<string> results = new List<string>();
+            foreach (var item in options)
+            {
+                if (item.ShouldRender(results))
+                    results.Add(item.Type.Renderer.Render(item));
+            }
         }
     }
 

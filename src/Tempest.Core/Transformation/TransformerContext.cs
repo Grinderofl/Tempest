@@ -5,7 +5,7 @@ namespace Tempest.Core.Transformation
 {
     public class TransformerContext
     {
-        public Stream InputStream { get; set; }
+        public Stream TransformationStream { get; set; }
 
         public string ReadInputAsString()
         {
