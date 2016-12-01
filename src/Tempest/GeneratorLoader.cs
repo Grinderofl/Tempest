@@ -19,20 +19,20 @@ namespace Tempest
             _generatorAssemblyFinder = generatorAssemblyFinder;
         }
 
-        public EngineBase FindGeneratorByName(string generatorName)
+        public GeneratorEngineBase FindGeneratorByName(string generatorName)
         {
             var generatorAssembly = _generatorAssemblyFinder.FindByName(generatorName);
             var generatorType = FindGeneratorType(generatorAssembly, generatorName);
             if(generatorType == null)
                 throw new GeneratorNotFoundException(generatorName, generatorAssembly);
 
-            return Activator.CreateInstance(generatorType) as EngineBase;
+            return Activator.CreateInstance(generatorType) as GeneratorEngineBase;
         }
 
         private Type FindGeneratorType(Assembly generatorAssembly, string generatorName)
         {
             var implementsGeneratorType =
-                generatorAssembly.ExportedTypes.Where(x => IntrospectionExtensions.GetTypeInfo(x).IsSubclassOf(typeof(Generator)));
+                generatorAssembly.ExportedTypes.Where(x => IntrospectionExtensions.GetTypeInfo(x).IsSubclassOf(typeof(GeneratorBase)));
 
             var containsName = implementsGeneratorType.Where(x => x.Name.Contains(generatorName));
             return containsName.FirstOrDefault();

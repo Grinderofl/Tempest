@@ -4,6 +4,6 @@ namespace Tempest
 {
     public interface IGeneratorLoader
     {
-        EngineBase FindGeneratorByName(string generatorName);
+        GeneratorEngineBase FindGeneratorByName(string generatorName);
     }
 }
