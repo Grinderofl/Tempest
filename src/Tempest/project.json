@@ -5,10 +5,12 @@
   },
 
   "dependencies": {
+    "Microsoft.Extensions.DependencyModel": "1.1.0",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
     },
+    "System.Runtime.Loader": "4.0.0-*",
     "Tempest.Core": "1.0.0-*" 
   },
 

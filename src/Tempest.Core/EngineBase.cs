@@ -11,8 +11,13 @@ namespace Tempest.Core
         public IList<TemplateStep> Steps { get; set; } = new List<TemplateStep>();
         
         public IList<Generator> GlobalGenerators { get; set; } = new List<Generator>();
-        
 
+
+        public void Run(RunnerContext context)
+        {
+            // This is where the pipeline should fill Steps and GlobalGenerators
+            // It'll also set up the target directory depending on whatever variables, yes? There should be a function to set target directory.
+        }
     }
 
     // 1) Generator generates (out of thin air or by copying or by downloading or whatever) a stream
