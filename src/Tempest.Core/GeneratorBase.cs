@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Tempest.Core.Dsl;
+using Tempest.Core.Setup;
 
 namespace Tempest.Core
 {

@@ -1,4 +1,4 @@
-﻿namespace Tempest.Core.Dsl
+namespace Tempest.Core.Setup
 {
     public class SetFactory : BuilderFactoryBase
     {

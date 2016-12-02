@@ -26,14 +26,6 @@ namespace Tempest.Core.Emission
                 context.EmissionStream.CopyTo(fs);
             }
             return new EmissionResult() ;
-            //using (var fs = new FileStream(absolutePath, FileMode.CreateNew, FileAccess.Write))
-            //{
-            //    using (var writer = new StreamWriter(fs))
-            //    {
-                    
-            //    }
-            //}
-            
         }
     }
 }

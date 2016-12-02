@@ -1,6 +1,6 @@
-﻿using Tempest.Core.Sourcing;
+using Tempest.Core.Sourcing;
 
-namespace Tempest.Core.Dsl
+namespace Tempest.Core.Setup
 {
     /// <summary>
     /// Contains methods that should copy a template file

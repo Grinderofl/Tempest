@@ -1,7 +1,7 @@
 using System;
 using Tempest.Core.Configuration;
 
-namespace Tempest.Core.Dsl
+namespace Tempest.Core.Setup
 {
     public class OptionsFactory : BuilderFactoryBase
     {

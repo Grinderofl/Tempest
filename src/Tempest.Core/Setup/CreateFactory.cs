@@ -1,6 +1,6 @@
 using Tempest.Core.Sourcing;
 
-namespace Tempest.Core.Dsl
+namespace Tempest.Core.Setup
 {
     /// <summary>
     /// Contains methods that create stuff out of thin air.

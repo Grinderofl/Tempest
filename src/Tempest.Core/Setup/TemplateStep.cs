@@ -2,7 +2,7 @@ using System;
 using Tempest.Core.Emission;
 using Tempest.Core.Sourcing;
 
-namespace Tempest.Core.Dsl
+namespace Tempest.Core.Setup
 {
     public class TemplateStep : TemplateStepBase
     {

@@ -8,11 +8,12 @@ namespace Tempest.Core.Configuration
 
         public virtual void Execute(IEnumerable<OptionItem> options)
         {
-            foreach (var option in options)
+            List<string> results = new List<string>();
+            foreach (var item in options)
             {
-                Console.WriteLine(option.Title);
+                if (item.ShouldRender(results))
+                    results.Add(item.Renderer.Render(item));
             }
-
         }
     }
 }

@@ -1,6 +1,6 @@
 using Tempest.Core.Transformation;
 
-namespace Tempest.Core.Dsl
+namespace Tempest.Core.Setup
 {
     public class TransformFactory : BuilderFactoryBase
     {
