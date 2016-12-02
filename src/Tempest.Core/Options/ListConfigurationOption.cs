@@ -12,8 +12,9 @@ namespace Tempest.Core.Options
         {
             Title = optionTitle;
         }
-
+        
         protected IList<OptionChoice> OptionChoices = new List<OptionChoice>();
+
         public IEnumerable<OptionChoice> Choices => OptionChoices;
         public ListConfigurationOption(string optionTitle, Action<string> action) : this(optionTitle)
         {
@@ -32,13 +33,21 @@ namespace Tempest.Core.Options
             return this;
         }
 
+        protected override OptionRenderer Renderer => new ListOptionRenderer(this);
+
         public override void ActOn(string choice)
         {
-            var option = OptionChoices.FirstOrDefault(x => x.Id == choice);
+            OptionChoice option = FindOptionWithChoice(choice);
             option?.Action?.Invoke();
             base.ActOn(choice);
         }
 
-        protected override OptionRenderer Renderer => new ListOptionRenderer(this);
+        protected virtual OptionChoice FindOptionWithChoice(string choice)
+            => OptionChoices.FirstOrDefault(x => x.Id == choice);
+
+        public override bool CanActUpon(string choice)
+            => FindOptionWithChoice(choice) != null || base.CanActUpon(choice);
+
+        
     }
 }

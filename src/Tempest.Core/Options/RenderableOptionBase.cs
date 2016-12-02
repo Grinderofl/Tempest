@@ -3,7 +3,7 @@ using Tempest.Core.Options.Rendering;
 
 namespace Tempest.Core.Options
 {
-    public abstract class OptionItemBase
+    public abstract class RenderableOptionBase
     {
         public string Title { get; protected set; }
         protected abstract OptionRenderer Renderer { get; }

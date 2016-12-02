@@ -1,21 +1,38 @@
+using System;
 using System.Collections.Generic;
 
 namespace Tempest.Core.Options
 {
     public class OptionExecutor
     {
-        public virtual void Execute(IEnumerable<ConfigurationOption> options, string[] selectedOptions)
+        public virtual void Execute(ConfigurationOption[] options, string[] selectedOptions)
         {
-            List<string> results = new List<string>();
-            foreach (var option in options)
+            var results = new List<string>();
+
+            Action<ConfigurationOption, string> actOnOption = (option, choice) =>
             {
-                if (option.ShouldRender(results))
+                option.ActOn(choice);
+                results.Add(choice);
+            };
+
+            for (var i = 0; i < options.Length; i++)
+            {
+                var option = options[i];
+                if (!option.ShouldRender(results)) continue;
+                if (selectedOptions.Length > i)
                 {
-                    // This will either be choice from item, or choice that is detected from selectedOptions that matches the item
-                    var choice = option.Render();
-                    option.ActOn(choice);
-                    results.Add(choice);
+                    var launchArgument = selectedOptions[i];
+                    if (launchArgument != null 
+                            && option.CanActUpon(launchArgument))
+                    {
+                        actOnOption(option, launchArgument);
+                        continue;
+                    }
+                    // Maybe we throw something here if we can't find a launch argument because we can't do magic matchup?
                 }
+
+                var choice = option.Render();
+                actOnOption(option, choice);
             }
         }
     }

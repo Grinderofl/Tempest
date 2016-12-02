@@ -38,14 +38,8 @@ namespace Tempest.Core
         
         public virtual void Run(RunnerContext context)
         {
-            // Parse arguments and execute options conventionally based on the ones that already exist
-            if (context.Arguments != null)
-            {
-                
-            }
-
             var options = SetupOptions();
-            _optionExecutor.Execute(options, context.Arguments);
+            _optionExecutor.Execute(options.ToArray(), context.Arguments);
             ExecuteCore();
 
             var sourcingContext = new SourcingContext()
