@@ -5,9 +5,12 @@ namespace Tempest.Core
     /// <summary>
     /// Contains methods that create stuff out of thin air.
     /// </summary>
-    public class CreateFactory
+    public class CreateFactory : BuilderFactoryBase
     {
-        
-        public TemplateStep FromString(string source) => new TemplateStep(Sources.FromString(source));
+        public CreateFactory(GeneratorEngineBase engine) : base(engine)
+        {
+        }
+
+        public TemplateStep FromString(string source) => CreateStep(Sources.FromString(source));
     }
 }

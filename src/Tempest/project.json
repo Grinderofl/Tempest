@@ -3,13 +3,12 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "copyToOutput": {
-      "include": [
-        "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
-        "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll"
-      ],
       "mappings": {
-        "./Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll", 
-        "./Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll"
+        "Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll",
+        "Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
+        "Generators/Tempest.Generator.Empty/Template/project.json": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/project.json", 
+        "Generators/Tempest.Generator.Empty/Template/Program.cs": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/Program.cs", 
+        "Generators/Tempest.Generator.Empty/Template/ReplaceMe.cs": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/ReplaceMe.cs", 
       }
     }
   },
@@ -28,7 +27,9 @@
       "imports": "dnxcore50"
     }
   },
-  
+  "compilationOptions": {
+    
+  },
   "runtimes": {
     "win10-x64": {}
   }

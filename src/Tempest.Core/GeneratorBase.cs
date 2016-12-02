@@ -5,11 +5,27 @@ namespace Tempest.Core
     public abstract class GeneratorBase : GeneratorEngineBase
     {
         private string _targetSubDirectory;
-        public CreateFactory Create { get; set; } = new CreateFactory();
-        public UpdateFactory Update { get; set; } = new UpdateFactory();
-        public CopyFactory Copy { get; set; } = new CopyFactory();
+
+        protected GeneratorBase()
+        {
+            Update = new UpdateFactory(this);
+            Copy = new CopyFactory(this);
+            Create = new CreateFactory(this);
+        }
+
+        public CreateFactory Create { get; set; }
+        public UpdateFactory Update { get; set; }
+        public CopyFactory Copy { get; set; }
 
         public OptionsFactory Options { get; set; } = new OptionsFactory();
+
+        protected override DirectoryInfo BuildTemplatePath(RunnerContext runnerContext)
+            =>
+            new DirectoryInfo(Path.Combine(runnerContext.TempestDirectory.FullName,
+                BuildGeneratorTemplateDirectory(runnerContext.GeneratorName)));
+
+        private string BuildGeneratorTemplateDirectory(string generatorName)
+            => $"Generators/Tempest.Generator.{generatorName}/Template";
 
         protected override DirectoryInfo BuildTargetPath(RunnerContext runnerContext)
             => new DirectoryInfo(Path.Combine(runnerContext.WorkingDirectory.FullName, _targetSubDirectory));

@@ -26,6 +26,8 @@ namespace Tempest.Core
             return runnerContext.WorkingDirectory;
         }
 
+        protected abstract DirectoryInfo BuildTemplatePath(RunnerContext runnerContext);
+
         /// <summary>
         /// Setup the options
         /// </summary>
@@ -43,12 +45,20 @@ namespace Tempest.Core
             // It'll also set up the target directory depending on whatever variables, yes? There should be a function to set target directory.
 
             ExecuteOptions();
-
+            ExecuteCore();
             // Now run steps
+
+            //var rootDirectory = context.TempestDirectory;
+            //var templateRootDirectories = rootDirectory.GetDirectories("Generators");
+            //var templateRoot = templateRootDirectories.FirstOrDefault();
+
+            //if (templateRoot == null)
+            //    throw new DirectoryNotFoundException(
+            //        $"The directory {context.TempestDirectory.FullName} does not contain directory 'Generators'");
 
             var sourcingContext = new SourcingContext()
             {
-                TemplateRoot = context.TempestDirectory.GetDirectories("Templates").FirstOrDefault(),
+                TemplateRoot = BuildTemplatePath(context),
                 TargetRoot = BuildTargetPath(context)
             };
 
@@ -75,7 +85,8 @@ namespace Tempest.Core
 
                 var emissionContext = new EmissionContext()
                 {
-                    EmissionStream = transformerContext.TransformationStream
+                    EmissionStream = transformerContext.TransformationStream,
+                    TargetDirectory = sourcingContext.TargetRoot
                 };
 
                 foreach (var emitter in step.GetEmitters())

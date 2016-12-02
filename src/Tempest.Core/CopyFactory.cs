@@ -5,8 +5,12 @@ namespace Tempest.Core
     /// <summary>
     /// Contains methods that should copy a template file
     /// </summary>
-    public class CopyFactory
+    public class CopyFactory : BuilderFactoryBase
     {
-        public TemplateStep Template(string filePath) => new TemplateStep(Sources.FromTemplate(filePath));
+        public CopyFactory(GeneratorEngineBase engine) : base(engine)
+        {
+        }
+
+        public TemplateStep Template(string filePath) => CreateStep(Sources.FromTemplate(filePath));
     }
 }

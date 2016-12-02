@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.Reflection;
+using Microsoft.DotNet.PlatformAbstractions;
 using Tempest.Core;
 
 namespace Tempest
@@ -33,13 +36,31 @@ namespace Tempest
             
             var context = new RunnerContext()
             {
-                Arguments = _runnerArguments.GeneratorArguments
+                GeneratorName = _runnerArguments.Generator,
+                Arguments = _runnerArguments.GeneratorArguments,
+                TempestDirectory = GetCurrentDirectory(),
+                WorkingDirectory = GetWorkingDirectory()
             };
 
             // Load menu
             // Walk through menu, set up options
             // Prepare steps
             generator.Run(context);
+        }
+
+        private DirectoryInfo GetWorkingDirectory()
+        {
+            return new DirectoryInfo(Directory.GetCurrentDirectory());
+        }
+
+        private DirectoryInfo GetCurrentDirectory()
+        {
+            var codeBase = typeof(TempestRunner).GetTypeInfo().Assembly.CodeBase;
+            var builder = new UriBuilder(codeBase);
+            var filePath = Uri.UnescapeDataString(builder.Path);
+            var path = Path.GetDirectoryName(filePath);
+
+            return new DirectoryInfo(path);
         }
     }
 }
