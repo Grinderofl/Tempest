@@ -4,6 +4,10 @@
 .build/
 .vs/
 tools/
+
+*.lock.json
+*.xproj.user
+
 # User-specific files
 *.suo
 *.user
