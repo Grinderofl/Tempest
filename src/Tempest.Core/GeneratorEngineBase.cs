@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Tempest.Core.Configuration;
+using Tempest.Core.Dsl;
 using Tempest.Core.Emission;
 using Tempest.Core.Sourcing;
 using Tempest.Core.Transformation;

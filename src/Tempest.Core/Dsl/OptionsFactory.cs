@@ -1,10 +1,14 @@
 using System;
 using Tempest.Core.Configuration;
 
-namespace Tempest.Core
+namespace Tempest.Core.Dsl
 {
-    public class OptionsFactory
+    public class OptionsFactory : BuilderFactoryBase
     {
+        public OptionsFactory(GeneratorBase engine) : base(engine)
+        {
+        }
+
         public ListOptionItem List(string optionTitle)
         {
             return new ListOptionItem(optionTitle);

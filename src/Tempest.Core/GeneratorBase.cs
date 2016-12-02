@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Tempest.Core.Dsl;
 
 namespace Tempest.Core
 {
@@ -8,16 +9,41 @@ namespace Tempest.Core
 
         protected GeneratorBase()
         {
+            Options = new OptionsFactory(this);
             Update = new UpdateFactory(this);
             Copy = new CopyFactory(this);
             Create = new CreateFactory(this);
         }
 
+        /// <summary>
+        /// Creates a new file
+        /// </summary>
         public CreateFactory Create { get; set; }
+
+        /// <summary>
+        /// Updates an existing file in the target directory
+        /// </summary>
         public UpdateFactory Update { get; set; }
+
+        /// <summary>
+        /// Copies a file from templates
+        /// </summary>
         public CopyFactory Copy { get; set; }
 
-        public OptionsFactory Options { get; set; } = new OptionsFactory();
+        /// <summary>
+        /// Sets some internal variables
+        /// </summary>
+        public SetFactory Set { get; set; }
+
+        /// <summary>
+        /// Creates some configuration options
+        /// </summary>
+        public OptionsFactory Options { get; set; }
+
+        /// <summary>
+        /// Globally uses transformers or emitters (executed for every source)
+        /// </summary>
+        public GlobalFactory Globally { get; set; }
 
         protected override DirectoryInfo BuildTemplatePath(RunnerContext runnerContext)
             =>

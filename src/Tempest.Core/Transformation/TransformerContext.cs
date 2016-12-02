@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Tempest.Core.Utils;
 
 namespace Tempest.Core.Transformation
 {
@@ -9,7 +10,7 @@ namespace Tempest.Core.Transformation
 
         public string ReadInputAsString()
         {
-            throw new NotImplementedException();
+            return TransformationStream.ReadAsString();
         }
     }
 }

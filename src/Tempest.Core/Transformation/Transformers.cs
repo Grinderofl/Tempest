@@ -2,7 +2,6 @@
 {
     public class Transformers
     {
-
         /// <summary>
         /// No-operation transformer. Does absolutely nothing with the stream.
         /// </summary>
@@ -12,5 +11,13 @@
         /// Empty transformer. Yields a completely empty stream.
         /// </summary>
         public static Transformer Empty => new EmptyTransformer();
+
+        /// <summary>
+        /// Token transformer. Replaces a token with a string.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="replaceWith"></param>
+        /// <returns></returns>
+        public static Transformer Token(string token, string replaceWith) => new TokenTransformer(token, replaceWith);
     }
 }

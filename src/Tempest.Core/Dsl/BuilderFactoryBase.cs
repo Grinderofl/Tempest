@@ -1,22 +1,22 @@
 using System;
 using Tempest.Core.Sourcing;
 
-namespace Tempest.Core
+namespace Tempest.Core.Dsl
 {
     public abstract class BuilderFactoryBase
     {
-        private readonly GeneratorEngineBase _engine;
+        protected readonly GeneratorBase Engine;
 
-        protected BuilderFactoryBase(GeneratorEngineBase engine)
+        protected BuilderFactoryBase(GeneratorBase engine)
         {
             if (engine == null) throw new ArgumentNullException(nameof(engine));
-            _engine = engine;
+            Engine = engine;
         }
 
         protected virtual TemplateStep CreateStep(Source source)
         {
             var step = new TemplateStep(source);
-            _engine.Steps.Add(step);
+            Engine.Steps.Add(step);
             return step;
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tempest.Core;
 using Tempest.Core.Configuration;
+using Tempest.Core.Transformation;
 
 namespace Tempest.Generator.Empty
 {
@@ -32,7 +33,7 @@ namespace Tempest.Generator.Empty
             // Better polymorphism and API.
             yield return 
                 Options
-                    .List("Welcome to empty Tempest template generator!", value => { _projectType = value; })
+                    .List("Welcome to empty .NET Core generator!", value => { _projectType = value; })
                     .Choice("New project", OptionValues.NewProject);
 
             yield return 
@@ -43,13 +44,15 @@ namespace Tempest.Generator.Empty
 
         protected override void ExecuteCore()
         {
-            SetTargetSubDirectory(_projectName);
+            Set.TargetSubDirectory(_projectName);
             _projectFactories[_projectType]();
         }
         
 
         private void CreateNewProject()
         {
+            Globally.Transform.Token("ReplaceMe", _projectName);
+
             Copy.Template("project.json").ToFile("project.json");
             Copy.Template("Program.cs").ToFile("Program.cs");
             Copy.Template("ReplaceMe.cs").ToFile(() => $"{_projectName}.cs");

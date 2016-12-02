@@ -1,13 +1,13 @@
 ﻿using Tempest.Core.Sourcing;
 
-namespace Tempest.Core
+namespace Tempest.Core.Dsl
 {
     /// <summary>
     /// Contains methods that should copy a template file
     /// </summary>
     public class CopyFactory : BuilderFactoryBase
     {
-        public CopyFactory(GeneratorEngineBase engine) : base(engine)
+        public CopyFactory(GeneratorBase engine) : base(engine)
         {
         }
 
