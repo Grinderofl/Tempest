@@ -1,7 +1,17 @@
 ﻿{
   "version": "1.0.0-*",
   "buildOptions": {
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "copyToOutput": {
+      "include": [
+        "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
+        "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll"
+      ],
+      "mappings": {
+        "./Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll", 
+        "./Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll"
+      }
+    }
   },
 
   "dependencies": {
@@ -18,6 +28,7 @@
       "imports": "dnxcore50"
     }
   },
+  
   "runtimes": {
     "win10-x64": {}
   }
