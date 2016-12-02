@@ -13,6 +13,8 @@ namespace Tempest.Core
             Update = new UpdateFactory(this);
             Copy = new CopyFactory(this);
             Create = new CreateFactory(this);
+            Set = new SetFactory(this);
+            Globally = new GlobalFactory(this);
         }
 
         /// <summary>
