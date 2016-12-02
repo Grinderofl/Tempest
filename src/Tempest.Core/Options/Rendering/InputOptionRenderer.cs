@@ -2,15 +2,14 @@ using System;
 
 namespace Tempest.Core.Options.Rendering
 {
-    public class InputOptionRenderer : OptionRenderer
+    public class InputOptionRenderer : OptionRendererBase
     {
-        public InputOptionRenderer(ConfigurationOption configurationOption) : base(configurationOption)
+        public InputOptionRenderer(InputConfigurationOption associatedOption) : base(associatedOption)
         {
         }
 
-        public override string Render()
+        protected override string RenderOptionCore()
         {
-            Console.WriteLine(ConfigurationOption.Title);
             var answer = Console.ReadLine();
             return answer;
         }

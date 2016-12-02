@@ -3,14 +3,12 @@ using Tempest.Core.Options.Rendering;
 
 namespace Tempest.Core.Options
 {
-    public class InputConfigurationOption : ConfigurationOption
+    public class InputConfigurationOption : ConfigurationOption<InputConfigurationOption>
     {
-        public InputConfigurationOption(string optionTitle, Action<string> action)
+        public InputConfigurationOption(string optionTitle, Action<string> resultingAction) : base(resultingAction, optionTitle)
         {
-            Title = optionTitle;
-            Action = action;
         }
 
-        protected override OptionRenderer Renderer => new InputOptionRenderer(this);
+        protected override OptionRendererBase Renderer => new InputOptionRenderer(this);
     }
 }

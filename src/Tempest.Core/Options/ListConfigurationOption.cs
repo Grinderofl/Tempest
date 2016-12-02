@@ -5,22 +5,19 @@ using Tempest.Core.Options.Rendering;
 
 namespace Tempest.Core.Options
 {
-    public class ListConfigurationOption : ConfigurationOption
+    public class ListConfigurationOption : ConfigurationOption<ListConfigurationOption>
     {
 
-        public ListConfigurationOption(string optionTitle)
+        public ListConfigurationOption(string optionTitle) : this(optionTitle, null)
         {
-            Title = optionTitle;
         }
-        
+        public ListConfigurationOption(string optionTitle, Action<string> resultingAction) : base(resultingAction, optionTitle)
+        {
+        }
+
         protected IList<OptionChoice> OptionChoices = new List<OptionChoice>();
-
         public IEnumerable<OptionChoice> Choices => OptionChoices;
-        public ListConfigurationOption(string optionTitle, Action<string> action) : this(optionTitle)
-        {
-            Action = action;
-        }
-
+        
         public ListConfigurationOption Choice(string optionText, string id, Action action)
         {
             OptionChoices.Add(new OptionChoice(optionText, id, action));
@@ -33,7 +30,7 @@ namespace Tempest.Core.Options
             return this;
         }
 
-        protected override OptionRenderer Renderer => new ListOptionRenderer(this);
+        protected override OptionRendererBase Renderer => new ListOptionRenderer(this);
 
         public override void ActOn(string choice)
         {

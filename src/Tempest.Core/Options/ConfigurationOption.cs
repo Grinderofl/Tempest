@@ -3,21 +3,23 @@ using System.Collections.Generic;
 
 namespace Tempest.Core.Options
 {
+    public abstract class ConfigurationOption<TOption> : ConfigurationOption where TOption : ConfigurationOption<TOption>
+    {
+        protected ConfigurationOption(Action<string> resultingAction, string title) : base(resultingAction, title)
+        {
+        }
+        
+        public virtual TOption When(Func<bool> showOnlyWhen) => (TOption) RenderWhen(showOnlyWhen);
+    }
+
     public abstract class ConfigurationOption : RenderableOptionBase
     {
-        protected Action<string> Action { get; set; }
-
-        protected Func<bool> Condition { get; set; }
-
-        public virtual bool ShouldRender(List<string> results) => Condition == null || Condition();
-
-        public ConfigurationOption When(Func<bool> func)
+        protected ConfigurationOption(Action<string> resultingAction, string title) : base(title)
         {
-            Condition = func;
-            return this;
+            ResultingAction = resultingAction;
         }
-
-        public virtual void ActOn(string choice) => Action?.Invoke(choice);
-        public virtual bool CanActUpon(string choice) => Action != null;
+        protected Action<string> ResultingAction { get; }
+        public virtual void ActOn(string choice) => ResultingAction?.Invoke(choice);
+        public virtual bool CanActUpon(string choice) => ResultingAction != null;
     }
 }

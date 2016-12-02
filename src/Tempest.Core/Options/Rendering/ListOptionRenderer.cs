@@ -4,18 +4,13 @@ using System.Linq;
 
 namespace Tempest.Core.Options.Rendering
 {
-    public class ListOptionRenderer : OptionRenderer
+    public class ListOptionRenderer : OptionRendererBase
     {
-        public ListOptionRenderer(ConfigurationOption configurationOption) : base(configurationOption)
+        public ListOptionRenderer(RenderableOptionBase associatedOption) : base(associatedOption)
         {    
         }
 
-        public override string Render()
-        {
-            return RenderCore((ListConfigurationOption) ConfigurationOption);
-        }
-
-        protected virtual string RenderCore(ListConfigurationOption configurationOption)
+        protected virtual string RenderListOptionCore(ListConfigurationOption configurationOption)
         {
             var itemIndex = 0;
             var optionChoices = configurationOption.Choices as IList<OptionChoice> ?? configurationOption.Choices.ToList();
@@ -33,6 +28,11 @@ namespace Tempest.Core.Options.Rendering
             var foundChoice = optionChoices.ElementAt(val - 1);
 
             return foundChoice.Id;
+        }
+
+        protected override string RenderOptionCore()
+        {
+            return RenderListOptionCore((ListConfigurationOption)AssociatedOption);
         }
     }
 }
