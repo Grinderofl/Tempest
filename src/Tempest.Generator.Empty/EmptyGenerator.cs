@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tempest.Core;
-using Tempest.Core.Configuration;
+using Tempest.Core.Options;
 using Tempest.Core.Transformation;
 
 namespace Tempest.Generator.Empty
@@ -25,7 +25,7 @@ namespace Tempest.Generator.Empty
         private string _projectType;
         
 
-        protected override IEnumerable<OptionItem> SetupOptions()
+        protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
             // Split into SimpleList and ComplexList
             // Simple list is for stuff where choices only return one value performed by list

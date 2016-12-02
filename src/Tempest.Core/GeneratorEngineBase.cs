@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Tempest.Core.Configuration;
 using Tempest.Core.Emission;
+using Tempest.Core.Options;
 using Tempest.Core.Setup;
 using Tempest.Core.Sourcing;
 using Tempest.Core.Transformation;
@@ -26,7 +26,7 @@ namespace Tempest.Core
         /// Setup the options
         /// </summary>
         /// <returns></returns>
-        protected virtual IEnumerable<OptionItem> SetupOptions()
+        protected virtual IEnumerable<ConfigurationOption> SetupOptions()
         {
             yield break;
         }
@@ -38,8 +38,14 @@ namespace Tempest.Core
         
         public virtual void Run(RunnerContext context)
         {
+            // Parse arguments and execute options conventionally based on the ones that already exist
+            if (context.Arguments != null)
+            {
+                
+            }
+
             var options = SetupOptions();
-            _optionExecutor.Execute(options);
+            _optionExecutor.Execute(options, context.Arguments);
             ExecuteCore();
 
             var sourcingContext = new SourcingContext()

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Microsoft.DotNet.PlatformAbstractions;
+using Tempest.Arguments;
 using Tempest.Core;
 
 namespace Tempest

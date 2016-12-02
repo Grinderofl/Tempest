@@ -1,5 +1,5 @@
 using System;
-using Tempest.Core.Configuration;
+using Tempest.Core.Options;
 
 namespace Tempest.Core.Setup
 {
@@ -9,19 +9,19 @@ namespace Tempest.Core.Setup
         {
         }
 
-        public ListOptionItem List(string optionTitle)
+        public ListConfigurationOption List(string optionTitle)
         {
-            return new ListOptionItem(optionTitle);
+            return new ListConfigurationOption(optionTitle);
         }
 
-        public ListOptionItem List(string optionTitle, Action<string> action)
+        public ListConfigurationOption List(string optionTitle, Action<string> action)
         {
-            return new ListOptionItem(optionTitle, action);
+            return new ListConfigurationOption(optionTitle, action);
         }
 
-        public InputOptionItem Input(string optionTitle, Action<string> action)
+        public InputConfigurationOption Input(string optionTitle, Action<string> action)
         {
-            return new InputOptionItem(optionTitle, action);
+            return new InputConfigurationOption(optionTitle, action);
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace Tempest
+namespace Tempest.Arguments
 {
     public class RunnerArgumentFactory
     {

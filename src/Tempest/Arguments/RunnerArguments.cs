@@ -1,4 +1,4 @@
-namespace Tempest
+namespace Tempest.Arguments
 {
     public class RunnerArguments
     {
