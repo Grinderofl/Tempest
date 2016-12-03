@@ -99,7 +99,7 @@ Task(Tasks.UpdateVersion)
                         if(line == null)
                             continue;
 
-                        line = regExVersion.Replace(line, string.Format("\"version\": \"{0}\",", gitVersionSettings.SemVer));
+                        line = regExVersion.Replace(line, string.Format("\"version\": \"{0}\",", versionInfo.SemVer));
 
                         trg.AppendLine(line);
                     }
