@@ -1,7 +1,7 @@
 assembly-versioning-scheme: MajorMinorPatch
 assembly-informational-format: '{NuGetVersionV2}'
 mode: ContinuousDeployment
-
+build-metadata-padding: 5
 branches:
   master:
     increment: Inherit

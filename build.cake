@@ -115,7 +115,7 @@ Task(Tasks.UpdateVersion)
 Task(Tasks.UpdateAppVeyor)
     .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
     .Does(() => { 
-        AppVeyor.UpdateBuildVersion(versionInfo.FullSemVer +"+" +AppVeyor.Environment.Build.Number);
+        AppVeyor.UpdateBuildVersion(versionInfo.NugetVersionV2 +"+" +AppVeyor.Environment.Build.Number);
     });
 
 Task(Tasks.Build)
@@ -138,7 +138,7 @@ Task(Tasks.Package)
         var settings = new DotNetCorePackSettings {
             Configuration = Configurations.Release,
             OutputDirectory = publishRoot,
-            VersionSuffix = versionInfo.PreReleaseTag
+            VersionSuffix = versionInfo.PreReleaseLabel + versionInfo.PreReleaseNumber.PadLeft(4, '0')
         };
 
         DotNetCorePack("./src/Tempest/", settings);
