@@ -138,7 +138,7 @@ Task(Tasks.Package)
         var settings = new DotNetCorePackSettings {
             Configuration = Configurations.Release,
             OutputDirectory = publishRoot,
-            VersionSuffix = versionInfo.PreReleaseLabel + versionInfo.PreReleaseNumber.PadLeft(4, '0')
+            VersionSuffix = versionInfo.PreReleaseLabel + versionInfo.PreReleaseNumber.PadLeft(3, '0') + versionInfo.BuildMetaDataPadded
         };
 
         DotNetCorePack("./src/Tempest/", settings);
