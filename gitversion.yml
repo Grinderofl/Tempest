@@ -1,6 +1,6 @@
 assembly-versioning-scheme: MajorMinorPatch
 assembly-informational-format: '{NuGetVersionV2}'
-mode: ContinuousDelivery
+mode: ContinuousDeployment
 
 branches:
   master:
@@ -12,7 +12,7 @@ branches:
     tag-number-pattern: '[/-](?<number>\d+)[-/]'
     track-merge-target: true
   dev(elop)?(ment)?$:
-    mode: ContinuousDeployment
+    mode: ContinuousDelivery
     tag: preview
   release?[/-]:
     tag: release
