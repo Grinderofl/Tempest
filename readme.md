@@ -62,6 +62,47 @@ protected override void ExecuteCore()
 ```
 
 
+#### Configuring your generator
+
+Naturally you might want to add some parameters, selectable menu items, get input from user, etc. You can do that quite easily. There's a method that you need to override with the signature `IEnumerable<ConfigurationOption> SetupOptions()`. These options will be executed before `ExecuteCore()`, and everything you set through the actions will be available by that time.
+
+The best way to use this is by utilising the fluent API:
+
+```c#
+private string _targetFileName = "YourTargetFile";
+private string _action;
+
+protected override IEnumerable<ConfigurationOption> SetupOptions()
+{
+  // First option provides a list with two choices
+  //   Generate default file (skip to generation)
+  //   Specify a name
+  
+  yield return 
+    Options
+      .List("What would you like to do?", s => _action = s)
+      .Choice("Just generate default file", "default")
+      .Choice("Specify target file name", "specific");
+      
+  // Second option is only displayed when the first option
+  // yielded a "specific" action
+  
+  yield return 
+    Options
+      .Input("Please enter the name for the target file:", s => _targetFileName = s)
+      .When(() => _action == "specific");
+}
+
+```
+
+These options are automatically available as command line parameters in a list as their ordered indexes after the generator's name. In this case, you could do a
+
+`tempest YourGenerator default` to skip all options and generate the default file
+`tempest YourGenerator specific YourNewTargetFile` to skip all options and generate 'YourNewTargetFile'
+`tempest YourGenerator specific` to go directly to asking file name
+
+
+
 #### Installing generators (TODO)
 
 `tempest -i|--install GeneratorName`
@@ -86,3 +127,5 @@ Convention based matching applies.
 
 `tempest --set-install "C:/Your/Generators/Install/Path"` - sets where Tempest should install generators
 
+`tempest -g|--generator GeneratorName` - Specifies generator name differently
+`tempest -a|--args "arguments passed to-generator"` - Specifies generator arguments. If more than one argument, surround with quotes.
