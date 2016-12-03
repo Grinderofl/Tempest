@@ -5,8 +5,8 @@ nuget:
 build_script:
 - ps: ./build -Target Publish
 test: off
-#deploy:
-# - provider: Environment
-  # name: NuGet
-  # on:
-    # branch: develop
+deploy:
+- provider: Environment
+  name: Grinderofl-Nuget
+  on:
+    branch: develop
