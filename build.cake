@@ -11,7 +11,9 @@ var publishRoot = "./artifacts/";
 
 private class Tasks
 {
+    public static string UpdateVersion = "Update-Version";
     public static string UpdateAppVeyor = "Update-AppVeyor";
+
     public static string Build = "Build"; 
     public static string Test = "Test";
     public static string Package = "Package";
@@ -64,8 +66,9 @@ Setup(context => {
         var commit = GitLogTip(path);
         var hash = commit.Sha.Substring(0,8);
         versionInfo = new GitVersion(){
+            SemVer = "0.1.0",
             PreReleaseTag = "Unknown-" + hash,
-            FullSemVer = "1.0.0-Unknown-" + hash
+            FullSemVer = "0.1.0-Unknown-" + hash
         };
     }
 
@@ -76,7 +79,36 @@ Setup(context => {
     }
 });
 
+Task(Tasks.UpdateVersion)
+    .Does(() => {
+        var files = GetFiles("./src/**/project.json");
+        foreach(var file in files)
+        {
+            Information("Bumping version: {0}", file);
 
+            var path = file.ToString();
+            var trg = new StringBuilder();
+            var regExVersion = new System.Text.RegularExpressions.Regex("\"version\":(\\s)?\"0.0.0-\\*\",");
+            using (var src = System.IO.File.OpenRead(path))
+            {
+                using (var reader = new StreamReader(src))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        if(line == null)
+                            continue;
+
+                        line = regExVersion.Replace(line, string.Format("\"version\": \"{0}\",", gitVersionSettings.SemVer));
+
+                        trg.AppendLine(line);
+                    }
+                }
+            }
+
+            System.IO.File.WriteAllText(path, trg.ToString());
+        }
+    });
 
 
 Task(Tasks.UpdateAppVeyor)
@@ -86,6 +118,7 @@ Task(Tasks.UpdateAppVeyor)
     });
 
 Task(Tasks.Build)
+    .IsDependentOn(Tasks.UpdateVersion)
     .Does(() => {
         DotNetCoreRestore();
         DotNetCoreBuild("./src/**/project.json");
