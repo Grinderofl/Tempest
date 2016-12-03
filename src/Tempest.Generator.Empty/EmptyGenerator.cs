@@ -36,7 +36,7 @@ namespace Tempest.Generator.Empty
 
             yield return 
                 Options
-                    .List("Welcome to empty .NET Core generator!", value => { _projectType = value; })
+                    .List("Welcome to empty .NET Core generator!", value => _projectType = value)
                     .Choice("New project", OptionValues.NewProject);
 
             yield return 

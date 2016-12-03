@@ -24,7 +24,10 @@
       "version": "1.0.0"
     },
     "System.Runtime.Loader": "4.0.0-*",
-    "Tempest.Core": "1.0.0-*"
+    "Tempest.Core": {
+      "version": "1.0.0-*",
+      "type": "default" 
+    }
   },
 
   "frameworks": {

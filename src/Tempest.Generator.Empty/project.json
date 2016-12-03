@@ -8,7 +8,10 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.1",
-    "Tempest.Core": "1.0.0-*" 
+    "Tempest.Core": {
+      "version": "1.0.0-*",
+      "type": "default"
+    }
   },
 
   "frameworks": {
