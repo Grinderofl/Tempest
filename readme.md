@@ -39,6 +39,28 @@ Alternative manual steps:
 4. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject` (TODO)
 
 
+### Generating stuff
+
+When you inherit from GeneratorBase, you will implement ExecuteCore where you would place your generation methods
+
+```c#
+protected override void ExecuteCore()
+{
+  // Copies a file in your template folder called "YourTemplateFile"
+  // And places it into target folder as "YourTargetFile"
+  Copy.Template("YourTemplateFile").ToFile("YourTargetFile");
+  
+  // Copies an embedded resource named "ResourceFile"
+  // And places it into target folder as "YourTargetFile"
+  Copy.Resource("YourGenerator.Namespace.Path.To.ResourceFile").ToFile("YourTargetFile");
+  
+  // Creates an empty file with contents "Foo!"
+  // And places it into target folder as "YourTargetFile"
+  Write.Text("Foo!").ToFile("YourTargetFile");
+  
+}
+```
+
 
 #### Installing generators (TODO)
 
