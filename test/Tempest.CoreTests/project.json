@@ -5,7 +5,15 @@
     "xunit": "2.2.0-*",
     "dotnet-test-xunit": "2.2.0-*",
     "Tempest.Core": "1.0.0-*"
+  
   },
+
+  "buildOptions": {
+    "embed": {
+      "includeFiles": ["Sourcing/EmbeddedResource.txt"]
+    }
+  },
+
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {

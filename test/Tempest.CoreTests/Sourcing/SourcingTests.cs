@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using Tempest.Core.Sourcing;
 using Tempest.Core.Utils;
 using Xunit;
@@ -26,16 +27,38 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var useGlobalJson = File.Exists("global.json");
-                var generator = new TemplateFileSource(useGlobalJson ? "global.json" : "LICENSE.txt"); 
+                var source = BuildTemplateSourceLocation();
                 var context = new SourcingContext()
                 {
                     TemplateRoot = new DirectoryInfo(Directory.GetCurrentDirectory())
                 };
-                
-                var result = generator.Generate(context);
+
+                var result = source.Generate(context);
                 var resultValue = result.OutputStream.ReadAsString();
                 Assert.True(resultValue.Length > 0);
+            }
+
+            // Hack to get Visual Studio test runner working at 
+            // the same time as our build script
+            private static TemplateFileSource BuildTemplateSourceLocation()
+            {
+                var useGlobalJson = File.Exists("global.json");
+                var generator = new TemplateFileSource(useGlobalJson ? "global.json" : "LICENSE.txt");
+                return generator;
+            }
+        }
+
+        public class ResourceSourceTests
+        {
+            [Fact]
+            public void generates_valid_stream()
+            {
+                var source = new ResourceFileSource("Tempest.CoreTests.Sourcing.EmbeddedResource.txt",
+                    typeof(TemplateFileSourceTests).GetTypeInfo().Assembly);
+                var context = new SourcingContext();
+                var result = source.Generate(context);
+                var resultValue = result.OutputStream.ReadAsString();
+                Assert.Equal("FOOBAR", resultValue);
             }
         }
     }
