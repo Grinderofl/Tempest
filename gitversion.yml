@@ -12,8 +12,10 @@ branches:
     tag-number-pattern: '[/-](?<number>\d+)[-/]'
     track-merge-target: true
   dev(elop)?(ment)?$:
-    mode: ContinuousDeployment
+    mode: ContinuousDelivery
     tag: preview
+    increment: Minor
+    prevent-increment-of-merged-branch-version: false
   release?[/-]:
     tag: release
 ignore:
