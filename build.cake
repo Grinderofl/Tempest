@@ -115,7 +115,7 @@ Task(Tasks.UpdateVersion)
 Task(Tasks.UpdateAppVeyor)
     .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
     .Does(() => { 
-        AppVeyor.UpdateBuildVersion(versionInfo.NugetVersionV2 +"+" +AppVeyor.Environment.Build.Number);
+        AppVeyor.UpdateBuildVersion(versionInfo.NuGetVersionV2 +"+" +AppVeyor.Environment.Build.Number);
     });
 
 Task(Tasks.Build)
