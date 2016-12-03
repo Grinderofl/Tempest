@@ -1,0 +1,12 @@
+version: '{build}'
+image: Visual Studio 2015
+nuget:
+  disable_publish_on_pr: true
+build_script:
+- ps: ./build -Target Package
+test: off
+#deploy:
+# - provider: Environment
+  # name: NuGet
+  # on:
+    # branch: develop
