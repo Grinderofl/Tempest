@@ -25,7 +25,13 @@ I'm also a big fan of C# & .NET Core, and the only option previously was to use 
 It should be easy to add in any additional Transformers and Emitters that are needed. For example - you could have a `readme.md` added to each directory - you'll only have to specify that you need `readme.md` once, but emitted into many different locations - making your code more readable.
 
 
-### Quick start
+### Quick start to creating your own Generator
+
+1)  Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its path
+2) `tempest tempest new {YourGeneratorName}`
+3) A directory {YourGeneratorName} will be created, and a ready-to-build new generator base will be created for you
+
+Alternative manual steps:
 
 1) Create a new .NET Core Library
 2) Add dependency to `Tempest.Core`
@@ -38,12 +44,12 @@ It should be easy to add in any additional Transformers and Emitters that are ne
 
 `tempest -i|--install GeneratorName`
 
-Tempest will attempt to first find a package titled `GeneratorName` from the NuGet sources in its `NuGet.config` file, then conventionally also `Tempest.Generator.GeneratorName`, and install it. If the parameter provided ends with `.zip` and exists, Tempest will try to unpack that instead. If the generator is already installed, it'll say it's already installed. Standard nuget package matching applies.
+Tempest will attempt to first conventionally find a package titled `Tempest.Generator.{GeneratorName}` from the NuGet sources in its `NuGet.config` file, then also `{GeneratorName}`, and install it. If the parameter provided ends with `.zip` and exists, Tempest will try to unpack that instead. If the generator is already installed, it'll say it's already installed. Standard nuget package matching applies.
 
 #### Updating generators (TODO)
 `tempest -u|--update` will attempt to update all generators.
 `tempest -u|--update GeneratorName` will attempt to update the specified generator.
-The convention based matching applies - first for `GeneratorName` then `Tempest.Generator.GeneratorName`.
+The convention based matching applies - first for `Tempest.Generator.{GeneratorName}` then `{GeneratorName}`.
 
 #### Getting rid of generators (TODO)
 
@@ -57,3 +63,4 @@ Convention based matching applies.
 `tempest --remove-search "C:/Your/Generators/Search/Path"` - removes a path from being looked for generators
 
 `tempest --set-install "C:/Your/Generators/Install/Path"` - sets where Tempest should install generators
+
