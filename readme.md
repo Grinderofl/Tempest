@@ -21,3 +21,39 @@ Part of the idea is to allow the creation of quick microservices that are compat
 
 
 I'm also a big fan of C# & .NET Core, and the only option previously was to use tools like Yeoman which, while good at what they do, unfortunately do not allow tools to help you as much as .NET does, nor did they have an overly user friendly API, hence Tempest was born.
+
+It should be easy to add in any additional Transformers and Emitters that are needed. For example - you could have a `readme.md` added to each directory - you'll only have to specify that you need `readme.md` once, but emitted into many different locations - making your code more readable.
+
+
+### Quick start
+
+1) Create a new .NET Core Library
+2) Add dependency to `Tempest.Core`
+3) Inherit from `GeneratorBase`
+4) Build, run Tempest with generator search directory parameter set to your build directory:
+`tempest -s|--search "C:/YourProject/bin/Debug" YourProject` (TODO)
+
+
+#### Installing generators (TODO)
+
+`tempest -i|--install GeneratorName`
+
+Tempest will attempt to first find a package titled `GeneratorName` from the NuGet sources in its `NuGet.config` file, then conventionally also `Tempest.Generator.GeneratorName`, and install it. If the parameter provided ends with `.zip` and exists, Tempest will try to unpack that instead. If the generator is already installed, it'll say it's already installed. Standard nuget package matching applies.
+
+#### Updating generators (TODO)
+`tempest -u|--update` will attempt to update all generators.
+`tempest -u|--update GeneratorName` will attempt to update the specified generator.
+The convention based matching applies - first for `GeneratorName` then `Tempest.Generator.GeneratorName`.
+
+#### Getting rid of generators (TODO)
+
+`tempest -r|--remove GeneratorName` removes the specified generator
+Convention based matching applies.
+
+
+#### Various other options
+
+`tempest --add-search "C:/Your/Generators/Search/Path"` - adds a path to look for generators
+`tempest --remove-search "C:/Your/Generators/Search/Path"` - removes a path from being looked for generators
+
+`tempest --set-install "C:/Your/Generators/Install/Path"` - sets where Tempest should install generators

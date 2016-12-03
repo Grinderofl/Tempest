@@ -20,7 +20,6 @@ namespace Tempest.Generator.Empty
             };
         }
         
-
         private string _projectName;
         private string _projectType;
         
