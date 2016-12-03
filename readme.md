@@ -97,9 +97,10 @@ protected override IEnumerable<ConfigurationOption> SetupOptions()
 
 These options are automatically available as command line parameters in a list as their ordered indexes after the generator's name. In this case, you could do a
 
-`tempest YourGenerator default` to skip all options and generate the default file
-`tempest YourGenerator specific YourNewTargetFile` to skip all options and generate 'YourNewTargetFile'
-`tempest YourGenerator specific` to go directly to asking file name
+
+* `tempest YourGenerator default` to skip all options and generate the default file
+* `tempest YourGenerator specific YourNewTargetFile` to skip all options and generate 'YourNewTargetFile'
+* `tempest YourGenerator specific` to go directly to asking file name
 
 
 
@@ -123,9 +124,13 @@ Convention based matching applies.
 #### Various other options
 
 `tempest --add-search "C:/Your/Generators/Search/Path"` - adds a path to look for generators
+
 `tempest --remove-search "C:/Your/Generators/Search/Path"` - removes a path from being looked for generators
+
 
 `tempest --set-install "C:/Your/Generators/Install/Path"` - sets where Tempest should install generators
 
+
 `tempest -g|--generator GeneratorName` - Specifies generator name differently
+
 `tempest -a|--args "arguments passed to-generator"` - Specifies generator arguments. If more than one argument, surround with quotes.
