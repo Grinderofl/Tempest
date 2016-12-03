@@ -5,7 +5,7 @@ build-metadata-padding: 5
 major-version-bump-message: '\+semver:\s?(breaking|major)'
 minor-version-bump-message: '\+semver:\s?(feature|minor)'
 patch-version-bump-message: '\+semver:\s?(fix|patch)'
-branches:
+branches: 
   master:
     increment: Inherit
     prevent-increment-of-merged-branch-version: true
@@ -16,8 +16,8 @@ branches:
     track-merge-target: true
   dev(elop)?(ment)?$:
     mode: ContinuousDelivery
-    tag: preview
-    prevent-increment-of-merged-branch-version: false
+    tag: preview 
+    tag-number-pattern: '[/-](?<number>\d+)[-/]'
   release?[/-]:
     tag: release
 ignore:
