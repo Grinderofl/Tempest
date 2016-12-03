@@ -27,9 +27,9 @@ It should be easy to add in any additional Transformers and Emitters that are ne
 
 ### Quick start to creating your own Generator
 
-1)  Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its path
-2) `tempest tempest new {YourGeneratorName}`
-3) A directory {YourGeneratorName} will be created, and a ready-to-build new generator base will be created for you
+1. Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its path
+2. Execute `tempest tempest new {YourGeneratorName}`
+3. A directory {YourGeneratorName} will be created, and a ready-to-build new generator base will be created for you
 
 Alternative manual steps:
 
