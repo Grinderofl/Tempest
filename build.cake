@@ -128,6 +128,7 @@ Task(Tasks.UploadArtifacts)
     );
 
 Task(Tasks.UploadTestResults)
+    .IsDependentOn(Tasks.UpdateAppVeyor)
 	.IsDependentOn(Tasks.Test)
 	.WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
 	.Does(() => {
