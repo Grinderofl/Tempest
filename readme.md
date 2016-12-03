@@ -33,10 +33,11 @@ It should be easy to add in any additional Transformers and Emitters that are ne
 
 Alternative manual steps:
 
-1) Create a new .NET Core Library
-2) Add dependency to `Tempest.Core`
-3) Inherit from `GeneratorBase`
-4) Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject` (TODO)
+1. Create a new .NET Core Library
+2. Add dependency to `Tempest.Core`
+3. Inherit from `GeneratorBase`
+4. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject` (TODO)
+
 
 
 #### Installing generators (TODO)
