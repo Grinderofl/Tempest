@@ -134,3 +134,5 @@ Convention based matching applies.
 `tempest -g|--generator GeneratorName` - Specifies generator name differently
 
 `tempest -a|--args "arguments passed to-generator"` - Specifies generator arguments. If more than one argument, surround with quotes.
+
+`tempest -s|--search "C:/path/to/search/for/generator"` - Specifies the path to search for generator
