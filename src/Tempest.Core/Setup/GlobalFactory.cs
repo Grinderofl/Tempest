@@ -8,5 +8,7 @@ namespace Tempest.Core.Setup
         }
 
         public TransformFactory Transform { get; }
+
+        public TransformFactory TransformToken(string token, string replaceWith) => Transform.Token(token, replaceWith);
     }
 }

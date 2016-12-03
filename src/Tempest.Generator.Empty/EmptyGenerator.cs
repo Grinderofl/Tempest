@@ -31,6 +31,10 @@ namespace Tempest.Generator.Empty
             // Simple list is for stuff where choices only return one value performed by list
             // Complex list is for stuff where choices all do their own thing
             // Better polymorphism and API.
+
+            // Afternote:
+            // Really? Better API? Why can't an option do one thing, and the choice do another thing, at the same time?
+
             yield return 
                 Options
                     .List("Welcome to empty .NET Core generator!", value => { _projectType = value; })
@@ -47,12 +51,34 @@ namespace Tempest.Generator.Empty
             Set.TargetSubDirectory(_projectName);
             _projectFactories[_projectType]();
         }
-        
 
         private void CreateNewProject()
         {
-            Globally.Transform.Token("ReplaceMe", _projectName);
+            Globally.TransformToken("ReplaceMe", _projectName);
 
+
+            // Uncomment/comment either below as needed
+            //CopyFromTemplates();
+            CopyFromResources();
+        }
+
+        /// <summary>
+        /// Generate project using embedded resources
+        /// </summary>
+        private void CopyFromResources()
+        {
+            Func<string, string> resource = templateFile => $"Tempest.Generator.Empty.Template.{templateFile}";
+
+            Copy.Resource(resource("project.json")).ToFile("project2.json");
+            Copy.Resource(resource("Program.cs")).ToFile("Program2.cs");
+            Copy.Resource(resource("ReplaceMe.cs")).ToFile(() => $"{_projectName}_.cs");
+        }
+
+        /// <summary>
+        /// Generate project using templates
+        /// </summary>
+        private void CopyFromTemplates()
+        {
             Copy.Template("project.json").ToFile("project.json");
             Copy.Template("Program.cs").ToFile("Program.cs");
             Copy.Template("ReplaceMe.cs").ToFile(() => $"{_projectName}.cs");

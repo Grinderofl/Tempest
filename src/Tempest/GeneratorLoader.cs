@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Tempest.Core;
@@ -21,8 +22,20 @@ namespace Tempest
 
         public GeneratorEngineBase FindGeneratorByName(string generatorName)
         {
-            var generatorAssembly = _generatorAssemblyFinder.FindByName(generatorName);
-            var generatorType = FindGeneratorType(generatorAssembly, generatorName);
+            Assembly generatorAssembly = null;
+            Type generatorType = null;
+            
+            try
+            {
+                generatorAssembly = _generatorAssemblyFinder.FindByName(generatorName);
+                generatorType = FindGeneratorType(generatorAssembly, generatorName);
+            }
+            catch (FileNotFoundException)
+            {
+                
+            }
+
+
             if(generatorType == null)
                 throw new GeneratorNotFoundException(generatorName, generatorAssembly);
 
