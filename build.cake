@@ -20,6 +20,7 @@ private class Tasks
     public static string UploadTestResults = "Upload-TestResults";
 
     public static string Publish = "Publish";
+    public static string Default = "Default";
 }
 
 private class Configurations
@@ -34,7 +35,7 @@ void DotNetCoreTestGlob(string glob)
 	
 	foreach(var directory in directories.Where(d => IsTestable(d)))
 	{
-		var directoryName = directory.Substring(searchPath.Length);
+		var directoryName = directory.Substring(glob.Length);
 		var resultsFile = "./artifacts/testResults-" + directoryName + ".xml";
 		var arg = string.Format("-xml \"{0}\"", resultsFile);
 		var settings = new DotNetCoreTestSettings(){
@@ -55,7 +56,7 @@ Setup(context => {
         var gitVersionSettings = new GitVersionSettings(){
             ArgumentCustomization = args => args.Append("/nofetch")
         };
-        versioninfo = GitVersion(gitVersionSettings);
+        versionInfo = GitVersion(gitVersionSettings);
     }
     catch(Exception)
     {
@@ -64,7 +65,7 @@ Setup(context => {
         var hash = commit.Sha.Substring(0,8);
         versionInfo = new GitVersion(){
             PreReleaseTag = "Unknown-" + hash,
-            FullSemVer = "1.0.0-Unknown-" + hash;
+            FullSemVer = "1.0.0-Unknown-" + hash
         };
     }
 
@@ -94,7 +95,7 @@ Task(Tasks.Build)
 Task(Tasks.Test)
     .IsDependentOn(Tasks.Build)
     .Does(() => {
-        DotNetCoreTestGlob("./test/")
+        DotNetCoreTestGlob("./test/");
     });
 
 Task(Tasks.Package)
@@ -143,6 +144,9 @@ Task(Tasks.Publish)
     .Does(() => {
         Information("Published");
     });
+
+Task(Tasks.Default)
+    .IsDependentOn(Tasks.Test);
 
 RunTarget(target);
 

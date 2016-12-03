@@ -26,7 +26,8 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var generator = new TemplateFileSource("LICENSE.txt"); // Tests current directory should be dotnet.exe I think?
+                var useGlobalJson = File.Exists("global.json");
+                var generator = new TemplateFileSource(useGlobalJson ? "global.json" : "LICENSE.txt"); 
                 var context = new SourcingContext()
                 {
                     TemplateRoot = new DirectoryInfo(Directory.GetCurrentDirectory())
