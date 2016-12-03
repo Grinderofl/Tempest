@@ -184,6 +184,3 @@ Task(Tasks.Default)
     .IsDependentOn(Tasks.Test);
 
 RunTarget(target);
-
-
-// Not really glob...
