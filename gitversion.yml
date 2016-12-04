@@ -5,6 +5,7 @@ build-metadata-padding: 5
 major-version-bump-message: '\+semver:\s?(breaking|major)'
 minor-version-bump-message: '\+semver:\s?(feature|minor)'
 patch-version-bump-message: '\+semver:\s?(fix|patch)'
+next-version: 1.0.0
 branches: 
   master:
     increment: Inherit

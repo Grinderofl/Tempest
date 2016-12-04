@@ -7,6 +7,6 @@ build_script:
 test: off
 deploy:
 - provider: Environment
-  name: Tempest | MyGet
+  name: Grinderofl-Nuget
   on:
     branch: develop
