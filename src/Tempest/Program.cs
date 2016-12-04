@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Arguments;
 
@@ -12,15 +14,14 @@ namespace Tempest
 
         public static int Main(string[] args)
         {
-            var strapper = TempestBootstrapper.CreateDefault();
-            return strapper.Strap(args);
-            
+            var semanticArguments = new SemanticArgumentParser().Parse(args);
+
 
             // Should support following arguments:
             // 
             // -i | --install [<PackageName>|<PackageName.zip>]
             //      --update all
-            
+
             // -u | --uninstall <PackageName>
             // -s | --search <SearchPath>                   Configures the directory to search for generators
             // -a | --add-search <SearchPath>               Adds a default path to search for generators
@@ -28,16 +29,134 @@ namespace Tempest
             // -l | --list [Generators|Search]              Lists all generators or search paths
             // -v | --verbosity <VerbosityLevel>            Specifies the verbosity level
             // -p | --para <Parameters>                     Specifies the generator parameters
+            // -g | --generator <Name>                      Specifies the generator to use
 
             // Syntax:
-            // tempest <generatorName> -iusarlvp <command>
-            // tempest <generatorName> <Parameters> -iusarlvp <command>
-            // tempest <generatorName> -iusarlvp <command> <Parameters>
-            // tempest -iusarlvp command
+            // tempest <generatorName> -iusarlvpg <command>
+            // tempest <generatorName> <Parameters> -iusarlvpg <command>
+            // tempest <generatorName> -iusarlvpg <command>
+
+            // tempest -i <command> -u <command> -s <command> <generatorName> <Parameters>
+            // tempest <generatorName> <Parameters> -i <command> -u <command> -s <command>
+            // tempest -iusarlvpg command
+            // tempest -iusarlvpg command <generatorName>
+            // tempest -iusarlvpg command <generatorName> <Parameters>
+
+            // What's the pattern here?
+            // If we assume that an argument is always in a form "-X" or "--Xxxxx", and always follows by a single word, or something between " and " ... maybe we can extract it like that?
+
+            var application = new CommandLineApplication();
+            var generatorName = application.Option(
+                "-g | --generator <generatorName>",
+                "Name of the generator you want to use",
+                CommandOptionType.SingleValue
+            );
+
+            var searchPath = application.Option(
+                "-s | --search <searchpath>",
+                "Path to use to search for generators",
+                CommandOptionType.SingleValue
+            );
+
+            var generatorArgs = application.Option(
+                "-p | --para <generatorArgs>",
+                "Arguments to pass to generator",
+                CommandOptionType.SingleValue
+            );
+
+            var verbosityArgs = application.Option(
+                "-v | --verbosity <verbosity>",
+                "Verbosity level",
+                CommandOptionType.SingleValue
+            );
+
+            application.HelpOption("-? | -h | --help");
+            application.OnExecute(() =>
+            {
+                var name = generatorName;
+                Console.ReadKey();
+                var strapper = TempestBootstrapper.CreateDefault();
+                return strapper.Strap(args);
+            });
+            application.Execute(semanticArguments);
+            Console.ReadKey();
 
 
 
-            
+            return 0;
+
+        }
+    }
+
+    public class SemanticArgument
+    {
+        public SemanticArgument(string[] commandLineArguments, string[] semanticArguments)
+        {
+            CommandLineArguments = commandLineArguments;
+            SemanticArguments = semanticArguments;
+        }
+
+        /// <summary>
+        /// Arguments that precede with "-"
+        /// </summary>
+        public string[] CommandLineArguments { get; } 
+
+        /// <summary>
+        /// Arguments that would not be able to be parsed normally
+        /// </summary>
+        public string[] SemanticArguments { get; }
+    }
+
+    public class SemanticArgumentParser
+    {
+        public string[] Parse(string[] args)
+        {
+            var isSemanticContext = true;
+            var justAddedCommandArgument = false;
+
+            var semanticArgs = new List<string>();
+            var commandArgs = new List<string>();
+
+            foreach (var argument in args)
+            {
+                if (argument.StartsWith("-"))
+                    isSemanticContext = false;
+                else if (justAddedCommandArgument)
+                    isSemanticContext = true;
+
+
+                if (isSemanticContext)
+                {
+                    semanticArgs.Add(argument);
+                    justAddedCommandArgument = false;
+                }
+                else
+                {
+                    commandArgs.Add(argument);
+                    // Allow insertion of a single '-' argument
+                    // and its single parameter
+                    if (!argument.StartsWith("-"))
+                        justAddedCommandArgument = true;
+                }
+            }
+
+            if (semanticArgs.Any())
+            {
+                commandArgs.Add("-g");
+                commandArgs.Add(semanticArgs.First());
+
+                if (semanticArgs.Count > 1)
+                {
+                    commandArgs.Add("-p");
+                    commandArgs.Add($"{string.Join(" ", semanticArgs.Skip(1))}");
+                }
+            }
+
+
+
+            return commandArgs.ToArray();
+
+            //return new SemanticArgument(commandArgs.ToArray(), semanticArgs.ToArray());
         }
     }
 
@@ -60,11 +179,6 @@ namespace Tempest
             return new TempestBootstrapper<T2>(factory);
         }
         
-        //public static TempestBootstrapper<T> Create(IServiceProviderFactory<T> factory = null)
-        //{
-        //    return new TempestBootstrapper<T>(factory);
-        //}
-
         protected TempestBootstrapper(IServiceProviderFactory<T> serviceProviderFactory)
         {
             _serviceProviderFactory = serviceProviderFactory;
