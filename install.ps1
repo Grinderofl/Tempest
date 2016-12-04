@@ -36,14 +36,20 @@ if (!(Test-Path $NUGET_EXE)) {
 
 $ENV:NUGET_EXE = $NUGET_EXE
 
-Write "Restoring tools from NuGet..."
-$NuGetOutput = Invoke-Expression "&`"./$NUGET_EXE`" install -ExcludeVersion"
+Write "Restoring from NuGet..."
+#$NuGetOutput = Invoke-Expression "&`"./$NUGET_EXE`" install -ExcludeVersion"
+$NuGetOutput = Invoke-Expression "&`"./$NUGET_EXE`" install Tempest -Pre -ExcludeVersion"
+
 
 if ($LASTEXITCODE -ne 0) {
 	Throw "An error occured while restoring NuGet tools."
 }
-else
-{
-	$md5Hash | Out-File $PACKAGES_CONFIG_MD5 -Encoding "ASCII"
-}
+
 Write-Verbose -Message ($NuGetOutput | out-string)
+
+$oldpath = (Get-ItemProperty -Path ‘Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment’ -Name PATH).path
+$currentPath = $MyInvocation.MyCommand.Path
+$newpath = “$currentPath;$oldpath”
+Set-ItemProperty -Path ‘Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment’ -Name PATH –Value $newPath
+
+$env:Path += ";$currentPath"

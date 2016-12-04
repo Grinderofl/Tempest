@@ -90,7 +90,9 @@ Task(BuildTasks.Package)
             VersionSuffix = config.Suffix
         };
 
+        DotNetCorePack(config.SrcDir + "Tempest.Core/", settings);
         DotNetCorePack(config.SrcDir + "Tempest/", settings);
+        DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.Empty", settings);
     });
 
