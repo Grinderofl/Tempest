@@ -12,7 +12,7 @@ namespace Tempest
 
         public static int Main(string[] args)
         {
-            var strapper = new TempestBootstrapper();
+            var strapper = TempestBootstrapper.CreateDefault();
             return strapper.Strap(args);
             
 
@@ -86,7 +86,7 @@ namespace Tempest
         {
             var container = CreateProvider(_serviceProviderFactory);
 
-
+            // Resolve what?
 
             var arguments = new RunnerArgumentFactory().Create(args);
             var runner = BuildRunner(arguments);

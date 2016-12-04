@@ -4,6 +4,7 @@
 launchSettings.json
 .build/
 .vs/
+.vscode/
 tools/
 
 *.lock.json

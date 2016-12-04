@@ -1,35 +1,7 @@
-#tool "nuget:?package=GitVersion.CommandLine"
 #addin nuget:?package=Cake.Git
+#load "./buildConfig.cake"
 
-var target = Argument("target", Tasks.Test);
-var configuration = Argument("configuration", Configurations.Release);
-
-var versionInfo = default(GitVersion);
-
-var publishRoot = "./artifacts/";
-
-
-private class Tasks
-{
-    public static string UpdateVersion = "Update-Version";
-    public static string UpdateAppVeyor = "Update-AppVeyor";
-
-    public static string Build = "Build"; 
-    public static string Test = "Test";
-    public static string Package = "Package";
-
-    public static string UploadArtifacts = "Upload-Artifacts";
-    public static string UploadTestResults = "Upload-TestResults";
-
-    public static string Publish = "Publish";
-    public static string Default = "Default";
-}
-
-private class Configurations
-{
-    public static string Debug = "Debug";
-    public static string Release = "Release";
-}
+var config = BuildConfig.Create(Context, BuildSystem);
 
 void DotNetCoreTestGlob(string glob)
 {
@@ -54,33 +26,10 @@ bool IsTestable(string path)
 }
 
 Setup(context => {
-    try {
-        var gitVersionSettings = new GitVersionSettings(){
-            ArgumentCustomization = args => args.Append("/nofetch")
-        };
-        versionInfo = GitVersion(gitVersionSettings);
-    }
-    catch(Exception)
-    {
-        var path = Directory(".");
-        var commit = GitLogTip(path);
-        var hash = commit.Sha.Substring(0,8);
-        versionInfo = new GitVersion(){
-            MajorMinorPatch = "0.1.0",
-            SemVer = "0.1.0",
-            PreReleaseTag = "Unknown." + hash,
-            FullSemVer = "0.1.0-Unknown." + hash
-        };
-    }
-
-    if(versionInfo != null) {
-        Information("Version: {0}", versionInfo.FullSemVer);
-    } else {
-        throw new Exception("Unable to determine semver version");
-    }
+    Information("Preparing to build version {0}:", config.SemVer);
 });
 
-Task(Tasks.UpdateVersion)
+Task(BuildTasks.UpdateVersion)
     .Does(() => {
         var files = GetFiles("./**/project.json");
         foreach(var file in files)
@@ -100,7 +49,7 @@ Task(Tasks.UpdateVersion)
                         if(line == null)
                             continue;
 
-                        line = regExVersion.Replace(line, string.Format("\"version\": \"{0}-*\",", versionInfo.MajorMinorPatch));
+                        line = regExVersion.Replace(line, string.Format("\"version\": \"{0}-*\",", config.Version));
 
                         trg.AppendLine(line);
                     }
@@ -112,45 +61,45 @@ Task(Tasks.UpdateVersion)
     });
 
 
-Task(Tasks.UpdateAppVeyor)
-    .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
+Task(BuildTasks.UpdateAppVeyor)
+    .WithCriteria(() => config.IsCiBuild)
     .Does(() => { 
-        AppVeyor.UpdateBuildVersion(versionInfo.NuGetVersionV2 +"+" +AppVeyor.Environment.Build.Number);
+        AppVeyor.UpdateBuildVersion(config.SemVer +"+" + AppVeyor.Environment.Build.Number);
     });
 
-Task(Tasks.Build)
-    .IsDependentOn(Tasks.UpdateVersion)
+Task(BuildTasks.Build)
+    .IsDependentOn(BuildTasks.UpdateVersion)
     .Does(() => {
         DotNetCoreRestore();
-        DotNetCoreBuild("./src/**/project.json");
-        DotNetCoreBuild("./test/**/project.json");
+        DotNetCoreBuild(config.SrcDir + "**/project.json");
+        DotNetCoreBuild(config.TestDir + "**/project.json");
     });
 
-Task(Tasks.Test)
-    .IsDependentOn(Tasks.Build)
+Task(BuildTasks.Test)
+    .IsDependentOn(BuildTasks.Build)
     .Does(() => {
-        DotNetCoreTestGlob("./test/");
+        DotNetCoreTestGlob(config.TestDir);
     });
 
-Task(Tasks.Package)
-    .IsDependentOn(Tasks.Test)
+Task(BuildTasks.Package)
+    .IsDependentOn(BuildTasks.Test)
     .Does(() =>{
         var settings = new DotNetCorePackSettings {
-            Configuration = Configurations.Release,
-            OutputDirectory = publishRoot,
-            VersionSuffix = versionInfo.PreReleaseLabel + versionInfo.PreReleaseNumber.PadLeft(3, '0') + versionInfo.BuildMetaDataPadded
+            Configuration = config.Configuration,
+            OutputDirectory = config.ArtifactsDir,
+            VersionSuffix = config.Suffix
         };
 
-        DotNetCorePack("./src/Tempest/", settings);
-        DotNetCorePack("./src/Tempest.Generator.Empty", settings);
+        DotNetCorePack(config.SrcDir + "Tempest/", settings);
+        DotNetCorePack(config.SrcDir + "Tempest.Generator.Empty", settings);
     });
 
-Task(Tasks.UploadArtifacts)
-    .IsDependentOn(Tasks.Package) 
+Task(BuildTasks.UploadArtifacts)
+    .IsDependentOn(BuildTasks.Package) 
     .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
     .Does(() =>
             {
-                var artifacts = GetFiles("./artifacts/*.nupkg");
+                var artifacts = GetFiles(config.ArtifactsDir + "*.nupkg");
 				AppVeyor.AddInformationalMessage("Uploading artifacts");
                 foreach(var artifact in artifacts.Select(x => x.ToString()))
                 {
@@ -161,26 +110,26 @@ Task(Tasks.UploadArtifacts)
             }
     );
 
-Task(Tasks.UploadTestResults)
-    .IsDependentOn(Tasks.UpdateAppVeyor)
-	.IsDependentOn(Tasks.Test)
+Task(BuildTasks.UploadTestResults)
+    .IsDependentOn(BuildTasks.UpdateAppVeyor)
+	.IsDependentOn(BuildTasks.Test)
 	.WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
 	.Does(() => {
-		var testResults = GetFiles("./artifacts/testResults*.xml");
+		var testResults = GetFiles(config.ArtifactsDir + "testResults*.xml");
 		foreach(var result in testResults)
 		{
 			AppVeyor.UploadTestResults(result, AppVeyorTestResultsType.XUnit);
 		}
 	});
 
-Task(Tasks.Publish)
-	.IsDependentOn(Tasks.UploadTestResults)
-    .IsDependentOn(Tasks.UploadArtifacts)
+Task(BuildTasks.Publish)
+	.IsDependentOn(BuildTasks.UploadTestResults)
+    .IsDependentOn(BuildTasks.UploadArtifacts)
     .Does(() => {
         Information("Published");
     });
 
-Task(Tasks.Default)
-    .IsDependentOn(Tasks.Test);
+Task(BuildTasks.Default)
+    .IsDependentOn(BuildTasks.Test);
 
-RunTarget(target);
+RunTarget(config.Target);
