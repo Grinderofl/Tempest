@@ -1,5 +1,6 @@
 using System;
 
+namespace ReplaceMe
 {
     public class ReplaceMeGreeter
     {
