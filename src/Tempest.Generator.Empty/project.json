@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   
   "description": "Empty .NET Core Console Application Template for Tempest",
@@ -7,7 +7,6 @@
   },
 
   "dependencies": {
-    "NETStandard.Library": "1.6.1",
     "Tempest.Core": {
       "version": "1.0.0-*",
       "type": "default"
