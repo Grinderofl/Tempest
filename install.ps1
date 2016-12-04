@@ -15,15 +15,15 @@ if (!(Test-Path $PACKAGES_FILE)) {
 }
 
 
-if (!(Test-Path $NUGET_EXE)) {
-    Write "Trying to find nuget.exe in PATH..."
-    $existingPaths = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_) }
-    $NUGET_EXE_IN_PATH = Get-ChildItem -Path $existingPaths -Filter "nuget.exe" | Select -First 1
-    if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH.FullName)) {
-        Write-Verbose -Message "Found in PATH at $($NUGET_EXE_IN_PATH.FullName)."
-        $NUGET_EXE = $NUGET_EXE_IN_PATH.FullName
-    }
-}
+# if (!(Test-Path $NUGET_EXE)) {
+    # Write "Trying to find nuget.exe in PATH..."
+    # $existingPaths = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_) }
+    # $NUGET_EXE_IN_PATH = Get-ChildItem -Path $existingPaths -Filter "nuget.exe" | Select -First 1
+    # if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH.FullName)) {
+        # Write-Verbose -Message "Found in PATH at $($NUGET_EXE_IN_PATH.FullName)."
+        # $NUGET_EXE = $NUGET_EXE_IN_PATH.FullName
+    # }
+# }
 
 if (!(Test-Path $NUGET_EXE)) {
     Write "Downloading NuGet.exe..."
@@ -45,11 +45,14 @@ if ($LASTEXITCODE -ne 0) {
 	Throw "An error occured while restoring NuGet tools."
 }
 
-Write-Verbose -Message ($NuGetOutput | out-string)
-
-$oldpath = (Get-ItemProperty -Path ‘Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment’ -Name PATH).path
+Write ($NuGetOutput | out-string)
 $currentPath = $MyInvocation.MyCommand.Path
-$newpath = “$currentPath;$oldpath”
-Set-ItemProperty -Path ‘Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment’ -Name PATH –Value $newPath
+Write $currentPath
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";" + $currentPath, [EnvironmentVariableTarget]::User)
+
+# $oldpath = (Get-ItemProperty -Path ‘Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment’ -Name PATH).path
+# $currentPath = $MyInvocation.MyCommand.Path
+# $newpath = “$currentPath;$oldpath”
+# Set-ItemProperty -Path ‘Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment’ -Name PATH –Value $newPath
 
 $env:Path += ";$currentPath"
