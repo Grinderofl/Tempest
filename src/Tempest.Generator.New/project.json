@@ -1,0 +1,33 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "description": "Empty Tempest Template Class Library for Tempest ",
+  "packOptions": {
+    "licenseUrl": ""
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.1",
+    "Tempest.Core": {
+      "version": "1.0.0-*",
+      "type": "default"
+    }
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "buildOptions": {
+    "copyToOutput": {
+      "include": "Template/**"
+    },
+    "embed": {
+      "include": [
+        "Template/**"
+      ]
+    }
+  }
+}

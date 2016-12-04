@@ -1,0 +1,33 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "description": "Zing Class Library",
+  "packOptions": {
+    "licenseUrl": ""
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.1",
+    "Tempest.Core": {
+      "version": "1.0.0-*",
+      "type": "default"
+    }
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "buildOptions": {
+    "copyToOutput": {
+      "include": "Template/*.*"
+    },
+    "embed": {
+      "includeFiles": [
+        
+      ]
+    }
+  }
+}
