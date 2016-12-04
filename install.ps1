@@ -8,15 +8,15 @@ if(!$PSScriptRoot){
 }
 
 if (!(Test-Path $PACKAGES_FILE)) {
-    Write-Verbose -Message "Downloading packages.config..."
-    try { (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/Grinderofl/Tempest/develop/install/packages.config", $PACKAGES_CONFIG) } catch {
-        Throw "Could not download packages.config."
+    Write "Downloading packages.config..."
+    try { (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/Grinderofl/Tempest/develop/install/packages.config", $PACKAGES_FILE) } catch {
+        Throw //"Could not download packages.config."
     }
 }
 
 
 if (!(Test-Path $NUGET_EXE)) {
-    Write-Verbose -Message "Trying to find nuget.exe in PATH..."
+    Write "Trying to find nuget.exe in PATH..."
     $existingPaths = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_) }
     $NUGET_EXE_IN_PATH = Get-ChildItem -Path $existingPaths -Filter "nuget.exe" | Select -First 1
     if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH.FullName)) {
@@ -26,7 +26,7 @@ if (!(Test-Path $NUGET_EXE)) {
 }
 
 if (!(Test-Path $NUGET_EXE)) {
-    Write-Verbose -Message "Downloading NuGet.exe..."
+    Write "Downloading NuGet.exe..."
     try {
         (New-Object System.Net.WebClient).DownloadFile($NUGET_URL, $NUGET_EXE)
     } catch {
@@ -36,8 +36,8 @@ if (!(Test-Path $NUGET_EXE)) {
 
 $ENV:NUGET_EXE = $NUGET_EXE
 
-Write-Verbose -Message "Restoring tools from NuGet..."
-$NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `".`""
+Write "Restoring tools from NuGet..."
+$NuGetOutput = Invoke-Expression "&`"./$NUGET_EXE`" install -ExcludeVersion"
 
 if ($LASTEXITCODE -ne 0) {
 	Throw "An error occured while restoring NuGet tools."
