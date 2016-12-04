@@ -14,13 +14,13 @@ namespace Tempest.Core
     {
         private readonly OptionExecutor _optionExecutor = new OptionExecutor();
 
-        public IList<TemplateStep> Steps { get; set; } = new List<TemplateStep>();
-        
-        public IList<Transformer> GlobalTransformers { get; set; } = new List<Transformer>();
+        protected internal IList<TemplateStep> Steps { get; set; } = new List<TemplateStep>();
 
-        protected abstract DirectoryInfo BuildTargetPath(RunnerContext runnerContext);
+        protected internal IList<Transformer> GlobalTransformers { get; set; } = new List<Transformer>();
 
-        protected abstract DirectoryInfo BuildTemplatePath(RunnerContext runnerContext);
+        protected abstract DirectoryInfo BuildTargetPath(GeneratorContext generatorContext);
+
+        protected abstract DirectoryInfo BuildTemplatePath(GeneratorContext generatorContext);
 
         /// <summary>
         /// Setup the options
@@ -36,7 +36,7 @@ namespace Tempest.Core
         /// </summary>
         protected abstract void ExecuteCore();
         
-        public virtual void Run(RunnerContext context)
+        public virtual void Run(GeneratorContext context)
         {
             var options = SetupOptions();
             _optionExecutor.Execute(options.ToArray(), context.Arguments);

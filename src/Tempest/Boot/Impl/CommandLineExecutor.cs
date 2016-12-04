@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.CommandLineUtils;
+﻿using System;
+using Microsoft.Extensions.CommandLineUtils;
 using Tempest.Arguments;
 using Tempest.Runner;
 
@@ -11,6 +12,8 @@ namespace Tempest.Boot.Impl
 
         public CommandLineExecutor(IArgumentParser argumentParser, ITempestRunner runner)
         {
+            if (argumentParser == null) throw new ArgumentNullException(nameof(argumentParser));
+            if (runner == null) throw new ArgumentNullException(nameof(runner));
             _argumentParser = argumentParser;
             _runner = runner;
         }
@@ -53,6 +56,9 @@ namespace Tempest.Boot.Impl
             application.HelpOption("-? | -h | --help");
             application.OnExecute(() =>
             {
+                // Deal with non-running options before
+                // That's todo though
+
                 if (generatorName.HasValue())
                     runnerArgs.GeneratorName = generatorName.Value();
 

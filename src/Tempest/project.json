@@ -28,8 +28,9 @@
     "System.Runtime.Loader": "4.0.0-*",
     "Tempest.Core": {
       "version": "1.0.0-*",
-      "type": "default" 
-    }
+      "type": "default"
+    },
+    "Scrutor": "1.10.0" 
   },
 
   "frameworks": {

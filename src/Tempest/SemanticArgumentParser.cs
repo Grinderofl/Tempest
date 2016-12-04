@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Tempest.Arguments;
 
 namespace Tempest
 {
-    public class SemanticArgumentParser
+    public class SemanticArgumentParser : IArgumentParser
     {
-        public static string[] Parse(string[] args)
+        public string[] ParseArguments(string[] args)
         {
             var isSemanticContext = true;
             var justAddedCommandArgument = false;

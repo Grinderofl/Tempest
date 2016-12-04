@@ -47,16 +47,16 @@ namespace Tempest.Core
         /// </summary>
         public GlobalFactory Globally { get; set; }
 
-        protected override DirectoryInfo BuildTemplatePath(RunnerContext runnerContext)
+        protected override DirectoryInfo BuildTemplatePath(GeneratorContext generatorContext)
             =>
-            new DirectoryInfo(Path.Combine(runnerContext.TempestDirectory.FullName,
-                BuildGeneratorTemplateDirectory(runnerContext.GeneratorName)));
+            new DirectoryInfo(Path.Combine(generatorContext.TempestDirectory.FullName,
+                BuildGeneratorTemplateDirectory(generatorContext.GeneratorName)));
 
         private string BuildGeneratorTemplateDirectory(string generatorName)
             => $"Generators/Tempest.Generator.{generatorName}/Template";
 
-        protected override DirectoryInfo BuildTargetPath(RunnerContext runnerContext)
-            => new DirectoryInfo(Path.Combine(runnerContext.WorkingDirectory.FullName, _targetSubDirectory));
+        protected override DirectoryInfo BuildTargetPath(GeneratorContext generatorContext)
+            => new DirectoryInfo(Path.Combine(generatorContext.WorkingDirectory.FullName, _targetSubDirectory));
 
         /// <summary>
         /// Sets the directory which to use as the target directory

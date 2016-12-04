@@ -3,6 +3,7 @@ using System.Threading;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Arguments;
+using Tempest.Boot;
 
 namespace Tempest
 {
