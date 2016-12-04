@@ -37,8 +37,6 @@ namespace Tempest.Runner.Impl
             var filePath = Uri.UnescapeDataString(uri.Path);
             return new DirectoryInfo(Path.GetDirectoryName(filePath));
         }
-
-        
         
         public IEnumerable<DirectoryInfo> FindGeneratorDirectories()
         {
