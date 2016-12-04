@@ -14,7 +14,7 @@ namespace Tempest
 
         public static int Main(string[] args)
         {
-            var semanticArguments = new SemanticArgumentParser().Parse(args);
+            var semanticArguments = SemanticArgumentParser.Parse(args);
 
 
             // Should support following arguments:
@@ -70,13 +70,26 @@ namespace Tempest
                 CommandOptionType.SingleValue
             );
 
+            var runnerArgs = new TempestRunnerArguments();
+
             application.HelpOption("-? | -h | --help");
             application.OnExecute(() =>
             {
-                var name = generatorName;
+                if (generatorName.HasValue())
+                    runnerArgs.GeneratorName = generatorName.Value();
+
+                if (searchPath.HasValue())
+                    runnerArgs.SearchPath = searchPath.Value();
+
+                if (generatorArgs.HasValue())
+                    runnerArgs.GeneratorParameters = generatorArgs.Value().Split(' ');
+
+                if (verbosityArgs.HasValue())
+                    runnerArgs.Verbosity = verbosityArgs.Value();
+
                 Console.ReadKey();
                 var strapper = TempestBootstrapper.CreateDefault();
-                return strapper.Strap(args);
+                return strapper.Strap(runnerArgs);
             });
             application.Execute(semanticArguments);
             Console.ReadKey();
@@ -88,28 +101,17 @@ namespace Tempest
         }
     }
 
-    public class SemanticArgument
+    public class TempestRunnerArguments
     {
-        public SemanticArgument(string[] commandLineArguments, string[] semanticArguments)
-        {
-            CommandLineArguments = commandLineArguments;
-            SemanticArguments = semanticArguments;
-        }
-
-        /// <summary>
-        /// Arguments that precede with "-"
-        /// </summary>
-        public string[] CommandLineArguments { get; } 
-
-        /// <summary>
-        /// Arguments that would not be able to be parsed normally
-        /// </summary>
-        public string[] SemanticArguments { get; }
+        public string GeneratorName { get; set; }
+        public string[] GeneratorParameters { get; set; }
+        public string SearchPath { get; set; }
+        public string Verbosity { get; set; }
     }
 
     public class SemanticArgumentParser
     {
-        public string[] Parse(string[] args)
+        public static string[] Parse(string[] args)
         {
             var isSemanticContext = true;
             var justAddedCommandArgument = false;
@@ -155,8 +157,6 @@ namespace Tempest
 
 
             return commandArgs.ToArray();
-
-            //return new SemanticArgument(commandArgs.ToArray(), semanticArgs.ToArray());
         }
     }
 
@@ -196,19 +196,19 @@ namespace Tempest
         {
         }
 
-        public int Strap(string[] args)
+        public int Strap(TempestRunnerArguments args)
         {
             var container = CreateProvider(_serviceProviderFactory);
 
             // Resolve what?
 
-            var arguments = new RunnerArgumentFactory().Create(args);
-            var runner = BuildRunner(arguments);
+            //var arguments = new RunnerArgumentFactory().Create(args);
+            var runner = BuildRunner(args);
             runner.Execute();
             return 0;
         }
 
-        private static TempestRunner BuildRunner(RunnerArguments arguments)
+        private static TempestRunner BuildRunner(TempestRunnerArguments arguments)
         {
             GeneratorLoader loader = BuildGeneratorLoader();
             var runner = new TempestRunner(arguments, loader);

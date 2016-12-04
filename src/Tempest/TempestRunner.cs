@@ -9,10 +9,10 @@ namespace Tempest
 {
     public class TempestRunner
     {
-        private readonly RunnerArguments _runnerArguments;
+        private readonly TempestRunnerArguments _runnerArguments;
         private readonly IGeneratorLoader _generatorLoader;
 
-        public TempestRunner(RunnerArguments runnerArguments, IGeneratorLoader generatorLoader)
+        public TempestRunner(TempestRunnerArguments runnerArguments, IGeneratorLoader generatorLoader)
         {
             if (runnerArguments == null) throw new ArgumentNullException(nameof(runnerArguments));
             _runnerArguments = runnerArguments;
@@ -27,9 +27,9 @@ namespace Tempest
             // Sets up the engine
             // Executes the engine
 
-            var generator = _generatorLoader.FindGeneratorByName(_runnerArguments.Generator);
+            var generator = _generatorLoader.FindGeneratorByName(_runnerArguments.GeneratorName);
             if(generator == null)
-                throw new GeneratorNotFoundException(_runnerArguments.Generator);
+                throw new GeneratorNotFoundException(_runnerArguments.GeneratorName);
 
 
             // Should probably contain the generator root
@@ -37,8 +37,8 @@ namespace Tempest
             
             var context = new RunnerContext()
             {
-                GeneratorName = _runnerArguments.Generator,
-                Arguments = _runnerArguments.GeneratorArguments,
+                GeneratorName = _runnerArguments.GeneratorName,
+                Arguments = _runnerArguments.GeneratorParameters,
                 TempestDirectory = GetCurrentDirectory(),
                 WorkingDirectory = GetWorkingDirectory()
             };
