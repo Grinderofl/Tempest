@@ -25,8 +25,10 @@
       "include": "Template/**"
     },
     "embed": {
-      "include": [
-        "Template/**"
+      "includeFiles": [
+        "Template/ZingGenerator.cs",
+        "Template/project.json",
+        "Template/Template/rename.me"
       ]
     }
   }
