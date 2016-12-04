@@ -30,7 +30,7 @@ namespace Tempest.Arguments.Impl
                 }
                 else
                 {
-                    commandArgs.Add(argument);
+                    commandArgs.Add(argument.Replace("\"", ""));
                     // Allow insertion of a single '-' argument
                     // and its single parameter
                     if (!argument.StartsWith("-"))

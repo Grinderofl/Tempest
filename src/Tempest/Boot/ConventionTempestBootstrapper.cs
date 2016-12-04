@@ -18,8 +18,11 @@ namespace Tempest.Boot
 
         protected override void ConfigureLocalServices(IServiceCollection services)
         {
+            ConfigureConventions();
             foreach(var convention in _conventions)
                 convention.Configure(services);
         }
+
+        protected abstract void ConfigureConventions();
     }
 }
