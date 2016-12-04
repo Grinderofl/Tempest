@@ -55,26 +55,6 @@ public class BuildConfig
     }
 }
 
-    // try {
-    //     var gitVersionSettings = new GitVersionSettings(){
-    //         ArgumentCustomization = args => args.Append("/nofetch")
-    //     };
-    //     versionInfo = GitVersion(gitVersionSettings);
-    // }
-    // catch(Exception)
-    // {
-    //     var path = Directory(".");
-    //     var commit = GitLogTip(path);
-    //     var hash = commit.Sha.Substring(0,8);
-    //     versionInfo = new GitVersion(){
-    //         MajorMinorPatch = "0.1.0",
-    //         SemVer = "0.1.0",
-    //         PreReleaseTag = "Unknown." + hash,
-    //         FullSemVer = "0.1.0-Unknown." + hash
-    //     };
-    // }
-
-
 public class BuildTasks
 {
     public static string UpdateVersion = "Update-Version";
