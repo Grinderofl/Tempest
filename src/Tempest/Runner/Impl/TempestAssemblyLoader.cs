@@ -23,7 +23,6 @@ namespace Tempest.Runner.Impl
             if (!File.Exists(path))
                 return null;
 
-            
             var loadContext = new AssemblyLoader(Path.GetDirectoryName(path)); //new WrappedAssemblyLoader(_dependencyContext);
             return loadContext.LoadFromAssemblyPath(path);
         }

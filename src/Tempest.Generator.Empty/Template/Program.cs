@@ -1,4 +1,4 @@
-namespace Tempest.Generator.Empty.Template
+namespace ReplaceMe
 {
     public class Program
     {

@@ -27,7 +27,7 @@
     "embed": {
       "includeFiles": [
         "Template/Program.cs",
-        "Template/ReplaceMe.cs",
+        "Template/ReplaceMeGreeter.cs",
         "Template/project.json"
       ]
     }

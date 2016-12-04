@@ -57,8 +57,8 @@ namespace Tempest.Generator.Empty
 
 
             // Uncomment/comment either below as needed
-            //CopyFromTemplates();
-            CopyFromResources();
+            CopyFromTemplates();
+            //CopyFromResources();
         }
 
         /// <summary>

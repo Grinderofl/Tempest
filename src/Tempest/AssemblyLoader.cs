@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,28 +35,4 @@ namespace Tempest
             return Assembly.Load(assemblyName);
         }
     }
-
-
-
-    public static class TypeExtensions
-    {
-        public static bool IsConcrete(this Type type) => !type.GetTypeInfo().IsAbstract;
-        public static bool IsSubclassOf(this Type type, Type @from) => type.GetTypeInfo().IsSubclassOf(@from);
-    }
-
-    //public class DependencyContextAssemblyLoader : AssemblyLoadContext
-    //{
-    //    protected override Assembly Load(AssemblyName assemblyName)
-    //    {
-    //        var context = DependencyContext.Default;
-    //        var assembliesWithSameName = FindAssemblies(context, assemblyName);
-    //    }
-
-    //    private IEnumerable<CompilationLibrary>
-
-    //    private IEnumerable<RuntimeLibrary> FindAssemblies(DependencyContext context, AssemblyName assemblyName)
-    //    {
-            
-    //    }
-    //}
 }
