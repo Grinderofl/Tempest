@@ -29,9 +29,8 @@ It should be easy to add in any additional Transformers and Emitters that are ne
 1. Go to the directory you want to install Tempest into and execute the following powershell command
 
 ```powershell
-Invoke-WebRequest https://raw.githubusercontent.com/Grinderofl/Tempest/develop/install/install.ps1 -OutFile install-
-tempest.ps1
-./install-tempest
+Invoke-WebRequest https://raw.githubusercontent.com/Grinderofl/Tempest/develop/install/install.ps1 -OutFile install.ps1
+./install
 ```
 
 2. Start using `tempest` commands!
