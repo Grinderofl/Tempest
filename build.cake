@@ -93,7 +93,25 @@ Task(BuildTasks.Package)
         DotNetCorePack(config.SrcDir + "Tempest.Core", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.Empty", settings);
-        DotNetCorePack(config.SrcDir + "Tempest", settings);
+
+        var publishSettings = new DotNetCorePublishSettings {
+            Configuration = config.Configuration,
+            OutputDirectory = config.PublishDir,
+            VersionSuffix = config.Suffix
+        };
+
+        DotNetCorePublish(config.SrcDir + "Tempest", publishSettings);
+
+        var nugetSettings = new NuGetPackSettings(){
+            Version = config.Version + "-" + config.Suffix,
+            BasePath = config.PublishDir,
+            OutputDirectory = config.ArtifactsDir,
+            Symbols = true,
+            NoPackageAnalysis = true
+        };
+
+        NuGetPack(config.NuspecDir + "Tempest.nuspec", nugetSettings);
+        //DotNetCorePack(config.SrcDir + "Tempest", settings);
     });
 
 Task(BuildTasks.UploadArtifacts)

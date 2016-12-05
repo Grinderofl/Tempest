@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Tempest</id>
+    <version>0.1.0-</version>
+    <authors>Nero Sule</authors>
+    <owners>Nero Sule</owners>
+    <licenseUrl>https://github.com/grinderofl/tempest/license.md</licenseUrl>
+    <projectUrl>https://github.com/grinderofl/tempest/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Ez-mode template generator using .NET Core</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>generator template templates</tags>
+  </metadata>
+</package>
