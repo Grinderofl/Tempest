@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace Tempest.Arguments.Impl
 {
+    /// <summary>
+    /// Parses arguments using semantics through convention
+    /// 
+    /// </summary>
     public class SemanticArgumentParser : IArgumentParser
     {
         public string[] ParseArguments(string[] args)
