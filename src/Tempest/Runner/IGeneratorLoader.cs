@@ -5,7 +5,6 @@ namespace Tempest.Runner
 {
     public interface IGeneratorLoader
     {
-        //GeneratorEngineBase FindGeneratorByName(string generatorName);
         GeneratorEngineBase Load(LoaderContext loaderContext);
     }
 }

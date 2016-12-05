@@ -9,19 +9,6 @@ namespace Tempest.Runner.Impl
 {
     public class DirectoryFinder : IDirectoryFinder
     {
-        //public DirectoryInfo FindGeneratorLibraryDirectory()
-        //{
-        //    var codeBase = typeof(TempestRunner).GetTypeInfo().Assembly.CodeBase;
-        //    var builder = new UriBuilder(codeBase);
-        //    var filePath = Uri.UnescapeDataString(builder.Path);
-        //    var path = Path.Combine(Path.GetDirectoryName(filePath), "Generators");
-        //    if(Directory.Exists(path))
-        //        return new DirectoryInfo(path);
-
-        //    // Technically should try to find from nuget
-        //    throw new Exception("No generators installed");
-        //}
-
         private readonly ITempestConfigurationService _configurationService;
 
         public DirectoryFinder(ITempestConfigurationService configurationService)

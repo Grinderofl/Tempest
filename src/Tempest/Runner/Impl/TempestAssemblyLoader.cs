@@ -7,16 +7,6 @@ namespace Tempest.Runner.Impl
 {
     public class TempestAssemblyLoader : ITempestAssemblyLoader
     {
-        //private readonly AssemblyLoadContext _loadContext;
-        private readonly DependencyContext _dependencyContext;
-
-        public TempestAssemblyLoader()
-        {
-            _dependencyContext = DependencyContext.Default;
-            //_loadContext = AssemblyLoadContext.Default;
-            
-        }
-
         public Assembly Load(string path)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));

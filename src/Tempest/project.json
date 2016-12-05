@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "debugType": "portable",
@@ -19,6 +19,9 @@
   "packOptions": {
     "summary": "Template builder using .NET Core",
     "files": {
+      "include": [
+        "**/Tempest.Core.dll"
+      ],
       "mappings": {
         "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll",
         "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",

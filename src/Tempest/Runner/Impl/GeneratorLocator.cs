@@ -80,6 +80,8 @@ namespace Tempest.Runner.Impl
 
         private IEnumerable<Assembly> FindCandidateAssemblies(DirectoryInfo[] directoriesToSearch, string generatorName)
         {
+            if (directoriesToSearch == null || string.IsNullOrWhiteSpace(generatorName)) yield break;
+
             foreach (var dir in directoriesToSearch)
             {
                 foreach (var relativeSearchPath in _relativeSearchPaths)
@@ -102,26 +104,4 @@ namespace Tempest.Runner.Impl
         }
     }
 
-
-    //public class WrappedAssemblyLoader : AssemblyLoadContext
-    //{
-    //    private readonly DependencyContext _dependencyContext;
-        
-    //    public WrappedAssemblyLoader(DependencyContext dependencyContext)
-    //    {
-    //        _dependencyContext = dependencyContext;
-    //    }
-
-    //    protected override Assembly Load(AssemblyName assemblyName)
-    //    {
-    //        var foundResources =
-    //            _dependencyContext.CompileLibraries.FirstOrDefault(x => x.Name.Contains(assemblyName.FullName));
-    //        if (foundResources != null)
-    //            return Assembly.Load(new AssemblyName(foundResources.Name));
-
-    //        //var context = new 
-
-    //        return null;
-    //    }
-    //}
 }
