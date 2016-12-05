@@ -56,19 +56,20 @@ try {
 	if ($LASTEXITCODE -ne 0) {
 		Throw "An error occured while restoring NuGet tools."
 	}
-
 	Write ($NuGetOutput | out-string)
-	$currentPath = (Get-Item -Path ".\" -Verbose).FullName
-	Write $currentPath
+	$tempestPath = (Get-Item -Path ".\" -Verbose).FullName + "\\Tempest";
+	Write $tempestPath
 
-	#[Environment]::SetEnvironmentVariable("Path", $env:Path + ";" + $currentPath, [EnvironmentVariableTarget]::User)
+    $path = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_) }
+    $TEMPEST_FOUND = Get-ChildItem -Path $path -Filter "Tempest.exe" | Select -First 1
+    if ($TEMPEST_FOUND -ne $null -and (Test-Path $TEMPEST_FOUND.FullName)) {
+        Write "Found in PATH at $($TEMPEST_FOUND.FullName)."
+    } else {
+        Write "Adding PATH $tempestPath"
+        [Environment]::SetEnvironmentVariable("Path", $Env:Path + ";" + $tempestPath, [EnvironmentVariableTarget]::User)
+    }
 
-	# $oldpath = (Get-ItemProperty -Path �Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment� -Name PATH).path
-	# $currentPath = $MyInvocation.MyCommand.Path
-	# $newpath = �$currentPath;$oldpath�
-	# Set-ItemProperty -Path �Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment� -Name PATH �Value $newPath
-
-	$env:Path += ";$currentPath"
+	$env:Path += ";$tempestPath"
 }
 Finally{
 	Pop-Location
