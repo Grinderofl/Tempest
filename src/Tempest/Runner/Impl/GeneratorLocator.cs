@@ -15,11 +15,11 @@ namespace Tempest.Runner.Impl
 
         private readonly string[] _relativeSearchPaths = new[]
         {
-            "{0}/Generators/Tempest.Generator.{1}",         // Root/Generators/Tempest.Generator.GeneratorName/
-            "{0}/Generators/{1}",                           // Root/Generators/GeneratorName/
-            "{0}/Tempest.Generator.{1}",                    // Root/Tempest.Generator.GeneratorName/
-            "{0}/{1}",                                      // Root/GeneratorName/
-            "{0}"                                           // Root/ 
+            "{0}/Generators/Tempest.Generator.{1}", // Root/Generators/Tempest.Generator.GeneratorName/
+            "{0}/Generators/{1}", // Root/Generators/GeneratorName/
+            "{0}/Tempest.Generator.{1}", // Root/Tempest.Generator.GeneratorName/
+            "{0}/{1}", // Root/GeneratorName/
+            "{0}" // Root/ 
         };
 
         private readonly string[] _assemblyPatterns = new[]
@@ -44,7 +44,7 @@ namespace Tempest.Runner.Impl
             // Attempts to go through the following directories in order
             // Pattern:
             //
-            
+
             // To find a following DLL:
             // Tempest.Generator.GeneratorName.dll
             // GeneratorName.dll
@@ -71,7 +71,7 @@ namespace Tempest.Runner.Impl
                 foreach (var typename in _generatorTypeNamePatterns.Select(n => string.Format(n, generatorName)))
                 {
                     var foundType = types.FirstOrDefault(t => t.Name.Equals(typename));
-                    if(foundType != null)
+                    if (foundType != null)
                         return foundType;
                 }
             }
@@ -102,6 +102,38 @@ namespace Tempest.Runner.Impl
                 }
             }
         }
-    }
 
+        public IEnumerable<Type> Locate(DirectoryInfo[] directoriesToSearch)
+        {
+            foreach (var dir in directoriesToSearch)
+            {
+                if (dir.Name.Equals("Generators"))
+                {
+                    foreach (var generatorDir in dir.GetDirectories())
+                    {
+                        foreach (
+                            var file in
+                            generatorDir.EnumerateFiles("*.dll")
+                                .Where(x => x.Name.Contains("Generator") && x.Name != "Generators"))
+                        {
+                            var loadedAssembly = _tempestAssemblyLoader.Load(file.FullName);
+                            if (loadedAssembly != null)
+                            {
+                                var types =
+                                    loadedAssembly.ExportedTypes.Where(
+                                            t =>
+                                                t.IsConcrete() &&
+                                                t.IsSubclassOf(typeof(GeneratorEngineBase)))
+                                        .ToArray();
+
+                                if (!types.Any()) continue;
+                                foreach (var type in types)
+                                    yield return type;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

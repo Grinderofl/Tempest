@@ -15,8 +15,6 @@ namespace Tempest.Core.Options.Rendering
             var itemIndex = 0;
             var optionChoices = configurationOption.Choices as IList<OptionChoice> ?? configurationOption.Choices.ToList();
 
-            Console.WriteLine(configurationOption.Title);
-
             foreach (var choice in optionChoices)
             {
                 itemIndex++;

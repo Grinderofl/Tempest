@@ -47,7 +47,9 @@ namespace Tempest.Runner.Impl
             if(locatedGenerator == null)
                 throw new GeneratorNotFoundException($"The generator '{loaderContext.Name} could not be found.' Searched locations: '{string.Join("', '", directoriesToSearch.Select(x => x.FullName))}'");
 
-            return (GeneratorEngineBase) Activator.CreateInstance(locatedGenerator);
+            var instance = (GeneratorEngineBase)Activator.CreateInstance(locatedGenerator);
+
+            return instance;
 
         }
 
