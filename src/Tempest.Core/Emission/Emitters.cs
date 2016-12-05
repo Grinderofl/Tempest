@@ -9,5 +9,7 @@ namespace Tempest.Core.Emission
         public static Emitter ToFiles(string globPattern) => new GlobFileEmitter(globPattern);
         public static Emitter ToFiles(Func<string> globPatternFunc) => new GlobFileExpressionEmitter(globPatternFunc);
         public static Emitter ToFiles() => new GlobFileEmitter("");
+
+        public static Emitter ToFiles(Func<string, string> fileNameTransformationFunc) => new GlobFunctioningFileEmitter(fileNameTransformationFunc);
     }
 }

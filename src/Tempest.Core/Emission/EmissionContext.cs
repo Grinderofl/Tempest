@@ -8,6 +8,7 @@ namespace Tempest.Core.Emission
         public DirectoryInfo TargetDirectory { get; set; }
         public Stream EmissionStream { get; set; }
         public string Filename { get; set; }
+        public string FilePath { get; set; }
 
         public string ReadInputAsString()
         {

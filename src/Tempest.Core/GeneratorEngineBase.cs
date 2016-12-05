@@ -80,7 +80,8 @@ namespace Tempest.Core
                     {
                         Filename = transformResult.Filename,
                         EmissionStream = transformerContext.TransformationStream,
-                        TargetDirectory = sourcingContext.TargetRoot
+                        TargetDirectory = sourcingContext.TargetRoot,
+                        FilePath = result.FilePath
                     };
 
                     foreach (var emitter in step.GetEmitters())

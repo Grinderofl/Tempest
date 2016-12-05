@@ -21,9 +21,12 @@ namespace Tempest.Core.Sourcing
             {
                 if (!File.Exists(file.FullName))
                     continue;
+
+                var fileRelativePath = file.FullName.Replace(context.TemplateRoot.FullName, "");
                 yield return new SourcingResult
                 {
-                    FileName = file.Name,
+                    FilePath = fileRelativePath,
+                    FileName = fileRelativePath,
                     OutputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read)
                 };
             }
