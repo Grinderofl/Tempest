@@ -14,10 +14,6 @@ namespace Tempest.Core.Sourcing
             _string = s;
         }
 
-        //protected override Stream GenerateCore(SourcingContext context)
-        //{
-        //    return _string.ToStream();
-        //}
         public override IEnumerable<SourcingResult> Generate(SourcingContext context)
         {
             yield return new SourcingResult()

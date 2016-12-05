@@ -18,15 +18,6 @@ namespace Tempest.Core.Sourcing
             _relativePath = relativePath;
         }
 
-        //protected override Stream GenerateCore(SourcingContext context)
-        //{
-        //    var absolutePath = Path.Combine(context.TemplateRoot.FullName, _relativePath);
-        //    if (!File.Exists(absolutePath))
-        //        throw new FileNotFoundException($"The specified template file '{absolutePath}' could not be found.");
-
-        //    return new FileStream(absolutePath, FileMode.Open, FileAccess.Read);
-        //}
-
         public override IEnumerable<SourcingResult> Generate(SourcingContext context)
         {
             var absolutePath = Path.Combine(context.TemplateRoot.FullName, _relativePath);
