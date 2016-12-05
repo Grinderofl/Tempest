@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Tempest.Arguments.Impl
 {
     /// <summary>
-    /// Parses arguments using semantics through convention
-    /// 
+    ///     Parses arguments using semantics through convention
     /// </summary>
     public class SemanticArgumentParser : IArgumentParser
     {

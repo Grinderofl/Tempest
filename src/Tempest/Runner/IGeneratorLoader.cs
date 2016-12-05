@@ -1,5 +1,4 @@
 using Tempest.Core;
-using Tempest.Runner.Impl;
 
 namespace Tempest.Runner
 {

@@ -50,7 +50,6 @@ namespace Tempest
             }
 
 
-
             return commandArgs.ToArray();
         }
     }

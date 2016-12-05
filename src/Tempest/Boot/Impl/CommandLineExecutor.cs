@@ -8,12 +8,13 @@ namespace Tempest.Boot.Impl
 {
     public class CommandLineExecutor : ICommandLineExecutor
     {
-        private readonly ITempestRunner _runner;
-        private readonly IGeneratorLocator _generatorLocator;
-        private readonly IDirectoryFinder _directoryFinder;
         private readonly IArgumentParser _argumentParser;
+        private readonly IDirectoryFinder _directoryFinder;
+        private readonly IGeneratorLocator _generatorLocator;
+        private readonly ITempestRunner _runner;
 
-        public CommandLineExecutor(IArgumentParser argumentParser, ITempestRunner runner, IGeneratorLocator generatorLocator, IDirectoryFinder directoryFinder)
+        public CommandLineExecutor(IArgumentParser argumentParser, ITempestRunner runner,
+            IGeneratorLocator generatorLocator, IDirectoryFinder directoryFinder)
         {
             if (argumentParser == null) throw new ArgumentNullException(nameof(argumentParser));
             if (runner == null) throw new ArgumentNullException(nameof(runner));
@@ -63,7 +64,7 @@ namespace Tempest.Boot.Impl
             {
                 // Deal with non-running options before
                 // That's todo though
-                
+
                 if (generatorName.HasValue())
                     runnerArgs.GeneratorName = generatorName.Value();
 
@@ -81,9 +82,10 @@ namespace Tempest.Boot.Impl
 
             if (!normalisedArguments.Any())
             {
-                var generators = _generatorLocator.Locate(_directoryFinder.FindGeneratorDirectories().ToArray()).ToArray();
+                var generators =
+                    _generatorLocator.Locate(_directoryFinder.FindGeneratorDirectories().ToArray()).ToArray();
                 Console.WriteLine("You haven't picked a generator. Available generators: ");
-                int i = 1;
+                var i = 1;
                 foreach (var g in generators)
                 {
                     Console.WriteLine($"{i}) {g.Name.Replace("Generator", "")}");

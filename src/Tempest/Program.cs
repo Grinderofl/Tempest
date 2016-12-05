@@ -1,19 +1,11 @@
-﻿using System;
-using System.Threading;
-using Microsoft.Extensions.CommandLineUtils;
-using Microsoft.Extensions.DependencyInjection;
-using Tempest.Arguments;
-using Tempest.Boot;
+﻿using Tempest.Boot;
 
 namespace Tempest
 {
     public class Program
     {
-
-
         public static int Main(string[] args)
         {
-
             var strapper = DefaultTempestBootstrapper.Create();
             return strapper.Execute(args);
             //var semanticArguments = SemanticArgumentParser.Parse(args);
@@ -48,13 +40,7 @@ namespace Tempest
             // If we assume that an argument is always in a form "-X" or "--Xxxxx", and always follows by a single word, or something between " and " ... maybe we can extract it like that?
 
 
-
-
             //return 0;
-
         }
     }
-
-    
 }
-

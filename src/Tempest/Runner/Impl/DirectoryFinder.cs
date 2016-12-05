@@ -24,13 +24,13 @@ namespace Tempest.Runner.Impl
             var filePath = Uri.UnescapeDataString(uri.Path);
             return new DirectoryInfo(Path.GetDirectoryName(filePath));
         }
-        
+
         public IEnumerable<DirectoryInfo> FindGeneratorDirectories()
         {
             var defaultDirectory = FindTempestExecutableDirectory().GetDirectories("Generators").First();
             yield return defaultDirectory;
-            
-            foreach(var path in _configurationService.GetGeneratorPaths())
+
+            foreach (var path in _configurationService.GetGeneratorPaths())
                 yield return new DirectoryInfo(path);
         }
 

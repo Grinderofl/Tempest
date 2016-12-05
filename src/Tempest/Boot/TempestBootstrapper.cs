@@ -3,9 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Tempest.Boot
 {
-
     /// <summary>
-    /// Simple bootstrapper base for console applications
+    ///     Simple bootstrapper base for console applications
     /// </summary>
     public abstract class TempestBootstrapper
     {
@@ -20,23 +19,23 @@ namespace Tempest.Boot
     }
 
     /// <summary>
-    /// Bootstrapper with specific type of Service Builder Container
+    ///     Bootstrapper with specific type of Service Builder Container
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class TempestBootstrapper<T> : TempestBootstrapper
     {
         private readonly IServiceProviderFactory<T> _serviceProviderFactory;
 
-        public static TempestBootstrapper<TBuilder> Create<TBuilder>(IServiceProviderFactory<TBuilder> factory)
-        {
-            if (factory == null) throw new ArgumentNullException(nameof(factory));
-            return new TempestBootstrapper<TBuilder>(factory);
-        }
-
         protected TempestBootstrapper(IServiceProviderFactory<T> serviceProviderFactory)
         {
             if (serviceProviderFactory == null) throw new ArgumentNullException(nameof(serviceProviderFactory));
             _serviceProviderFactory = serviceProviderFactory;
+        }
+
+        public static TempestBootstrapper<TBuilder> Create<TBuilder>(IServiceProviderFactory<TBuilder> factory)
+        {
+            if (factory == null) throw new ArgumentNullException(nameof(factory));
+            return new TempestBootstrapper<TBuilder>(factory);
         }
 
         protected override IServiceProvider CreateProvider()

@@ -22,8 +22,8 @@ namespace Tempest.Core.Options
                 if (selectedOptions.Length > i)
                 {
                     var launchArgument = selectedOptions[i];
-                    if (launchArgument != null 
-                            && option.CanActUpon(launchArgument))
+                    if ((launchArgument != null)
+                        && option.CanActUpon(launchArgument))
                     {
                         actOnOption(option, launchArgument);
                         continue;

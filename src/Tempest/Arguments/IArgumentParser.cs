@@ -1,7 +1,7 @@
 ﻿namespace Tempest.Arguments
 {
     /// <summary>
-    /// Processes incoming command line arguments into a form Tempest can understand
+    ///     Processes incoming command line arguments into a form Tempest can understand
     /// </summary>
     public interface IArgumentParser
     {

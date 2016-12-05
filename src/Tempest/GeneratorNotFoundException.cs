@@ -10,9 +10,9 @@ namespace Tempest
         {
         }
 
-        public GeneratorNotFoundException(string generatorName) : base($"The generator {generatorName} could not be loaded.")
+        public GeneratorNotFoundException(string generatorName)
+            : base($"The generator {generatorName} could not be loaded.")
         {
-            
         }
     }
 }

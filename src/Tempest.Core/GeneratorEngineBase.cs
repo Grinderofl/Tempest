@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Extensions.Logging;
 using Tempest.Core.Emission;
 using Tempest.Core.Options;
 using Tempest.Core.Setup;
@@ -23,7 +22,7 @@ namespace Tempest.Core
         protected abstract DirectoryInfo BuildTemplatePath(GeneratorContext generatorContext);
 
         /// <summary>
-        /// Setup the options
+        ///     Setup the options
         /// </summary>
         /// <returns></returns>
         protected virtual IEnumerable<ConfigurationOption> SetupOptions()
@@ -32,7 +31,7 @@ namespace Tempest.Core
         }
 
         /// <summary>
-        /// Execute your codez!
+        ///     Execute your codez!
         /// </summary>
         protected abstract void ExecuteCore();
 
@@ -45,7 +44,7 @@ namespace Tempest.Core
             _optionExecutor.Execute(options.ToArray(), context.Arguments);
             ExecuteCore();
 
-            var sourcingContext = new SourcingContext()
+            var sourcingContext = new SourcingContext
             {
                 TemplateRoot = BuildTemplatePath(context),
                 TargetRoot = BuildTargetPath(context)
@@ -58,13 +57,13 @@ namespace Tempest.Core
 
                 foreach (var result in sourceResult)
                 {
-                    var transformerContext = new TransformerContext()
+                    var transformerContext = new TransformerContext
                     {
                         TransformationStream = result.OutputStream,
                         Filename = result.FileName
                     };
 
-                    var transformResult = new TransformationResult()
+                    var transformResult = new TransformationResult
                     {
                         OutputStream = transformerContext.TransformationStream,
                         Filename = transformerContext.Filename
@@ -77,7 +76,7 @@ namespace Tempest.Core
                         transformerContext.Filename = transformResult.Filename;
                     }
 
-                    var emissionContext = new EmissionContext()
+                    var emissionContext = new EmissionContext
                     {
                         Filename = transformResult.Filename,
                         EmissionStream = transformerContext.TransformationStream,
@@ -85,20 +84,9 @@ namespace Tempest.Core
                     };
 
                     foreach (var emitter in step.GetEmitters())
-                    {
                         emitter.Emit(emissionContext);
-                    }
                 }
-
-                
             }
-
-
         }
     }
-
 }
-
-
-
-    

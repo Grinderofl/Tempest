@@ -7,9 +7,9 @@ namespace Tempest.Core
 {
     public abstract class TemplateStepBase
     {
-        protected IList<Transformer> InternalTransformers = new List<Transformer>();
-        protected IList<Emitter> InternalEmitters = new List<Emitter>();
         private readonly Source _source;
+        protected IList<Emitter> InternalEmitters = new List<Emitter>();
+        protected IList<Transformer> InternalTransformers = new List<Transformer>();
 
         protected TemplateStepBase(Source source)
         {
@@ -21,6 +21,5 @@ namespace Tempest.Core
         public IEnumerable<Transformer> GetTransformers() => InternalTransformers;
 
         public IEnumerable<Emitter> GetEmitters() => InternalEmitters;
-
     }
 }

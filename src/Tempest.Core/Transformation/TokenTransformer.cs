@@ -5,9 +5,9 @@ namespace Tempest.Core.Transformation
 {
     public class TokenTransformer : Transformer
     {
-        private readonly string _token;
-        private readonly string _replaceWith;
         private readonly bool _replaceFileNames;
+        private readonly string _replaceWith;
+        private readonly string _token;
 
         public TokenTransformer(string token, string replaceWith, bool replaceFileNames = true)
         {

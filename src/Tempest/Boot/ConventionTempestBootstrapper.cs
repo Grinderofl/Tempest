@@ -5,8 +5,11 @@ namespace Tempest.Boot
 {
     public abstract class ConventionTempestBootstrapper : TempestBootstrapper<IServiceCollection>
     {
-        private readonly Queue<IServiceConfigurationConvention> _conventions = new Queue<IServiceConfigurationConvention>();
-        protected ConventionTempestBootstrapper(IServiceProviderFactory<IServiceCollection> serviceProviderFactory) : base(serviceProviderFactory)
+        private readonly Queue<IServiceConfigurationConvention> _conventions =
+            new Queue<IServiceConfigurationConvention>();
+
+        protected ConventionTempestBootstrapper(IServiceProviderFactory<IServiceCollection> serviceProviderFactory)
+            : base(serviceProviderFactory)
         {
         }
 
@@ -19,7 +22,7 @@ namespace Tempest.Boot
         protected override void ConfigureLocalServices(IServiceCollection services)
         {
             ConfigureConventions();
-            foreach(var convention in _conventions)
+            foreach (var convention in _conventions)
                 convention.Configure(services);
         }
 

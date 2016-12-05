@@ -7,17 +7,21 @@ namespace Tempest.Core.Options
 {
     public class ListConfigurationOption : ConfigurationOption<ListConfigurationOption>
     {
+        protected IList<OptionChoice> OptionChoices = new List<OptionChoice>();
 
         public ListConfigurationOption(string optionTitle) : this(optionTitle, null)
         {
         }
-        public ListConfigurationOption(string optionTitle, Action<string> resultingAction) : base(resultingAction, optionTitle)
+
+        public ListConfigurationOption(string optionTitle, Action<string> resultingAction)
+            : base(resultingAction, optionTitle)
         {
         }
 
-        protected IList<OptionChoice> OptionChoices = new List<OptionChoice>();
         public IEnumerable<OptionChoice> Choices => OptionChoices;
-        
+
+        protected override OptionRendererBase Renderer => new ListOptionRenderer(this);
+
         public ListConfigurationOption Choice(string optionText, string id, Action action)
         {
             OptionChoices.Add(new OptionChoice(optionText, id, action));
@@ -30,11 +34,9 @@ namespace Tempest.Core.Options
             return this;
         }
 
-        protected override OptionRendererBase Renderer => new ListOptionRenderer(this);
-
         public override void ActOn(string choice)
         {
-            OptionChoice option = FindOptionWithChoice(choice);
+            var option = FindOptionWithChoice(choice);
             option?.Action?.Invoke();
             base.ActOn(choice);
         }
@@ -43,8 +45,6 @@ namespace Tempest.Core.Options
             => OptionChoices.FirstOrDefault(x => x.Id == choice);
 
         public override bool CanActUpon(string choice)
-            => FindOptionWithChoice(choice) != null || base.CanActUpon(choice);
-
-        
+            => (FindOptionWithChoice(choice) != null) || base.CanActUpon(choice);
     }
 }

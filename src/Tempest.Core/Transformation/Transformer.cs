@@ -3,18 +3,17 @@
 namespace Tempest.Core.Transformation
 {
     /// <summary>
-    /// Transforms the input stream into output transformation result
-    /// Could be:
-    /// TokenTransformer
-    /// XdtTransformer
-    /// JsonTransformer
-    /// 
+    ///     Transforms the input stream into output transformation result
+    ///     Could be:
+    ///     TokenTransformer
+    ///     XdtTransformer
+    ///     JsonTransformer
     /// </summary>
     public abstract class Transformer
     {
         public virtual TransformationResult Transform(TransformerContext context)
         {
-            return new TransformationResult()
+            return new TransformationResult
             {
                 OutputStream = TransformStream(context),
                 Filename = TransformFilename(context.Filename)

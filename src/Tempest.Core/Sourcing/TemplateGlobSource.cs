@@ -21,7 +21,7 @@ namespace Tempest.Core.Sourcing
             {
                 if (!File.Exists(file.FullName))
                     continue;
-                yield return new SourcingResult()
+                yield return new SourcingResult
                 {
                     FileName = file.Name,
                     OutputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read)

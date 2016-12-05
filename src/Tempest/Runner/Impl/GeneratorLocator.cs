@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Loader;
-using System.Threading.Tasks;
 using Tempest.Core;
 
 namespace Tempest.Runner.Impl
 {
     public class GeneratorLocator : IGeneratorLocator
     {
-        private readonly ITempestAssemblyLoader _tempestAssemblyLoader;
+        private readonly string[] _assemblyPatterns =
+        {
+            "Tempest.Generator.{0}.dll",
+            "{0}.dll"
+        };
 
-        private readonly string[] _relativeSearchPaths = new[]
+        private readonly string[] _generatorTypeNamePatterns =
+        {
+            "{0}Generator",
+            "{0}"
+        };
+
+        private readonly string[] _relativeSearchPaths =
         {
             "{0}/Generators/Tempest.Generator.{1}", // Root/Generators/Tempest.Generator.GeneratorName/
             "{0}/Generators/{1}", // Root/Generators/GeneratorName/
@@ -22,17 +30,7 @@ namespace Tempest.Runner.Impl
             "{0}" // Root/ 
         };
 
-        private readonly string[] _assemblyPatterns = new[]
-        {
-            "Tempest.Generator.{0}.dll",
-            "{0}.dll"
-        };
-
-        private readonly string[] _generatorTypeNamePatterns = new[]
-        {
-            "{0}Generator",
-            "{0}"
-        };
+        private readonly ITempestAssemblyLoader _tempestAssemblyLoader;
 
         public GeneratorLocator(ITempestAssemblyLoader tempestAssemblyLoader)
         {
@@ -78,43 +76,15 @@ namespace Tempest.Runner.Impl
             return null;
         }
 
-        private IEnumerable<Assembly> FindCandidateAssemblies(DirectoryInfo[] directoriesToSearch, string generatorName)
-        {
-            if (directoriesToSearch == null || string.IsNullOrWhiteSpace(generatorName)) yield break;
-
-            foreach (var dir in directoriesToSearch)
-            {
-                foreach (var relativeSearchPath in _relativeSearchPaths)
-                {
-                    var absoluteGeneratorSearchPath = string.Format(relativeSearchPath, dir.FullName, generatorName);
-                    if (!Directory.Exists(absoluteGeneratorSearchPath)) continue;
-
-                    foreach (var assemblyPattern in _assemblyPatterns)
-                    {
-                        var assemblyDllName = string.Format(assemblyPattern, generatorName);
-                        var assemblyPath = Path.Combine(absoluteGeneratorSearchPath, assemblyDllName);
-                        if (!File.Exists(assemblyPath)) continue;
-
-                        var assembly = _tempestAssemblyLoader.Load(assemblyPath);
-                        if (assembly != null)
-                            yield return assembly;
-                    }
-                }
-            }
-        }
-
         public IEnumerable<Type> Locate(DirectoryInfo[] directoriesToSearch)
         {
             foreach (var dir in directoriesToSearch)
-            {
                 if (dir.Name.Equals("Generators"))
-                {
                     foreach (var generatorDir in dir.GetDirectories())
-                    {
                         foreach (
                             var file in
                             generatorDir.EnumerateFiles("*.dll")
-                                .Where(x => x.Name.Contains("Generator") && x.Name != "Generators"))
+                                .Where(x => x.Name.Contains("Generator") && (x.Name != "Generators")))
                         {
                             var loadedAssembly = _tempestAssemblyLoader.Load(file.FullName);
                             if (loadedAssembly != null)
@@ -131,9 +101,29 @@ namespace Tempest.Runner.Impl
                                     yield return type;
                             }
                         }
+        }
+
+        private IEnumerable<Assembly> FindCandidateAssemblies(DirectoryInfo[] directoriesToSearch, string generatorName)
+        {
+            if ((directoriesToSearch == null) || string.IsNullOrWhiteSpace(generatorName)) yield break;
+
+            foreach (var dir in directoriesToSearch)
+                foreach (var relativeSearchPath in _relativeSearchPaths)
+                {
+                    var absoluteGeneratorSearchPath = string.Format(relativeSearchPath, dir.FullName, generatorName);
+                    if (!Directory.Exists(absoluteGeneratorSearchPath)) continue;
+
+                    foreach (var assemblyPattern in _assemblyPatterns)
+                    {
+                        var assemblyDllName = string.Format(assemblyPattern, generatorName);
+                        var assemblyPath = Path.Combine(absoluteGeneratorSearchPath, assemblyDllName);
+                        if (!File.Exists(assemblyPath)) continue;
+
+                        var assembly = _tempestAssemblyLoader.Load(assemblyPath);
+                        if (assembly != null)
+                            yield return assembly;
                     }
                 }
-            }
         }
     }
 }

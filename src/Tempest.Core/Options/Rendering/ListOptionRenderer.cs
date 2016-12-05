@@ -7,13 +7,14 @@ namespace Tempest.Core.Options.Rendering
     public class ListOptionRenderer : OptionRendererBase
     {
         public ListOptionRenderer(RenderableOptionBase associatedOption) : base(associatedOption)
-        {    
+        {
         }
 
         protected virtual string RenderListOptionCore(ListConfigurationOption configurationOption)
         {
             var itemIndex = 0;
-            var optionChoices = configurationOption.Choices as IList<OptionChoice> ?? configurationOption.Choices.ToList();
+            var optionChoices = configurationOption.Choices as IList<OptionChoice> ??
+                                configurationOption.Choices.ToList();
 
             foreach (var choice in optionChoices)
             {
@@ -30,7 +31,7 @@ namespace Tempest.Core.Options.Rendering
 
         protected override string RenderOptionCore()
         {
-            return RenderListOptionCore((ListConfigurationOption)AssociatedOption);
+            return RenderListOptionCore((ListConfigurationOption) AssociatedOption);
         }
     }
 }

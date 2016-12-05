@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -8,8 +7,8 @@ namespace Tempest.Core.Sourcing
 {
     public class ResourceFileSource : Source
     {
-        private readonly string _resourcePath;
         private readonly Assembly _resourceAssembly;
+        private readonly string _resourcePath;
 
         public ResourceFileSource(string resourcePath, Assembly resourceAssembly)
         {
@@ -22,9 +21,9 @@ namespace Tempest.Core.Sourcing
         public override IEnumerable<SourcingResult> Generate(SourcingContext context)
         {
             var match = Regex.Match(_resourcePath, @"\.[^\.]*\.", RegexOptions.RightToLeft);
-            int ix = match.Success ? match.Index : -1;
+            var ix = match.Success ? match.Index : -1;
             var fileName = _resourcePath.Substring(ix);
-            yield return new SourcingResult()
+            yield return new SourcingResult
             {
                 FileName = fileName,
                 OutputStream = _resourceAssembly.GetManifestResourceStream(_resourcePath)

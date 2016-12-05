@@ -5,7 +5,8 @@ namespace Tempest.Core.Options
 {
     public class InputConfigurationOption : ConfigurationOption<InputConfigurationOption>
     {
-        public InputConfigurationOption(string optionTitle, Action<string> resultingAction) : base(resultingAction, optionTitle)
+        public InputConfigurationOption(string optionTitle, Action<string> resultingAction)
+            : base(resultingAction, optionTitle)
         {
         }
 

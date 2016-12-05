@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.Extensions.DependencyModel;
 
 namespace Tempest.Runner.Impl
 {
@@ -13,7 +12,7 @@ namespace Tempest.Runner.Impl
             if (!File.Exists(path))
                 return null;
 
-            var loadContext = new AssemblyLoader(Path.GetDirectoryName(path)); 
+            var loadContext = new AssemblyLoader(Path.GetDirectoryName(path));
             return loadContext.LoadFromAssemblyPath(path);
         }
     }

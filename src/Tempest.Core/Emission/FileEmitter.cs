@@ -4,7 +4,7 @@ using System.IO;
 namespace Tempest.Core.Emission
 {
     /// <summary>
-    /// Emits to file
+    ///     Emits to file
     /// </summary>
     public class FileEmitter : Emitter
     {
@@ -25,7 +25,7 @@ namespace Tempest.Core.Emission
                 context.EmissionStream.Seek(0, SeekOrigin.Begin);
                 context.EmissionStream.CopyTo(fs);
             }
-            return new EmissionResult() ;
+            return new EmissionResult();
         }
     }
 }

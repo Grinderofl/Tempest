@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,9 +20,7 @@ namespace Tempest
             var dependencies = DependencyContext.Default;
             var resources = dependencies.CompileLibraries.Where(c => c.Name.Contains(assemblyName.FullName)).ToList();
             if (resources.Any())
-            {
                 return Assembly.Load(new AssemblyName(resources.First().Name));
-            }
 
             var fileInfo = new FileInfo(Path.Combine(_basePath, $"{assemblyName.Name}.dll"));
             if (File.Exists(fileInfo.FullName))

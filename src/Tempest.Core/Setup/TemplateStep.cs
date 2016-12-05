@@ -11,7 +11,7 @@ namespace Tempest.Core.Setup
         }
 
         /// <summary>
-        /// Emits the final output to the provided emitter
+        ///     Emits the final output to the provided emitter
         /// </summary>
         /// <param name="emitter"></param>
         /// <returns></returns>
@@ -22,14 +22,14 @@ namespace Tempest.Core.Setup
         }
 
         /// <summary>
-        /// Emits the final output to the specified file relative to the target directory
+        ///     Emits the final output to the specified file relative to the target directory
         /// </summary>
         /// <param name="relativeFilePath"></param>
         /// <returns></returns>
         public TemplateStep ToFile(string relativeFilePath) => To(Emitters.ToFile(relativeFilePath));
 
         /// <summary>
-        /// Emits the final output to the specified file function relative to the target directory
+        ///     Emits the final output to the specified file function relative to the target directory
         /// </summary>
         /// <param name="relativeFilePathFunc"></param>
         /// <returns></returns>
@@ -38,6 +38,5 @@ namespace Tempest.Core.Setup
         public TemplateStep ToFiles() => To(Emitters.ToFiles());
         public TemplateStep ToFiles(string fileGlob) => To(Emitters.ToFiles(fileGlob));
         public TemplateStep ToFiles(Func<string> fileGlobFunc) => To(Emitters.ToFiles(fileGlobFunc));
-
     }
 }

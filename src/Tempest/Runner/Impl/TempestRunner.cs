@@ -1,14 +1,12 @@
 using System;
-using System.IO;
-using System.Reflection;
 using Tempest.Core;
 
 namespace Tempest.Runner.Impl
 {
     public class TempestRunner : ITempestRunner
     {
-        private readonly IGeneratorLoader _generatorLoader;
         private readonly IDirectoryFinder _directoryFinder;
+        private readonly IGeneratorLoader _generatorLoader;
 
         public TempestRunner(IGeneratorLoader generatorLoader, IDirectoryFinder directoryFinder)
         {
@@ -20,13 +18,13 @@ namespace Tempest.Runner.Impl
 
         public int Run(TempestRunnerArguments runnerArgs)
         {
-            var loaderContext = new LoaderContext()
+            var loaderContext = new LoaderContext
             {
                 Name = runnerArgs.GeneratorName,
-                AdditionalSearchPath = runnerArgs.SearchPath,
+                AdditionalSearchPath = runnerArgs.SearchPath
             };
             var generator = _generatorLoader.Load(loaderContext);
-            var generatorContext = new GeneratorContext()
+            var generatorContext = new GeneratorContext
             {
                 Arguments = runnerArgs.GeneratorParameters,
                 GeneratorName = runnerArgs.GeneratorName,

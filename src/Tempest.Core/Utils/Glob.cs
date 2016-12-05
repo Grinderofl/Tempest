@@ -3,74 +3,83 @@
 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
 using System.Text.RegularExpressions;
-using System.Collections.Concurrent;
 
 namespace Tempest.Core.Utils
 {
     /// <summary>
-    /// Finds files and directories by matching their path names against a pattern.
+    ///     Finds files and directories by matching their path names against a pattern.
     /// </summary>
     public class Glob
     {
         /// <summary>
-        /// Gets or sets a value indicating the pattern to match file and directory names against.
-        /// The pattern can contain the following special characters:
-        /// <list type="table">
-        /// <item>
-        /// <term>?</term>
-        /// <description>Matches any single character in a file or directory name.</description>
-        /// </item>
-        /// <item>
-        /// <term>*</term>
-        /// <description>Matches zero or more characters in a file or directory name.</description>
-        /// </item>
-        /// <item>
-        /// <term>**</term>
-        /// <description>Matches zero or more recursve directories.</description>
-        /// </item>
-        /// <item>
-        /// <term>[...]</term>
-        /// <description>Matches a set of characters in a name. Syntax is equivalent to character groups in <see cref="System.Text.RegularExpressions.Regex"/>.</description>
-        /// </item>
-        /// <item>
-        /// <term>{group1,group2,...}</term>
-        /// <description>Matches any of the pattern groups. Groups can contain groups and patterns.</description>
-        /// </item>
-        /// </list>
+        ///     Gets or sets a value indicating the pattern to match file and directory names against.
+        ///     The pattern can contain the following special characters:
+        ///     <list type="table">
+        ///         <item>
+        ///             <term>?</term>
+        ///             <description>Matches any single character in a file or directory name.</description>
+        ///         </item>
+        ///         <item>
+        ///             <term>*</term>
+        ///             <description>Matches zero or more characters in a file or directory name.</description>
+        ///         </item>
+        ///         <item>
+        ///             <term>**</term>
+        ///             <description>Matches zero or more recursve directories.</description>
+        ///         </item>
+        ///         <item>
+        ///             <term>[...]</term>
+        ///             <description>
+        ///                 Matches a set of characters in a name. Syntax is equivalent to character groups in
+        ///                 <see cref="System.Text.RegularExpressions.Regex" />.
+        ///             </description>
+        ///         </item>
+        ///         <item>
+        ///             <term>{group1,group2,...}</term>
+        ///             <description>Matches any of the pattern groups. Groups can contain groups and patterns.</description>
+        ///         </item>
+        ///     </list>
         /// </summary>
         public string Pattern { get; set; }
+
         /// <summary>
-        /// Gets or sets a value indicating an action to be performed when an error occurs during pattern matching.
+        ///     Gets or sets a value indicating an action to be performed when an error occurs during pattern matching.
         /// </summary>
         public Action<string> ErrorLog { get; set; }
+
         /// <summary>
-        /// Gets or sets a value indicating that a running pattern match should be cancelled.
+        ///     Gets or sets a value indicating that a running pattern match should be cancelled.
         /// </summary>
         public bool Cancelled { get; private set; }
+
         /// <summary>
-        /// Gets or sets a value indicating whether exceptions that occur during matching should be rethrown. Default is false.
+        ///     Gets or sets a value indicating whether exceptions that occur during matching should be rethrown. Default is false.
         /// </summary>
         public bool ThrowOnError { get; set; }
+
         /// <summary>
-        /// Gets or sets a value indicating whether case should be ignored in file and directory names. Default is true.
+        ///     Gets or sets a value indicating whether case should be ignored in file and directory names. Default is true.
         /// </summary>
         public bool IgnoreCase { get; set; }
+
         /// <summary>
-        /// Gets or sets a value indicating whether only directories should be matched. Default is false.
+        ///     Gets or sets a value indicating whether only directories should be matched. Default is false.
         /// </summary>
         public bool DirectoriesOnly { get; set; }
+
         /// <summary>
-        /// Gets or sets a value indicating whether <see cref="Regex"/> objects should be cached. Default is true.
+        ///     Gets or sets a value indicating whether <see cref="Regex" /> objects should be cached. Default is true.
         /// </summary>
         public bool CacheRegexes { get; set; }
 
         /// <summary>
-        /// Cancels a running pattern match.
+        ///     Cancels a running pattern match.
         /// </summary>
         public void Cancel()
         {
@@ -83,7 +92,7 @@ namespace Tempest.Core.Utils
         }
 
         /// <summary>
-        /// Creates a new instance.
+        ///     Creates a new instance.
         /// </summary>
         public Glob()
         {
@@ -92,16 +101,16 @@ namespace Tempest.Core.Utils
         }
 
         /// <summary>
-        /// Creates a new instance.
+        ///     Creates a new instance.
         /// </summary>
-        /// <param name="pattern">The pattern to be matched. See <see cref="Pattern"/> for syntax.</param>
+        /// <param name="pattern">The pattern to be matched. See <see cref="Pattern" /> for syntax.</param>
         public Glob(string pattern) : this()
         {
             Pattern = pattern;
         }
 
         /// <summary>
-        /// Performs a pattern match.
+        ///     Performs a pattern match.
         /// </summary>
         /// <param name="pattern">The pattern to be matched.</param>
         /// <param name="ignoreCase">true if case should be ignored; false, otherwise.</param>
@@ -109,23 +118,23 @@ namespace Tempest.Core.Utils
         /// <returns>The matched path names</returns>
         public static IEnumerable<string> ExpandNames(string pattern, bool ignoreCase = true, bool dirOnly = false)
         {
-            return new Glob(pattern) { IgnoreCase = ignoreCase, DirectoriesOnly = dirOnly }.ExpandNames();
+            return new Glob(pattern) {IgnoreCase = ignoreCase, DirectoriesOnly = dirOnly}.ExpandNames();
         }
 
         /// <summary>
-        /// Performs a pattern match.
+        ///     Performs a pattern match.
         /// </summary>
         /// <param name="pattern">The pattern to be matched.</param>
         /// <param name="ignoreCase">true if case should be ignored; false, otherwise.</param>
         /// <param name="dirOnly">true if only directories shoud be matched; false, otherwise.</param>
-        /// <returns>The matched <see cref="FileSystemInfo"/> objects</returns>
+        /// <returns>The matched <see cref="FileSystemInfo" /> objects</returns>
         public static IEnumerable<FileSystemInfo> Expand(string pattern, bool ignoreCase = true, bool dirOnly = false)
         {
-            return new Glob(pattern) { IgnoreCase = ignoreCase, DirectoriesOnly = dirOnly }.Expand();
+            return new Glob(pattern) {IgnoreCase = ignoreCase, DirectoriesOnly = dirOnly}.Expand();
         }
 
         /// <summary>
-        /// Performs a pattern match.
+        ///     Performs a pattern match.
         /// </summary>
         /// <returns>The matched path names</returns>
         public IEnumerable<string> ExpandNames()
@@ -134,27 +143,24 @@ namespace Tempest.Core.Utils
         }
 
         /// <summary>
-        /// Performs a pattern match.
+        ///     Performs a pattern match.
         /// </summary>
-        /// <returns>The matched <see cref="FileSystemInfo"/> objects</returns>
+        /// <returns>The matched <see cref="FileSystemInfo" /> objects</returns>
         public IEnumerable<FileSystemInfo> Expand()
         {
             return Expand(Pattern, DirectoriesOnly);
         }
 
-        class RegexOrString
+        private class RegexOrString
         {
-            public Regex Regex { get; set; }
-            public string Pattern { get; set; }
-            public bool IgnoreCase { get; set; }
-
             public RegexOrString(string pattern, string rawString, bool ignoreCase, bool compileRegex)
             {
                 IgnoreCase = ignoreCase;
 
                 try
                 {
-                    Regex = new Regex(pattern, RegexOptions.CultureInvariant | (ignoreCase ? RegexOptions.IgnoreCase : 0)
+                    Regex = new Regex(pattern,
+                        RegexOptions.CultureInvariant | (ignoreCase ? RegexOptions.IgnoreCase : 0)
                         | (compileRegex ? RegexOptions.Compiled : 0));
                     Pattern = pattern;
                 }
@@ -164,50 +170,55 @@ namespace Tempest.Core.Utils
                 }
             }
 
+            public Regex Regex { get; }
+            public string Pattern { get; }
+            public bool IgnoreCase { get; }
+
             public bool IsMatch(string input)
             {
-                return Regex != null ? Regex.IsMatch(input) : Pattern.Equals(input, IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
+                return Regex != null
+                    ? Regex.IsMatch(input)
+                    : Pattern.Equals(input, IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
             }
         }
 
-        private static ConcurrentDictionary<string, RegexOrString> RegexOrStringCache = new ConcurrentDictionary<string, RegexOrString>();
+        private static readonly ConcurrentDictionary<string, RegexOrString> RegexOrStringCache =
+            new ConcurrentDictionary<string, RegexOrString>();
 
         private RegexOrString CreateRegexOrString(string pattern)
         {
-            if (!CacheRegexes) return new RegexOrString(GlobToRegex(pattern), pattern, IgnoreCase, compileRegex: false);
+            if (!CacheRegexes) return new RegexOrString(GlobToRegex(pattern), pattern, IgnoreCase, false);
 
             RegexOrString regexOrString;
 
             if (!RegexOrStringCache.TryGetValue(pattern, out regexOrString))
             {
-                regexOrString = new RegexOrString(GlobToRegex(pattern), pattern, IgnoreCase, compileRegex: true);
+                regexOrString = new RegexOrString(GlobToRegex(pattern), pattern, IgnoreCase, true);
                 RegexOrStringCache[pattern] = regexOrString;
             }
 
             return regexOrString;
         }
 
-        private static char[] GlobCharacters = "*?[]{}".ToCharArray();
+        private static readonly char[] GlobCharacters = "*?[]{}".ToCharArray();
 
         private IEnumerable<FileSystemInfo> Expand(string path, bool dirOnly)
         {
             if (Cancelled) yield break;
 
             if (string.IsNullOrEmpty(path))
-            {
                 yield break;
-            }
 
             // stop looking if there are no more glob characters in the path.
             // but only if ignoring case because FileSystemInfo.Exists always ignores case.
-            if (IgnoreCase && path.IndexOfAny(GlobCharacters) < 0)
+            if (IgnoreCase && (path.IndexOfAny(GlobCharacters) < 0))
             {
                 FileSystemInfo fsi = null;
-                bool exists = false;
+                var exists = false;
 
                 try
                 {
-                    fsi = dirOnly ? (FileSystemInfo)new DirectoryInfo(path) : new FileInfo(path);
+                    fsi = dirOnly ? (FileSystemInfo) new DirectoryInfo(path) : new FileInfo(path);
                     exists = fsi.Exists;
                 }
                 catch (Exception ex)
@@ -252,7 +263,6 @@ namespace Tempest.Core.Utils
             }
 
             if (parent == "")
-            {
                 try
                 {
                     parent = Directory.GetCurrentDirectory();
@@ -262,7 +272,6 @@ namespace Tempest.Core.Utils
                     Log("Error getting current working directory: {1}", ex);
                     if (ThrowOnError) throw;
                 }
-            }
 
             var child = Path.GetFileName(path);
 
@@ -271,12 +280,8 @@ namespace Tempest.Core.Utils
             if (child.Count(c => c == '}') > child.Count(c => c == '{'))
             {
                 foreach (var group in Ungroup(path))
-                {
                     foreach (var item in Expand(group, dirOnly))
-                    {
                         yield return item;
-                    }
-                }
 
                 yield break;
             }
@@ -301,9 +306,7 @@ namespace Tempest.Core.Utils
                     yield return dir;
 
                     foreach (var subDir in recursiveDirectories)
-                    {
                         yield return subDir;
-                    }
                 }
 
                 yield break;
@@ -327,24 +330,21 @@ namespace Tempest.Core.Utils
                 }
 
                 foreach (var fileSystemEntry in fileSystemEntries)
-                {
                     if (childRegexes.Any(r => r.IsMatch(fileSystemEntry.Name)))
-                    {
                         yield return fileSystemEntry;
-                    }
-                }
 
                 if (childRegexes.Any(r => r.Pattern == @"^\.\.$")) yield return parentDir.Parent ?? parentDir;
                 if (childRegexes.Any(r => r.Pattern == @"^\.$")) yield return parentDir;
             }
         }
 
-        private static HashSet<char> RegexSpecialChars = new HashSet<char>(new[] { '[', '\\', '^', '$', '.', '|', '?', '*', '+', '(', ')' });
+        private static readonly HashSet<char> RegexSpecialChars =
+            new HashSet<char>(new[] {'[', '\\', '^', '$', '.', '|', '?', '*', '+', '(', ')'});
 
         private static string GlobToRegex(string glob)
         {
-            StringBuilder regex = new StringBuilder();
-            bool characterClass = false;
+            var regex = new StringBuilder();
+            var characterClass = false;
 
             regex.Append("^");
 
@@ -391,13 +391,13 @@ namespace Tempest.Core.Utils
                 yield break;
             }
 
-            int level = 0;
-            string option = "";
-            string prefix = "";
-            string postfix = "";
-            List<string> options = new List<string>();
+            var level = 0;
+            var option = "";
+            var prefix = "";
+            var postfix = "";
+            var options = new List<string>();
 
-            for (int i = 0; i < path.Length; i++)
+            for (var i = 0; i < path.Length; i++)
             {
                 var c = path[i];
 
@@ -423,10 +423,7 @@ namespace Tempest.Core.Utils
                     case '}':
                         level--;
                         if (level == 0)
-                        {
                             options.Add(option);
-                            break;
-                        }
                         else option += c;
                         break;
                     default:
@@ -434,7 +431,7 @@ namespace Tempest.Core.Utils
                         break;
                 }
 
-                if (level == 0 && c == '}' && (i + 1) < path.Length)
+                if ((level == 0) && (c == '}') && (i + 1 < path.Length))
                 {
                     postfix = path.Substring(i + 1);
                     break;
@@ -450,13 +447,11 @@ namespace Tempest.Core.Utils
             var postGroups = Ungroup(postfix);
 
             foreach (var opt in options.SelectMany(o => Ungroup(o)))
-            {
                 foreach (var postGroup in postGroups)
                 {
                     var s = prefix + opt + postGroup;
                     yield return s;
                 }
-            }
         }
 
 #if false
@@ -486,10 +481,10 @@ namespace Tempest.Core.Utils
 #endif
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        ///     Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
@@ -497,10 +492,10 @@ namespace Tempest.Core.Utils
         }
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        ///     Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+        ///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         public override int GetHashCode()
         {
@@ -508,18 +503,18 @@ namespace Tempest.Core.Utils
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         public override bool Equals(object obj)
         {
             //Check for null and compare run-time types.
-            if (obj == null || GetType() != obj.GetType()) return false;
+            if ((obj == null) || (GetType() != obj.GetType())) return false;
 
-            Glob g = (Glob)obj;
+            var g = (Glob) obj;
             return Pattern == g.Pattern;
         }
 
@@ -536,31 +531,25 @@ namespace Tempest.Core.Utils
                 yield break;
             }
 
-            foreach (DirectoryInfo dirInfo in subDirs)
+            foreach (var dirInfo in subDirs)
             {
                 yield return dirInfo;
 
                 foreach (var recursiveDir in GetDirectories(dirInfo))
-                {
                     yield return recursiveDir;
-                }
             }
         }
     }
 
-    static class Extensions
+    internal static class Extensions
     {
         internal static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector)
         {
-            HashSet<TKey> knownKeys = new HashSet<TKey>();
-            foreach (TSource element in source)
-            {
+            var knownKeys = new HashSet<TKey>();
+            foreach (var element in source)
                 if (knownKeys.Add(keySelector(element)))
-                {
                     yield return element;
-                }
-            }
         }
     }
 }

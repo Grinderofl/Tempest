@@ -10,19 +10,21 @@ namespace Tempest.Core.Options
         {
             Title = title;
         }
+
         protected abstract OptionRendererBase Renderer { get; }
         protected Func<bool> RenderCondition { get; private set; }
-        public virtual bool ShouldRender(List<string> results) => RenderCondition == null || RenderCondition();
         public string Title { get; }
+        public virtual bool ShouldRender(List<string> results) => (RenderCondition == null) || RenderCondition();
+
         public RenderableOptionBase RenderWhen(Func<bool> func)
         {
             RenderCondition = func;
             return this;
         }
-        
+
         public virtual string Render()
         {
-            if(Renderer == null)
+            if (Renderer == null)
                 throw new NullReferenceException($"The Option Renderer for Option {Title} is null");
             return Renderer.Render();
         }

@@ -3,7 +3,7 @@ using System;
 namespace Tempest.Core.Options
 {
     /// <summary>
-    /// Option choice. Loaded conventionally by Id through arguments. Todo though :p
+    ///     Option choice. Loaded conventionally by Id through arguments. Todo though :p
     /// </summary>
     public class OptionChoice
     {
