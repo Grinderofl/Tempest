@@ -35,5 +35,9 @@ namespace Tempest.Core.Setup
         /// <returns></returns>
         public TemplateStep ToFile(Func<string> relativeFilePathFunc) => To(Emitters.ToFile(relativeFilePathFunc));
 
+        public TemplateStep ToFiles() => To(Emitters.ToFiles());
+        public TemplateStep ToFiles(string fileGlob) => To(Emitters.ToFiles(fileGlob));
+        public TemplateStep ToFiles(Func<string> fileGlobFunc) => To(Emitters.ToFiles(fileGlobFunc));
+
     }
 }

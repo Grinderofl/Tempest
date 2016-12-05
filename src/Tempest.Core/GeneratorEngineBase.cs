@@ -35,7 +35,10 @@ namespace Tempest.Core
         /// Execute your codez!
         /// </summary>
         protected abstract void ExecuteCore();
-        
+
+        protected virtual IEnumerable<Transformer> GetEligibleTransformers(TemplateStep step)
+            => GlobalTransformers.Union(step.GetTransformers());
+
         public virtual void Run(GeneratorContext context)
         {
             var options = SetupOptions();
@@ -53,32 +56,41 @@ namespace Tempest.Core
                 var source = step.GetSource();
                 var sourceResult = source.Generate(sourcingContext);
 
-                var transformerContext = new TransformerContext()
+                foreach (var result in sourceResult)
                 {
-                    TransformationStream = sourceResult.OutputStream
-                };
-                foreach (var globalTransformer in GlobalTransformers)
-                {
-                    var globalTransformationResult = globalTransformer.Transform(transformerContext);
-                    transformerContext.TransformationStream = globalTransformationResult.OutputStream;
+                    var transformerContext = new TransformerContext()
+                    {
+                        TransformationStream = result.OutputStream,
+                        Filename = result.FileName
+                    };
+
+                    var transformResult = new TransformationResult()
+                    {
+                        OutputStream = transformerContext.TransformationStream,
+                        Filename = transformerContext.Filename
+                    };
+
+                    foreach (var transformer in GetEligibleTransformers(step))
+                    {
+                        transformResult = transformer.Transform(transformerContext);
+                        transformerContext.TransformationStream = transformResult.OutputStream;
+                        transformerContext.Filename = transformResult.Filename;
+                    }
+
+                    var emissionContext = new EmissionContext()
+                    {
+                        Filename = transformResult.Filename,
+                        EmissionStream = transformerContext.TransformationStream,
+                        TargetDirectory = sourcingContext.TargetRoot
+                    };
+
+                    foreach (var emitter in step.GetEmitters())
+                    {
+                        emitter.Emit(emissionContext);
+                    }
                 }
 
-                foreach (var transformer in step.GetTransformers())
-                {
-                    var transformResult = transformer.Transform(transformerContext);
-                    transformerContext.TransformationStream = transformResult.OutputStream;
-                }
-
-                var emissionContext = new EmissionContext()
-                {
-                    EmissionStream = transformerContext.TransformationStream,
-                    TargetDirectory = sourcingContext.TargetRoot
-                };
-
-                foreach (var emitter in step.GetEmitters())
-                {
-                    emitter.Emit(emissionContext);
-                }
+                
             }
 
 

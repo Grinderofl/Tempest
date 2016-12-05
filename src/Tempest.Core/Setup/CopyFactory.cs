@@ -19,6 +19,8 @@ namespace Tempest.Core.Setup
         /// <returns></returns>
         public TemplateStep Template(string filePath) => CreateStep(Sources.FromTemplate(filePath));
 
+        public TemplateStep TemplatePattern(string glob) => CreateStep(Sources.FromTemplateGlob(glob));
+
         /// <summary>
         /// Copies a template resource
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Reflection;
 using Tempest.Core.Sourcing;
 using Tempest.Core.Utils;
@@ -17,7 +18,7 @@ namespace Tempest.CoreTests.Sourcing
 
                 var result = generator.Generate(new SourcingContext());
 
-                var resultValue = result.OutputStream.ReadAsString();
+                var resultValue = result.First().OutputStream.ReadAsString();
                 Assert.Equal("TestContent", resultValue);
             }
         }
@@ -34,7 +35,7 @@ namespace Tempest.CoreTests.Sourcing
                 };
 
                 var result = source.Generate(context);
-                var resultValue = result.OutputStream.ReadAsString();
+                var resultValue = result.First().OutputStream.ReadAsString();
                 Assert.True(resultValue.Length > 0);
             }
 
@@ -57,7 +58,7 @@ namespace Tempest.CoreTests.Sourcing
                     typeof(TemplateFileSourceTests).GetTypeInfo().Assembly);
                 var context = new SourcingContext();
                 var result = source.Generate(context);
-                var resultValue = result.OutputStream.ReadAsString();
+                var resultValue = result.First().OutputStream.ReadAsString();
                 Assert.Equal("FOOBAR", resultValue);
             }
         }

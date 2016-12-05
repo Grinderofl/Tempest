@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Tempest.Core.Utils;
 
@@ -13,9 +14,17 @@ namespace Tempest.Core.Sourcing
             _string = s;
         }
 
-        protected override Stream GenerateCore(SourcingContext context)
+        //protected override Stream GenerateCore(SourcingContext context)
+        //{
+        //    return _string.ToStream();
+        //}
+        public override IEnumerable<SourcingResult> Generate(SourcingContext context)
         {
-            return _string.ToStream();
+            yield return new SourcingResult()
+            {
+                FileName = "",
+                OutputStream = _string.ToStream()
+            };
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 
 namespace Tempest.Core.Sourcing
@@ -11,11 +12,6 @@ namespace Tempest.Core.Sourcing
     /// </summary>
     public abstract class Source
     {
-        public virtual SourcingResult Generate(SourcingContext context)
-        {
-            return new SourcingResult() {OutputStream = GenerateCore(context)};
-        }
-
-        protected abstract Stream GenerateCore(SourcingContext context);
+        public abstract IEnumerable<SourcingResult> Generate(SourcingContext context);
     }
 }

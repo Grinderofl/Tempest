@@ -17,7 +17,8 @@
         /// </summary>
         /// <param name="token"></param>
         /// <param name="replaceWith"></param>
+        /// <param name="replaceFileNames"></param>
         /// <returns></returns>
-        public static Transformer Token(string token, string replaceWith) => new TokenTransformer(token, replaceWith);
+        public static Transformer Token(string token, string replaceWith, bool replaceFileNames = true) => new TokenTransformer(token, replaceWith, replaceFileNames);
     }
 }

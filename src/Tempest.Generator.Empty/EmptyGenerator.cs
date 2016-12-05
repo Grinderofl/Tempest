@@ -70,7 +70,7 @@ namespace Tempest.Generator.Empty
 
             Copy.Resource(resource("project.json")).ToFile("project2.json");
             Copy.Resource(resource("Program.cs")).ToFile("Program2.cs");
-            Copy.Resource(resource("ReplaceMe.cs")).ToFile(() => $"{_projectName}_.cs");
+            Copy.Resource(resource("ReplaceMeGreeter.cs")).ToFile(() => $"{_projectName}_.cs");
         }
 
         /// <summary>
@@ -78,9 +78,12 @@ namespace Tempest.Generator.Empty
         /// </summary>
         private void CopyFromTemplates()
         {
+            Copy.TemplatePattern("./*.cs").ToFiles();
+            //Copy.Templates(templatesRelativePath: "relative/Path/With/**/pattern", includeSubDirectories: true)
+            //    .ToLocation("");
             Copy.Template("project.json").ToFile("project.json");
-            Copy.Template("Program.cs").ToFile("Program.cs");
-            Copy.Template("ReplaceMe.cs").ToFile(() => $"{_projectName}.cs");
+            //Copy.Template("Program.cs").ToFile("Program.cs");
+            //Copy.Template("ReplaceMeGreeter.cs").ToFile(() => $"{_projectName}.cs");
         }
 
 
