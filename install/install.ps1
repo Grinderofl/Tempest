@@ -50,15 +50,12 @@ Set-Location $TEMPEST_DIR
 
 
 try {
-	Write "Restoring from NuGet..."
-	#$NuGetOutput = Invoke-Expression "&`"./$NUGET_EXE`" install -ExcludeVersion"
+	Write "Downloading from NuGet..."
 	$NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$TEMPEST_DIR`""
-
 
 	if ($LASTEXITCODE -ne 0) {
 		Throw "An error occured while restoring NuGet tools."
 	}
-
 
 	Write ($NuGetOutput | out-string)
 	$currentPath = (Get-Item -Path ".\" -Verbose).FullName
