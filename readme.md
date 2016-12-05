@@ -24,11 +24,23 @@ I'm also a big fan of C# & .NET Core, and the only option previously was to use 
 
 It should be easy to add in any additional Transformers and Emitters that are needed. For example - you could have a `readme.md` added to each directory - you'll only have to specify that you need `readme.md` once, but emitted into many different locations - making your code more readable.
 
+### Quick start to using a generator
+
+1. Go to the directory you want to install Tempest into and execute the following powershell command
+
+```powershell
+Invoke-WebRequest https://raw.githubusercontent.com/Grinderofl/Tempest/develop/install/install.ps1 -OutFile install-
+tempest.ps1
+./install-tempest
+```
+
+2. Add that path to your Environment variable
+3. Use the `tempest` command
 
 ### Quick start to creating your own Generator
 
 1. Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its path
-2. Execute `tempest tempest new {YourGeneratorName}`
+2. Execute `tempest new {YourGeneratorName}`
 3. A directory {YourGeneratorName} will be created, and a ready-to-build new generator base will be created for you
 
 Alternative manual steps:
