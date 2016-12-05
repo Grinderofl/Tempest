@@ -2,7 +2,7 @@ if(!$PSScriptRoot){
     $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 }
 
-$TEMPEST_DIR = Join-Path $PSScriptRoot "Tempest"
+$TEMPEST_DIR = Join-Path $PSScriptRoot ""
 
 $NUGET_EXE = Join-Path $TEMPEST_DIR "nuget.exe"
 $NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
