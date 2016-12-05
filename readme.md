@@ -34,8 +34,7 @@ tempest.ps1
 ./install-tempest
 ```
 
-2. Add that path to your Environment variable
-3. Use the `tempest` command
+2. Start using `tempest` commands!
 
 ### Quick start to creating your own Generator
 
