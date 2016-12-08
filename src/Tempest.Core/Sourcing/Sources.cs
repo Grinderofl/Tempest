@@ -7,10 +7,9 @@ namespace Tempest.Core.Sourcing
     {
         public static Source FromString(string source) => new StringContentSource(source);
         public static Source FromTemplate(string filePath) => new TemplateFileSource(filePath);
-
         public static Source FromResource(string resourcePath, Assembly resourceAssembly)
             => new ResourceFileSource(resourcePath, resourceAssembly);
-
+        public static Source FromTarget(string filePath) =>new TargetFileSource(filePath);
         public static Source FromTemplateGlob(string glob) => new TemplateGlobSource(glob);
         public static Source FromUri(Uri uri) => new WebSource(uri);
     }

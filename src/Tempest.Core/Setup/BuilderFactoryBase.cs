@@ -13,9 +13,9 @@ namespace Tempest.Core.Setup
             Engine = engine;
         }
 
-        protected virtual TemplateStep CreateStep(Source source)
+        protected virtual ScaffoldStep CreateStep(Source source)
         {
-            var step = new TemplateStep(source);
+            var step = new ScaffoldStep(source);
             Engine.Steps.Add(step);
             return step;
         }

@@ -11,6 +11,6 @@ namespace Tempest.Core.Setup
         {
         }
 
-        public TemplateStep FromString(string source) => CreateStep(Sources.FromString(source));
+        public ScaffoldStep FromString(string source) => CreateStep(Sources.FromString(source));
     }
 }

@@ -5,12 +5,13 @@ namespace Tempest.Core.Transformation
 {
     public class TransformerContext
     {
+        public TransformerContext(string sourceFileName, Stream sourceOutputStream)
+        {
+            Filename = sourceFileName;
+            TransformationStream = sourceOutputStream;
+        }
+
         public Stream TransformationStream { get; set; }
         public string Filename { get; set; }
-
-        public string ReadInputAsString()
-        {
-            return TransformationStream.ReadAsString();
-        }
     }
 }

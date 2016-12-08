@@ -5,9 +5,9 @@ using Tempest.Core.Transformation;
 
 namespace Tempest.Core.Setup
 {
-    public class TemplateStep : TemplateStepBase
+    public class ScaffoldStep : TemplateStepBase
     {
-        public TemplateStep(Source source) : base(source)
+        public ScaffoldStep(Source source) : base(source)
         {
         }
 
@@ -16,7 +16,7 @@ namespace Tempest.Core.Setup
         /// </summary>
         /// <param name="emitter"></param>
         /// <returns></returns>
-        public TemplateStep To(Emitter emitter)
+        public ScaffoldStep To(Emitter emitter)
         {
             InternalEmitters.Add(emitter);
             return this;
@@ -27,29 +27,29 @@ namespace Tempest.Core.Setup
         /// </summary>
         /// <param name="relativeFilePath"></param>
         /// <returns></returns>
-        public TemplateStep ToFile(string relativeFilePath) => To(Emitters.ToFile(relativeFilePath));
+        public ScaffoldStep ToFile(string relativeFilePath) => To(Emitters.ToFile(relativeFilePath));
 
         /// <summary>
         ///     Emits the final output to the specified file function relative to the target directory
         /// </summary>
         /// <param name="relativeFilePathFunc"></param>
         /// <returns></returns>
-        public TemplateStep ToFile(Func<string> relativeFilePathFunc) => To(Emitters.ToFile(relativeFilePathFunc));
+        public ScaffoldStep ToFile(Func<string> relativeFilePathFunc) => To(Emitters.ToFile(relativeFilePathFunc));
 
-        public TemplateStep ToFiles() => To(Emitters.ToFiles());
-        public TemplateStep ToFiles(string fileGlob) => To(Emitters.ToFiles(fileGlob));
-        public TemplateStep ToFiles(Func<string> fileGlobFunc) => To(Emitters.ToFiles(fileGlobFunc));
-        public TemplateStep ToFiles(Func<string, string> fileNameTransformationFunc)
+        public ScaffoldStep ToFiles() => To(Emitters.ToFiles());
+        public ScaffoldStep ToFiles(string fileGlob) => To(Emitters.ToFiles(fileGlob));
+        public ScaffoldStep ToFiles(Func<string> fileGlobFunc) => To(Emitters.ToFiles(fileGlobFunc));
+        public ScaffoldStep ToFiles(Func<string, string> fileNameTransformationFunc)
             => To(Emitters.ToFiles(fileNameTransformationFunc));
 
 
-        public TemplateStep Using(Transformer transformer)
+        public ScaffoldStep Using(Transformer transformer)
         {
             InternalTransformers.Add(transformer);
             return this;
         }
 
-        public TemplateStep ReplaceToken(string token, string replaceWith)
+        public ScaffoldStep ReplaceToken(string token, string replaceWith)
             => Using(Transformers.Token(token, replaceWith));
 
 

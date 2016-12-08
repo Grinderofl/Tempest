@@ -13,7 +13,7 @@ namespace Tempest.Core
     {
         private readonly OptionExecutor _optionExecutor = new OptionExecutor();
 
-        protected internal IList<TemplateStep> Steps { get; set; } = new List<TemplateStep>();
+        protected internal IList<ScaffoldStep> Steps { get; set; } = new List<ScaffoldStep>();
 
         protected internal IList<Transformer> GlobalTransformers { get; set; } = new List<Transformer>();
 
@@ -35,7 +35,7 @@ namespace Tempest.Core
         /// </summary>
         protected abstract void ExecuteCore();
 
-        protected virtual IEnumerable<Transformer> GetEligibleTransformers(TemplateStep step)
+        protected virtual IEnumerable<Transformer> GetEligibleTransformers(ScaffoldStep step)
             => GlobalTransformers.Union(step.GetTransformers());
 
         public virtual void Run(GeneratorContext context)
@@ -50,46 +50,30 @@ namespace Tempest.Core
                 TargetRoot = BuildTargetPath(context)
             };
 
+            var executors = new List<ScaffoldStepExecutor>(Steps.Count);
+            executors.AddRange(Steps.Select(scaffoldStep => new ScaffoldStepExecutor(scaffoldStep)));
 
-            // Perhaps step should execute itself? Or maybe stepexecutor instead
-            foreach (var step in Steps)
-            {
-                var source = step.GetSource();
-                var sourceResult = source.Generate(sourcingContext);
+            RetrieveSources(sourcingContext, executors);
+            Transform(executors, GlobalTransformers);
+            Emit(sourcingContext, executors);
+        }
 
-                foreach (var result in sourceResult)
-                {
-                    var transformerContext = new TransformerContext
-                    {
-                        TransformationStream = result.OutputStream,
-                        Filename = result.FileName
-                    };
+        protected virtual void Emit(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
+        {
+            foreach (var executor in executors)
+                executor.ExecuteEmitters(sourcingContext);
+        }
 
-                    var transformResult = new TransformationResult
-                    {
-                        OutputStream = transformerContext.TransformationStream,
-                        Filename = transformerContext.Filename
-                    };
+        protected virtual void Transform(IList<ScaffoldStepExecutor> executors, ICollection<Transformer> globalTransformers)
+        {
+            foreach (var executor in executors)
+                executor.ExecuteTransformers(globalTransformers);
+        }
 
-                    foreach (var transformer in GetEligibleTransformers(step))
-                    {
-                        transformResult = transformer.Transform(transformerContext);
-                        transformerContext.TransformationStream = transformResult.OutputStream;
-                        transformerContext.Filename = transformResult.Filename;
-                    }
-
-                    var emissionContext = new EmissionContext
-                    {
-                        Filename = transformResult.Filename,
-                        EmissionStream = transformerContext.TransformationStream,
-                        TargetDirectory = sourcingContext.TargetRoot,
-                        FilePath = result.FilePath
-                    };
-
-                    foreach (var emitter in step.GetEmitters())
-                        emitter.Emit(emissionContext);
-                }
-            }
+        protected virtual void RetrieveSources(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
+        {
+            foreach (var executor in executors)
+                executor.ExecuteSources(sourcingContext);
         }
     }
 }

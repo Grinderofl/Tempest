@@ -13,11 +13,8 @@ namespace Tempest.Core.Transformation
     {
         public virtual TransformationResult Transform(TransformerContext context)
         {
-            return new TransformationResult
-            {
-                OutputStream = TransformStream(context),
-                Filename = TransformFilename(context.Filename)
-            };
+            return new TransformationResult(TransformStream(context), TransformFilename(context.Filename));
+
         }
 
         protected virtual string TransformFilename(string source) => source;

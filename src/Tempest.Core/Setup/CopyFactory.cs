@@ -20,16 +20,16 @@ namespace Tempest.Core.Setup
         ///     './Template/'
         /// </param>
         /// <returns></returns>
-        public TemplateStep Template(string filePath) => CreateStep(Sources.FromTemplate(filePath));
+        public ScaffoldStep Template(string filePath) => CreateStep(Sources.FromTemplate(filePath));
 
-        public TemplateStep TemplatePattern(string glob) => CreateStep(Sources.FromTemplateGlob(glob));
+        public ScaffoldStep TemplatePattern(string glob) => CreateStep(Sources.FromTemplateGlob(glob));
 
         /// <summary>
         ///     Copies a template resource
         /// </summary>
         /// <param name="resourcePath"></param>
         /// <returns></returns>
-        public TemplateStep Resource(string resourcePath)
+        public ScaffoldStep Resource(string resourcePath)
             => CreateStep(Sources.FromResource(resourcePath, Engine.GetType().GetTypeInfo().Assembly));
     }
 }

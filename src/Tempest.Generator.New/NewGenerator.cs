@@ -22,10 +22,6 @@ namespace Tempest.Generator.New
         protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
 
-
-            yield return Options.Input("Hi, what is your name?", name => _name = name);
-
-            
             yield return
                 Options.Input("Welcome to new Tempest Template generator! \n" +
                               "Please enter the name of your Generator",
@@ -56,8 +52,6 @@ namespace Tempest.Generator.New
 
         private readonly Func<string, string> _locateResource =
             templateFile => $"Tempest.Generator.New.Template.{templateFile}";
-
-        private string _name;
 
         protected override void ExecuteCore()
         {
