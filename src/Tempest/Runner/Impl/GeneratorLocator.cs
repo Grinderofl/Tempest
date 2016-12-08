@@ -68,7 +68,7 @@ namespace Tempest.Runner.Impl
 
                 foreach (var typename in _generatorTypeNamePatterns.Select(n => string.Format(n, generatorName)))
                 {
-                    var foundType = types.FirstOrDefault(t => t.Name.Equals(typename));
+                    var foundType = types.FirstOrDefault(t => t.Name.Equals(typename, StringComparison.OrdinalIgnoreCase));
                     if (foundType != null)
                         return foundType;
                 }
