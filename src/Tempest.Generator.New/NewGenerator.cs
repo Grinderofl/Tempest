@@ -49,7 +49,7 @@ namespace Tempest.Generator.New
 
         protected override void ExecuteCore()
         {
-            Set.TargetSubDirectory($"_generatorName");
+            Set.TargetSubDirectory($"{_generatorName}");
             Globally.TransformToken("Zing", _generatorName);
 
             Func<string, string> resource = templateFile => $"Tempest.Generator.New.Template.{templateFile}";

@@ -19,8 +19,10 @@
       "imports": "dnxcore50"
     }
   },
-
   "buildOptions": {
+    "compile": {
+      "exclude": "Template/*.*"
+    },
     "copyToOutput": {
       "include": "Template/**"
     },
@@ -28,7 +30,9 @@
       "includeFiles": [
         "Template/ZingGenerator.cs",
         "Template/project.json",
-        "Template/Template/rename.me"
+        "Template/build.ps1",
+        "Template/build.cake",
+        "Template/NuGet.config"
       ]
     }
   }
