@@ -4,6 +4,7 @@ using Tempest.Core.Utils;
 
 namespace Tempest.Core.Sourcing
 {
+    // Lots of inheritance possibilities here
     public class TemplateGlobSource : Source
     {
         private readonly string _globPattern;

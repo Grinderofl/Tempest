@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Tempest.Core.Sourcing
 {
+    // Lots of inheritance possibilities here
     public class TemplateFileSource : Source
     {
         private readonly string _relativePath;

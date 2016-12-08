@@ -6,22 +6,19 @@ using Tempest.Runner;
 
 namespace Tempest.Boot.Impl
 {
+
+    // TODO extract commands
     public class CommandLineExecutor : ICommandLineExecutor
     {
         private readonly IArgumentParser _argumentParser;
-        private readonly IDirectoryFinder _directoryFinder;
-        private readonly IGeneratorLocator _generatorLocator;
         private readonly ITempestRunner _runner;
 
-        public CommandLineExecutor(IArgumentParser argumentParser, ITempestRunner runner,
-            IGeneratorLocator generatorLocator, IDirectoryFinder directoryFinder)
+        public CommandLineExecutor(IArgumentParser argumentParser, ITempestRunner runner)
         {
             if (argumentParser == null) throw new ArgumentNullException(nameof(argumentParser));
             if (runner == null) throw new ArgumentNullException(nameof(runner));
             _argumentParser = argumentParser;
             _runner = runner;
-            _generatorLocator = generatorLocator;
-            _directoryFinder = directoryFinder;
         }
 
         public virtual int Execute(string[] args)
@@ -58,7 +55,6 @@ namespace Tempest.Boot.Impl
             );
 
             
-
             application.HelpOption("-? | -h | --help");
             application.OnExecute(() =>
             {
@@ -80,11 +76,6 @@ namespace Tempest.Boot.Impl
 
                 return _runner.Run(runnerArgs);
             });
-
-            //if (!normalisedArguments.Contains("-g") && !normalisedArguments.Contains("--generator"))
-            //{
-            //    normalisedArguments = normalisedArguments.Union(new[] {"-g", "-"}).ToArray();
-            //}
 
             return application.Execute(normalisedArguments);
         }

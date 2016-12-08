@@ -1,16 +1,20 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
-using Tempest.Runner.Impl;
 
 namespace Tempest.Boot.Conventions
 {
-    public class RegisterImplementations : IServiceConfigurationConvention
+    public abstract class RegisterImplementations : IServiceConfigurationConvention
     {
+
+        protected abstract IEnumerable<Assembly> IncludedAssemblies();
+
         public void Configure(IServiceCollection services)
         {
             services.Scan(
                 s =>
-                    s.FromAssemblyOf<TempestRunner>()
+                    s.FromAssemblies(IncludedAssemblies())
                         .AddClasses(c => c.Where(t => t.Namespace?.EndsWith("Impl") == true))
                         .AsImplementedInterfaces()
                         .WithScopedLifetime());

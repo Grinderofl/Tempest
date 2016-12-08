@@ -21,12 +21,17 @@ namespace Tempest.Generator.New
 
         protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
+
+
+            yield return Options.Input("Hi, what is your name?", name => _name = name);
+
+            
             yield return
                 Options.Input("Welcome to new Tempest Template generator! \n" +
                               "Please enter the name of your Generator",
                     s => _generatorName = s);
 
-            yield return 
+            yield return
                 Options
                     .List("Would you like to include a build script?")
                     .Choice("Sure!", "build", () => _includeBuildScript = true)
@@ -52,6 +57,8 @@ namespace Tempest.Generator.New
         private readonly Func<string, string> _locateResource =
             templateFile => $"Tempest.Generator.New.Template.{templateFile}";
 
+        private string _name;
+
         protected override void ExecuteCore()
         {
             var targetDirectory = _generatorName;
@@ -71,8 +78,6 @@ namespace Tempest.Generator.New
 
             Globally.TransformToken("SRCDIRECTORY", srcDirectory);
             Globally.TransformToken("Zing", _generatorName);
-            
-
             
 
             Copy.Resource(_locateResource("project.json"))

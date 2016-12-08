@@ -3,6 +3,7 @@ using System.IO;
 
 namespace Tempest.Core.Emission
 {
+    // TODO Lots of inheritance possibilities here
     public class FileExpressionEmitter : Emitter
     {
         private readonly Func<string> _relativePathFunc;

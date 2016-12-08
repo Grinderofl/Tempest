@@ -50,6 +50,8 @@ namespace Tempest.Core
                 TargetRoot = BuildTargetPath(context)
             };
 
+
+            // Perhaps step should execute itself? Or maybe stepexecutor instead
             foreach (var step in Steps)
             {
                 var source = step.GetSource();

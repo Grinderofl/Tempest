@@ -17,7 +17,7 @@ namespace Tempest.Boot
 
         protected override void ConfigureConventions()
         {
-            AddConvention<RegisterImplementations>();
+            AddConvention<RegisterDefaultImplementations>();
         }
     }
 }

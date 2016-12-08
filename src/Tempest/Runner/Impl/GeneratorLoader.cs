@@ -2,26 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Tempest.Configuration;
 using Tempest.Core;
 
 namespace Tempest.Runner.Impl
 {
     public class GeneratorLoader : IGeneratorLoader
     {
-        // Temporary. Redo into strongly typed configuration through DI.
-        private readonly ITempestConfigurationService _configurationService;
+        private readonly IGeneratorActivator _activator;
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorLocator _locator;
 
-        public GeneratorLoader(IDirectoryFinder directoryFinder, IGeneratorLocator locator,
-            ITempestConfigurationService configurationService)
+        public GeneratorLoader(IDirectoryFinder directoryFinder, IGeneratorLocator locator, IGeneratorActivator activator)
         {
             if (directoryFinder == null) throw new ArgumentNullException(nameof(directoryFinder));
             if (locator == null) throw new ArgumentNullException(nameof(locator));
             _directoryFinder = directoryFinder;
             _locator = locator;
-            _configurationService = configurationService;
+            _activator = activator;
         }
 
         public GeneratorEngineBase Load(LoaderContext loaderContext)
@@ -32,17 +29,12 @@ namespace Tempest.Runner.Impl
             {
                 var directoriesToSearch = SearchableDirectories(loaderContext).ToArray();
                 generatorType = _locator.Locate(directoriesToSearch, loaderContext.Name);
-                if ((generatorType == null) && _configurationService.ShouldInstallGeneratorsAutomatically())
-                {
-                    // Install generator here. todo
-                    // locatedGenerator = _generatorInstaller.InstallGenerator(loaderContext.Name);
-                }
-
                 if (generatorType == null)
                     throw new GeneratorNotFoundException(
                         $"{loaderContext.Name}, searched locations: '{string.Join("', '", directoriesToSearch.Select(x => x.FullName))}'");
             }
-            result = (GeneratorEngineBase)Activator.CreateInstance(generatorType);
+            
+            result = _activator.Activate(generatorType);
             return result;
         }
 

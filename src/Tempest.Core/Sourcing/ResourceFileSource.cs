@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Tempest.Core.Sourcing
 {
+    // Lots of inheritance possibilities here
     public class ResourceFileSource : Source
     {
         private readonly Assembly _resourceAssembly;

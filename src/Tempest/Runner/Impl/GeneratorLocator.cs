@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Tempest.Configuration;
 using Tempest.Core;
 
 namespace Tempest.Runner.Impl
 {
+    // TODO This class is doing too much...
     public class GeneratorLocator : IGeneratorLocator
     {
+        
         private readonly string[] _assemblyPatterns =
         {
             "Tempest.Generator.{0}.dll",
@@ -31,10 +34,14 @@ namespace Tempest.Runner.Impl
         };
 
         private readonly ITempestAssemblyLoader _tempestAssemblyLoader;
+        private readonly ITempestConfigurationService _configurationService;
 
-        public GeneratorLocator(ITempestAssemblyLoader tempestAssemblyLoader)
+        public GeneratorLocator(ITempestAssemblyLoader tempestAssemblyLoader, ITempestConfigurationService configurationService)
         {
+            if (tempestAssemblyLoader == null) throw new ArgumentNullException(nameof(tempestAssemblyLoader));
+            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
             _tempestAssemblyLoader = tempestAssemblyLoader;
+            _configurationService = configurationService;
         }
 
         public Type Locate(DirectoryInfo[] directoriesToSearch, string generatorName)
@@ -73,6 +80,16 @@ namespace Tempest.Runner.Impl
                         return foundType;
                 }
             }
+
+            if (_configurationService.ShouldInstallGeneratorsAutomatically())
+            {
+                // Install generators here.
+                // var locatedGenerator = _generatorInstaller.InstallGenerator(loaderContext.Name);
+                // if(locatedGenerator != null)
+                //      return locatedGenerator;
+            }
+
+
             return null;
         }
 

@@ -6,6 +6,7 @@ using Tempest.Core.Utils;
 
 namespace Tempest.Runner.Impl
 {
+    // TODO This does waaay too much :D
     public class TempestRunner : ITempestRunner
     {
         private readonly IDirectoryFinder _directoryFinder;

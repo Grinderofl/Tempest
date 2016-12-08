@@ -3,6 +3,7 @@ using Tempest.Core.Setup;
 
 namespace Tempest.Core
 {
+    // TODO Api needs rework. More abstractions...
     public abstract class GeneratorBase : GeneratorEngineBase
     {
         private string _targetSubDirectory;

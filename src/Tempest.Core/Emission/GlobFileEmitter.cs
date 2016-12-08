@@ -3,6 +3,7 @@ using System.IO;
 
 namespace Tempest.Core.Emission
 {
+    // TODO Lots of inheritance possibilities here
     public class GlobFileEmitter : Emitter
     {
         private readonly string _globPath;

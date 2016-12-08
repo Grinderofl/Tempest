@@ -7,6 +7,7 @@ using Tempest.Configuration;
 
 namespace Tempest.Runner.Impl
 {
+    // TODO Almost doing too much...
     public class DirectoryFinder : IDirectoryFinder
     {
         private readonly ITempestConfigurationService _configurationService;
