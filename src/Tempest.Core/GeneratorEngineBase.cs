@@ -46,7 +46,7 @@ namespace Tempest.Core
 
             var sourcingContext = new SourcingContext
             {
-                TemplateRoot = BuildTemplatePath(context),
+                TemplateRoot = context.TemplateDirectory,
                 TargetRoot = BuildTargetPath(context)
             };
 

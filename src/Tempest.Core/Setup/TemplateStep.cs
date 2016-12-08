@@ -1,6 +1,7 @@
 using System;
 using Tempest.Core.Emission;
 using Tempest.Core.Sourcing;
+using Tempest.Core.Transformation;
 
 namespace Tempest.Core.Setup
 {
@@ -38,8 +39,19 @@ namespace Tempest.Core.Setup
         public TemplateStep ToFiles() => To(Emitters.ToFiles());
         public TemplateStep ToFiles(string fileGlob) => To(Emitters.ToFiles(fileGlob));
         public TemplateStep ToFiles(Func<string> fileGlobFunc) => To(Emitters.ToFiles(fileGlobFunc));
-
         public TemplateStep ToFiles(Func<string, string> fileNameTransformationFunc)
             => To(Emitters.ToFiles(fileNameTransformationFunc));
+
+
+        public TemplateStep Using(Transformer transformer)
+        {
+            InternalTransformers.Add(transformer);
+            return this;
+        }
+
+        public TemplateStep ReplaceToken(string token, string replaceWith)
+            => Using(Transformers.Token(token, replaceWith));
+
+
     }
 }

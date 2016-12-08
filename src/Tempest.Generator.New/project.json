@@ -32,7 +32,8 @@
         "Template/project.json",
         "Template/build.ps1",
         "Template/build.cake",
-        "Template/NuGet.config"
+        "Template/NuGet.config",
+        "Template/replace.me"
       ]
     }
   }

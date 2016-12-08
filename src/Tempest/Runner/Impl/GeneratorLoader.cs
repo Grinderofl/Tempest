@@ -26,21 +26,24 @@ namespace Tempest.Runner.Impl
 
         public GeneratorEngineBase Load(LoaderContext loaderContext)
         {
-            var directoriesToSearch = SearchableDirectories(loaderContext).ToArray();
-            var locatedGenerator = _locator.Locate(directoriesToSearch, loaderContext.Name);
-            if ((locatedGenerator == null) && _configurationService.ShouldInstallGeneratorsAutomatically())
+            GeneratorEngineBase result = null;
+            var generatorType = loaderContext.Type;
+            if (generatorType == null)
             {
-                // Install generator here. todo
-                // locatedGenerator = _generatorInstaller.InstallGenerator(loaderContext.Name);
+                var directoriesToSearch = SearchableDirectories(loaderContext).ToArray();
+                generatorType = _locator.Locate(directoriesToSearch, loaderContext.Name);
+                if ((generatorType == null) && _configurationService.ShouldInstallGeneratorsAutomatically())
+                {
+                    // Install generator here. todo
+                    // locatedGenerator = _generatorInstaller.InstallGenerator(loaderContext.Name);
+                }
+
+                if (generatorType == null)
+                    throw new GeneratorNotFoundException(
+                        $"The generator '{loaderContext.Name} could not be found.' Searched locations: '{string.Join("', '", directoriesToSearch.Select(x => x.FullName))}'");
             }
-
-            if (locatedGenerator == null)
-                throw new GeneratorNotFoundException(
-                    $"The generator '{loaderContext.Name} could not be found.' Searched locations: '{string.Join("', '", directoriesToSearch.Select(x => x.FullName))}'");
-
-            var instance = (GeneratorEngineBase) Activator.CreateInstance(locatedGenerator);
-
-            return instance;
+            result = (GeneratorEngineBase)Activator.CreateInstance(generatorType);
+            return result;
         }
 
         private IEnumerable<DirectoryInfo> SearchableDirectories(LoaderContext loaderContext)

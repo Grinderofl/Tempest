@@ -23,5 +23,15 @@ namespace Tempest.Core.Setup
         {
             return new InputConfigurationOption(optionTitle, action);
         }
+
+        public ListConfigurationOption List(Func<string> optionTitle)
+        {
+            return new ListConfigurationOption(optionTitle);
+        }
+
+        public ListConfigurationOption List(Func<string> optionTitle, Action<string> resultingAction)
+        {
+            return new ListConfigurationOption(optionTitle, resultingAction);
+        }
     }
 }

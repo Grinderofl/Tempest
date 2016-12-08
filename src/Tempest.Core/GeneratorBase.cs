@@ -49,7 +49,7 @@ namespace Tempest.Core
 
         protected override DirectoryInfo BuildTemplatePath(GeneratorContext generatorContext)
             =>
-            new DirectoryInfo(Path.Combine(generatorContext.TempestDirectory.FullName,
+            new DirectoryInfo(Path.Combine(generatorContext.TemplateDirectory.FullName,
                 BuildGeneratorTemplateDirectory(generatorContext.GeneratorName)));
 
         private string BuildGeneratorTemplateDirectory(string generatorName)

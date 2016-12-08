@@ -25,8 +25,15 @@ namespace Tempest.Runner.Impl
             return new DirectoryInfo(Path.GetDirectoryName(filePath));
         }
 
-        public IEnumerable<DirectoryInfo> FindGeneratorDirectories()
+        public IEnumerable<DirectoryInfo> FindGeneratorDirectories(string additionalSearchPath = null)
         {
+            if (!string.IsNullOrWhiteSpace(additionalSearchPath))
+            {
+                var additionalDirectory = new DirectoryInfo(additionalSearchPath);
+                if (additionalDirectory.Exists)
+                    yield return additionalDirectory;
+            }
+            
             var defaultDirectory = FindTempestExecutableDirectory().GetDirectories("Generators").First();
             yield return defaultDirectory;
 

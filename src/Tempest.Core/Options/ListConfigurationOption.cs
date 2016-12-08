@@ -18,6 +18,14 @@ namespace Tempest.Core.Options
         {
         }
 
+        public ListConfigurationOption(Func<string> optionTitle) : base(optionTitle)
+        {
+        }
+
+        public ListConfigurationOption(Func<string> optionTitle, Action<string> resultingAction) : base(optionTitle, resultingAction)
+        {
+        }
+
         public IEnumerable<OptionChoice> Choices => OptionChoices;
 
         protected override OptionRendererBase Renderer => new ListOptionRenderer(this);

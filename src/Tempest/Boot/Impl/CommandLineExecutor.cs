@@ -57,11 +57,12 @@ namespace Tempest.Boot.Impl
                 CommandOptionType.SingleValue
             );
 
-            var runnerArgs = new TempestRunnerArguments();
+            
 
             application.HelpOption("-? | -h | --help");
             application.OnExecute(() =>
             {
+                var runnerArgs = new TempestRunnerArguments();
                 // Deal with non-running options before
                 // That's todo though
 
@@ -80,26 +81,10 @@ namespace Tempest.Boot.Impl
                 return _runner.Run(runnerArgs);
             });
 
-            if (!normalisedArguments.Any())
-            {
-                var generators =
-                    _generatorLocator.Locate(_directoryFinder.FindGeneratorDirectories().ToArray()).ToArray();
-                Console.WriteLine("You haven't picked a generator. Available generators: ");
-                var i = 1;
-                foreach (var g in generators)
-                {
-                    Console.WriteLine($"{i}) {g.Name.Replace("Generator", "")}");
-                    i++;
-                }
-                var key = Console.ReadKey();
-                var value = int.Parse(key.KeyChar.ToString()) - 1;
-                var genName = generators[value].Name.Replace("Generator", "");
-                normalisedArguments = new[]
-                {
-                    "-g",
-                    genName
-                };
-            }
+            //if (!normalisedArguments.Contains("-g") && !normalisedArguments.Contains("--generator"))
+            //{
+            //    normalisedArguments = normalisedArguments.Union(new[] {"-g", "-"}).ToArray();
+            //}
 
             return application.Execute(normalisedArguments);
         }

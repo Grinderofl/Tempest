@@ -6,7 +6,7 @@ namespace Tempest.Runner
     public interface IDirectoryFinder
     {
         DirectoryInfo FindTempestExecutableDirectory();
-        IEnumerable<DirectoryInfo> FindGeneratorDirectories();
+        IEnumerable<DirectoryInfo> FindGeneratorDirectories(string additionalSearchPath = null);
         DirectoryInfo FindWorkingDirectory();
     }
 }

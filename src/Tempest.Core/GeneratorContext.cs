@@ -7,7 +7,8 @@ namespace Tempest.Core
         public string GeneratorName { get; set; }
         public string[] Arguments { get; set; }
         public DirectoryInfo WorkingDirectory { get; set; }
-        public DirectoryInfo TempestDirectory { get; set; }
+        public DirectoryInfo TemplateDirectory { get; set; }
         public DirectoryInfo[] GeneratorDirectories { get; set; }
+        public DirectoryInfo TempestDirectory { get; set; }
     }
 }

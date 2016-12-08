@@ -78,29 +78,28 @@ namespace Tempest.Runner.Impl
 
         public IEnumerable<Type> Locate(DirectoryInfo[] directoriesToSearch)
         {
-            foreach (var dir in directoriesToSearch)
-                if (dir.Name.Equals("Generators"))
-                    foreach (var generatorDir in dir.GetDirectories())
-                        foreach (
-                            var file in
-                            generatorDir.EnumerateFiles("*.dll")
-                                .Where(x => x.Name.Contains("Generator") && (x.Name != "Generators")))
-                        {
-                            var loadedAssembly = _tempestAssemblyLoader.Load(file.FullName);
-                            if (loadedAssembly != null)
-                            {
-                                var types =
-                                    loadedAssembly.ExportedTypes.Where(
-                                            t =>
-                                                t.IsConcrete() &&
-                                                t.IsSubclassOf(typeof(GeneratorEngineBase)))
-                                        .ToArray();
+            var directoriesWithCombined =
+                directoriesToSearch.Union(directoriesToSearch.SelectMany(x => x.GetDirectories())).ToArray();
 
-                                if (!types.Any()) continue;
-                                foreach (var type in types)
-                                    yield return type;
-                            }
-                        }
+            foreach (var generatorDir in directoriesWithCombined)
+                foreach (var file in generatorDir.EnumerateFiles("*.dll"))
+
+                {
+                    var loadedAssembly = _tempestAssemblyLoader.Load(file.FullName);
+                    if (loadedAssembly != null)
+                    {
+                        var types =
+                            loadedAssembly.ExportedTypes.Where(
+                                    t =>
+                                        t.IsConcrete() &&
+                                        t.IsSubclassOf(typeof(GeneratorEngineBase)))
+                                .ToArray();
+
+                        if (!types.Any()) continue;
+                        foreach (var type in types)
+                            yield return type;
+                    }
+                }
         }
 
         private IEnumerable<Assembly> FindCandidateAssemblies(DirectoryInfo[] directoriesToSearch, string generatorName)

@@ -21,12 +21,17 @@
   },
 
   "buildOptions": {
+    "compile": {
+      "exclude": "TEMPLATEMATCHINGPATTERN"
+    },
     "copyToOutput": {
-      "include": "Template/*.*"
+      "include": [
+        "TEMPLATEMATCHINGPATTERN" 
+      ]
     },
     "embed": {
       "include": [
-        "Template/*.*"
+        "TEMPLATEMATCHINGPATTERN"
       ]
     }
   }

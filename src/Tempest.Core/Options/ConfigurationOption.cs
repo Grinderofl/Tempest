@@ -9,12 +9,29 @@ namespace Tempest.Core.Options
         {
         }
 
+        protected ConfigurationOption(Func<string> titleAction) : base(titleAction)
+        {
+        }
+
+        protected ConfigurationOption(Func<string> titleAction, Action<string> resultingAction)
+            : base(titleAction, resultingAction)
+        {
+        }
+
         public virtual TOption When(Func<bool> showOnlyWhen) => (TOption) RenderWhen(showOnlyWhen);
     }
 
     public abstract class ConfigurationOption : RenderableOptionBase
     {
-        protected ConfigurationOption(Action<string> resultingAction, string title) : base(title)
+        protected ConfigurationOption(Action<string> resultingAction, string title) : this(() => title, resultingAction)
+        {
+        }
+
+        protected ConfigurationOption(Func<string> titleAction) : this(titleAction, null)
+        {
+        }
+
+        protected ConfigurationOption(Func<string> titleAction, Action<string> resultingAction) : base(titleAction)
         {
             ResultingAction = resultingAction;
         }

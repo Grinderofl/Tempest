@@ -22,9 +22,22 @@ namespace Tempest.Core.Options.Rendering
                 Console.WriteLine($"{itemIndex}) {choice.Title}");
             }
 
-            var key = Console.ReadKey();
-            var val = int.Parse(key.KeyChar.ToString());
-            var foundChoice = optionChoices.ElementAt(val - 1);
+            int? val = null;
+
+            while (val == null)
+            {
+                var key = Console.ReadKey();
+                try
+                {
+                    val = int.Parse(key.KeyChar.ToString());
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    // Just catch if wrong key
+                }
+            }
+
+            var foundChoice = optionChoices.ElementAt(val.Value - 1);
 
             return foundChoice.Id;
         }
