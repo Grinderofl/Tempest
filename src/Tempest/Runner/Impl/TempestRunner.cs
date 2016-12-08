@@ -40,10 +40,6 @@ namespace Tempest.Runner.Impl
             if (generatorType == null)
                 throw new GeneratorNotFoundException("No generators found");
             
-            //if (runnerArgs.GeneratorName.IsNotNullOrWhiteSpace())
-            //{
-            //    runnerArgs.GeneratorName = GetGeneratorFromSelection(runnerArgs);
-            //}
             var loaderContext = new LoaderContext
             {
                 Type = generatorType,
@@ -73,26 +69,26 @@ namespace Tempest.Runner.Impl
                 Console.WriteLine($"{i}) {g.Name.Replace("Generator", "")}");
                 i++;
             }
-            var key = Console.ReadKey();
-            var value = int.Parse(key.KeyChar.ToString()) - 1;
-            var generator = generators[value];
+            
+            int? value = null;
+
+            Type generator = null;
+            while (value == null)
+            {
+                try
+                {
+                    var key = Console.ReadKey();
+                    value = int.Parse(key.KeyChar.ToString()) - 1;
+                    generator = generators[value.Value];
+                }
+                catch (Exception)
+                {
+                    // Catch until we get an entry
+                }
+            }
+            
             return generator;
         }
 
-        //protected string GetGenerator2FromSelection(TempestRunnerArguments runnerArgs)
-        //{
-        //    var generators = _generatorLocator.Locate(_directoryFinder.FindGeneratorDirectories(runnerArgs.SearchPath).ToArray()).ToArray();
-        //    Console.WriteLine("You haven't picked a generator. Available generators: ");
-        //    var i = 1;
-        //    foreach (var g in generators)
-        //    {
-        //        Console.WriteLine($"{i}) {g.Name.Replace("Generator", "")}");
-        //        i++;
-        //    }
-        //    var key = Console.ReadKey();
-        //    var value = int.Parse(key.KeyChar.ToString()) - 1;
-        //    var genName = generators[value].Name.Replace("Generator", "");
-        //    return genName;
-        //}
     }
 }

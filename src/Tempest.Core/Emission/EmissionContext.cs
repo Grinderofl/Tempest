@@ -9,10 +9,5 @@ namespace Tempest.Core.Emission
         public Stream EmissionStream { get; set; }
         public string Filename { get; set; }
         public string FilePath { get; set; }
-
-        public string ReadInputAsString()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
