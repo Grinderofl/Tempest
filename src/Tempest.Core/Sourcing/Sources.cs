@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 
 namespace Tempest.Core.Sourcing
@@ -11,5 +12,6 @@ namespace Tempest.Core.Sourcing
             => new ResourceFileSource(resourcePath, resourceAssembly);
 
         public static Source FromTemplateGlob(string glob) => new TemplateGlobSource(glob);
+        public static Source FromUri(Uri uri) => new WebSource(uri);
     }
 }

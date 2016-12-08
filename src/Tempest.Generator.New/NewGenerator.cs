@@ -12,6 +12,13 @@ namespace Tempest.Generator.New
         private bool _includeBuildScript;
         private string _buildScriptType;
 
+        private Func<string> _srcDirectoryTemplate;
+
+        public NewGenerator()
+        {
+            _srcDirectoryTemplate = () => $"";
+        }
+
         protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
             yield return
@@ -27,6 +34,13 @@ namespace Tempest.Generator.New
 
             yield return
                 Options
+                    .List($"Care for your project to be called 'Tempest.Generator.{_generatorName}")
+                    .Choice("No problem m8", "conventional", () => { _srcDirectoryTemplate = () => $"src/{_generatorName}/"; })
+                    .Choice("Sod off", "standard");
+
+
+            yield return
+                Options
                     .List("What build script would you like?", s => _buildScriptType = s)
                     .When(() => _includeBuildScript)
                     .Choice("I'll have me some AppVeyor!", "appveyor")
@@ -35,13 +49,13 @@ namespace Tempest.Generator.New
 
         protected override void ExecuteCore()
         {
-            Set.TargetSubDirectory(_generatorName);
+            Set.TargetSubDirectory($"_generatorName");
             Globally.TransformToken("Zing", _generatorName);
 
             Func<string, string> resource = templateFile => $"Tempest.Generator.New.Template.{templateFile}";
 
-            Copy.Resource(resource("project.json")).ToFile("project.json");
-            Copy.Resource(resource("ZingGenerator.cs")).ToFile(() => $"{_generatorName}.cs");
+            Copy.Resource(resource("project.json")).ToFile($"{_srcDirectoryTemplate()}project.json");
+            Copy.Resource(resource("ZingGenerator.cs")).ToFile(() => $"{_srcDirectoryTemplate()}{_generatorName}.cs");
 
             if (_includeBuildScript && _buildScriptType == "appveyor")
                 Copy.Resource(resource("build.ps1")).ToFile("build.ps1");
