@@ -14,6 +14,15 @@ namespace Tempest
             var semanticArgs = new List<string>();
             var commandArgs = new List<string>();
 
+
+            //foreach (var argument in args)
+            //{
+            //    if (argument.StartsWith("-"))
+            //    {
+                    
+            //    }
+            //}
+
             foreach (var argument in args)
             {
                 if (argument.StartsWith("-"))
@@ -30,6 +39,7 @@ namespace Tempest
                 else
                 {
                     commandArgs.Add(argument);
+                    justAddedCommandArgument = false;
                     // Allow insertion of a single '-' argument
                     // and its single parameter
                     if (!argument.StartsWith("-"))

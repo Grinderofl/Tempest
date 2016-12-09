@@ -19,7 +19,7 @@ namespace Tempest.Core.Options.Rendering
             foreach (var choice in optionChoices)
             {
                 itemIndex++;
-                Console.WriteLine($"{itemIndex}) {choice.Title}");
+                Console.WriteLine($"{itemIndex}) [{choice.Id}] {choice.Title}");
             }
 
             int? val = null;

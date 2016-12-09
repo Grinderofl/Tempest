@@ -21,6 +21,7 @@ namespace Tempest.Core
 
         public virtual ScaffoldStepExecutor ExecuteSources(SourcingContext context)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
             var source = _step.GetSource();
             _sourcingResults = source.Generate(context);
             return this;
