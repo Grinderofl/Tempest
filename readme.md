@@ -3,7 +3,7 @@
 
 ## Tempest
 
-Ez-mode cross-platform template generator.
+Ez-mode cross-platform template and scaffolding framework.
 
 ### What makes Tempest awesome?
 * Super-simple Fluent API
@@ -15,7 +15,7 @@ Ez-mode cross-platform template generator.
 
 #### Goals
 
-To have a method of creating template (or otherwise sourced) generators quickly and easily while having a simple and readable syntax.
+To have a method of creating template (or otherwise sourced) scaffolders and generators quickly and easily while having a simple and readable syntax.
 
 This project has grown out of the need for a way to easily create and alter .NET Core Solution structure in a manner that allows to preconfigure bunch of boilerplate actions that are usually done by the developer - to allow them to spend more time writing functional code instead of setting up projects, remembering to add specific dependencies, creating build scripts, oh and project.json is also going bye bye so now the best choice to update your project files (or `Project.csproj`) programmatically is via XDT transformation ಠ_ಠ
 
