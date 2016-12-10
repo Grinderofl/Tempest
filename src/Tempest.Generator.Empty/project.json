@@ -9,7 +9,7 @@
   "dependencies": {
     "Tempest.Core": {
       "version": "1.0.0-*",
-      "type": "default"
+      "type": "platform"
     }
   },
 
