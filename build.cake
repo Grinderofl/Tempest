@@ -91,26 +91,42 @@ Task(BuildTasks.Package)
         };
 
         DotNetCorePack(config.SrcDir + "Tempest.Core", settings);
-        DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
+        //DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.Empty", settings);
 
         var publishSettings = new DotNetCorePublishSettings {
             Configuration = config.Configuration,
-            OutputDirectory = config.PublishDir,
+            OutputDirectory = config.TempestDir,
             VersionSuffix = config.Suffix
         };
 
         DotNetCorePublish(config.SrcDir + "Tempest", publishSettings);
 
+        //publishSettings.OutputDirectory = config.TempestGeneratorNewDir;
+
+        var dotnetBuildSettings = new DotNetCoreBuildSettings {
+            Configuration = config.Configuration,
+            OutputDirectory = config.TempestGeneratorNewDir,
+            VersionSuffix = config.Suffix,
+            Framework = "netstandard1.6"
+        };
+
+        DotNetCoreBuild(config.SrcDir + "Tempest.Generator.New", dotnetBuildSettings);
+
         var nugetSettings = new NuGetPackSettings(){
             Version = config.Version + "-" + config.Suffix,
-            BasePath = config.PublishDir,
+            BasePath = config.TempestDir,
             OutputDirectory = config.ArtifactsDir,
             Symbols = true,
             NoPackageAnalysis = true
         };
 
         NuGetPack(config.NuspecDir + "Tempest.nuspec", nugetSettings);
+
+        nugetSettings.BasePath = config.TempestGeneratorNewDir;
+
+        NuGetPack(config.NuspecDir + "Tempest.Generator.New.nuspec", nugetSettings);
+
         //DotNetCorePack(config.SrcDir + "Tempest", settings);
     });
 

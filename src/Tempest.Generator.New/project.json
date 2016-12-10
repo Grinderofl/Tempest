@@ -21,7 +21,7 @@
   },
   "buildOptions": {
     "compile": {
-      "exclude": "Template/*.*"
+      "exclude": "./Template/**/*.*"
     },
     "copyToOutput": {
       "include": "Template/**"

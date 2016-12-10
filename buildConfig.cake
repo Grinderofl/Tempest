@@ -6,7 +6,8 @@ public class BuildConfig
     public readonly string SrcDir = "./src/";
     public readonly string TestDir = "./test/";
     public readonly string ArtifactsDir = "./artifacts/";
-    public readonly string PublishDir = "./artifacts/publish/";
+    public readonly string TempestDir = "./artifacts/Tempest/";
+    public readonly string TempestGeneratorNewDir = "./artifacts/Tempest.Generator.New/";
     public readonly string NuspecDir = "./nuspec/";
     
     public string Target  { get; private set; }
