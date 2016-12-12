@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Tempest.Core.Sourcing;
@@ -23,8 +24,12 @@ namespace Tempest.CoreTests.Sourcing
             }
         }
 
-        public class TemplateFileSourceTests
+        public class TemplateFileSourceTests : IDisposable
         {
+            public TemplateFileSourceTests()
+            {
+                File.WriteAllText("foo.bar", "Foobar");
+            }
             [Fact]
             public void generates_valid_stream()
             {
@@ -36,16 +41,18 @@ namespace Tempest.CoreTests.Sourcing
 
                 var result = source.Generate(context);
                 var resultValue = result.First().OutputStream.ReadAsString();
-                Assert.True(resultValue.Length > 0);
+                Assert.Equal("Foobar", resultValue);
             }
 
-            // Hack to get Visual Studio test runner working at 
-            // the same time as our build script
             private static TemplateFileSource BuildTemplateSourceLocation()
             {
-                var useGlobalJson = File.Exists("global.json");
-                var generator = new TemplateFileSource(useGlobalJson ? "global.json" : "LICENSE.txt");
+                var generator = new TemplateFileSource("foo.bar");
                 return generator;
+            }
+
+            public void Dispose()
+            {
+                File.Delete("foo.bar");
             }
         }
 
