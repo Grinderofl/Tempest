@@ -67,10 +67,25 @@ Task(BuildTasks.UpdateAppVeyor)
         AppVeyor.UpdateBuildVersion(config.SemVer +"+" + AppVeyor.Environment.Build.Number);
     });
 
+Task(BuildTasks.Clean)
+    .Does(() => {
+        CleanDirectory(config.ArtifactsDir);
+        // CleanDirectory("./**/bin/");
+        // CleanDirectory("./**/obj/");
+    });
+
 Task(BuildTasks.Build)
+    .IsDependentOn(BuildTasks.Clean)
     .IsDependentOn(BuildTasks.UpdateVersion)
     .Does(() => {
         DotNetCoreRestore();
+
+        var buildSettings = new DotNetCoreBuildSettings(){
+            Configuration = config.Configuration,
+            VersionSuffix = config.Suffix,
+            NoIncremental = true,
+        };
+
         DotNetCoreBuild(config.SrcDir + "**/project.json");
         DotNetCoreBuild(config.TestDir + "**/project.json");
     });
@@ -91,7 +106,7 @@ Task(BuildTasks.Package)
         };
 
         DotNetCorePack(config.SrcDir + "Tempest.Core", settings);
-        //DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
+        DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.Empty", settings);
 
         var publishSettings = new DotNetCorePublishSettings {
@@ -104,14 +119,14 @@ Task(BuildTasks.Package)
 
         //publishSettings.OutputDirectory = config.TempestGeneratorNewDir;
 
-        var dotnetBuildSettings = new DotNetCoreBuildSettings {
-            Configuration = config.Configuration,
-            OutputDirectory = config.TempestGeneratorNewDir,
-            VersionSuffix = config.Suffix,
-            Framework = "netstandard1.6"
-        };
+        // var dotnetBuildSettings = new DotNetCoreBuildSettings {
+        //     Configuration = config.Configuration,
+        //     OutputDirectory = config.TempestGeneratorNewDir,
+        //     VersionSuffix = config.Suffix,
+        //     Framework = "netstandard1.6"
+        // };
 
-        DotNetCoreBuild(config.SrcDir + "Tempest.Generator.New", dotnetBuildSettings);
+        //DotNetCoreBuild(config.SrcDir + "Tempest.Generator.New", dotnetBuildSettings);
 
         var nugetSettings = new NuGetPackSettings(){
             Version = config.Version + "-" + config.Suffix,
@@ -123,11 +138,10 @@ Task(BuildTasks.Package)
 
         NuGetPack(config.NuspecDir + "Tempest.nuspec", nugetSettings);
 
-        nugetSettings.BasePath = config.TempestGeneratorNewDir;
+        //nugetSettings.BasePath = config.TempestGeneratorNewDir;
 
-        NuGetPack(config.NuspecDir + "Tempest.Generator.New.nuspec", nugetSettings);
+        //NuGetPack(config.NuspecDir + "Tempest.Generator.New.nuspec", nugetSettings);
 
-        //DotNetCorePack(config.SrcDir + "Tempest", settings);
     });
 
 Task(BuildTasks.UploadArtifacts)

@@ -63,6 +63,7 @@ public class BuildTasks
     public static string UpdateVersion = "Update-Version";
     public static string UpdateAppVeyor = "Update-AppVeyor";
 
+    public static string Clean = "Clean";
     public static string Build = "Build"; 
     public static string Test = "Test";
     public static string Package = "Package";
