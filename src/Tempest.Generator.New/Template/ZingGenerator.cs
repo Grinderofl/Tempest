@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Tempest.Core;
 using Tempest.Core.Options;
 
-namespace Zing
+namespace Tempest.Generator.Zing
 {
     public class ZingGenerator : GeneratorBase
     {
@@ -12,8 +12,8 @@ namespace Zing
         protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
             yield return
-                Options.Input("Welcome to new Foo generator! \n " +
-                              "Please enter the name for your Foo", 
+                Options.Input("Welcome to new Zing generator! \n" +
+                              "Please enter the name for your Zing", 
                               s => _fooName = s);
 
         }

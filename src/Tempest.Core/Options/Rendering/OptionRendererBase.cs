@@ -17,7 +17,7 @@ namespace Tempest.Core.Options.Rendering
         /// <returns></returns>
         public virtual string Render()
         {
-            Console.WriteLine(AssociatedOption.Title);
+            Console.WriteLine($"\n{AssociatedOption.Title}\n");
             return RenderOptionCore();
         }
 
