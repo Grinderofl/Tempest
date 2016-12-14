@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Tempest.Core.Domain;
+using Tempest.Core.Domain.Concrete;
 using Tempest.Core.Persistence.Impl;
 using Tempest.Core.Utils;
 using Xunit;
@@ -25,8 +26,13 @@ namespace Tempest.Core.IntegrationTests.Persistence
 
             protected virtual void CreateFileWithText(string file, string text)
             {
-                _createdFiles.Add(file);
+                AddFileToDelete(file);
                 File.WriteAllText(file, text);
+            }
+
+            protected virtual void AddFileToDelete(string file)
+            {
+                _createdFiles.Add(file);
             }
 
             public void Dispose()
@@ -34,6 +40,24 @@ namespace Tempest.Core.IntegrationTests.Persistence
                 foreach(var file in _createdFiles)
                     File.Delete(file);
             }
+        }
+
+        public class WhenSavingNewFile : FileSystemFixture
+        {
+            public WhenSavingNewFile()
+            {
+                AddFileToDelete("foo.bar");
+            }
+
+            [Fact]
+            public void saves_file()
+            {
+                var file = new TempestFile("foo.bar");
+                var textToCopy = "foobar".ToStream();
+                textToCopy.CopyTo(file.Stream);
+                Assert.True(File.Exists("foo.bar"));
+            }
+
         }
 
         public class WhenOpeningExistingFile : FileSystemFixture
@@ -53,7 +77,7 @@ namespace Tempest.Core.IntegrationTests.Persistence
             public void gets_contents()
             {
                 var file = FileSystem.Open("foo.txt");
-                Assert.Equal("Foo", file.Contents.ReadAsString());
+                Assert.Equal("Foo", file.Stream.ReadAsString());
             }
         }
 

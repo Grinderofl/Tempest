@@ -10,6 +10,11 @@ namespace Tempest.Core.Persistence.Impl
 {
     public class FileSystem : IFileSystem
     {
+        /// <summary>
+        /// Opens a file. 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public IFile Open(string path)
         {
             var file = new TempestFile(path);
@@ -20,11 +25,19 @@ namespace Tempest.Core.Persistence.Impl
 
         public void Write(IFile file)
         {
-            file.Contents.Position = 0;
-            var data = new byte[file.Contents.Length];
-            file.Contents.Read(data, 0, (int)file.Contents.Length);
-
+            file.Stream.Position = 0;
+            var data = new byte[file.Stream.Length];
+            file.Stream.Read(data, 0, (int)file.Stream.Length);
             File.WriteAllBytes(file.FilePath, data);
+            file.Stream.Dispose();
         }
+
+        // Filesystem
+        // Has entries
+        //
+        // FileSystemEntry
+        // 
     }
+
+    
 }

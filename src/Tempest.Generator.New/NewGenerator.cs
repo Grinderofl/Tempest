@@ -22,6 +22,7 @@ namespace Tempest.Generator.New
         protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
 
+           
             yield return
                 Options.Input("Welcome to new Tempest Template generator! \n" +
                               "Please enter the name of your Generator",
@@ -72,8 +73,9 @@ namespace Tempest.Generator.New
 
             Globally.TransformToken("SRCDIRECTORY", srcDirectory);
             Globally.TransformToken("Zing", _generatorName);
-            
 
+
+           
             Copy.Resource(_locateResource("project.json"))
                 .ToFile($"{srcDirectory}project.json")
                 .ReplaceToken("TEMPLATEMATCHINGPATTERN", projectRelativeTemplateMatch);
