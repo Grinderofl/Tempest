@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Tempest.Core.Domain.Streaming;
 using Tempest.Core.Utils;
 
 namespace Tempest.Core.Sourcing
@@ -28,7 +29,8 @@ namespace Tempest.Core.Sourcing
                 {
                     FilePath = fileRelativePath,
                     FileName = fileRelativePath,
-                    OutputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read)
+                    OutputStreamFactory = new OpenFileStreamFactory(file.FullName)
+                    //OutputStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read)
                 };
             }
         }

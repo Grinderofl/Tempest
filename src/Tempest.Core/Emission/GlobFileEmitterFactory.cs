@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Tempest.Core.Emission
@@ -14,19 +15,33 @@ namespace Tempest.Core.Emission
             _globPath = globPath;
         }
 
-        public override EmissionResult Emit(EmissionContext context)
+        //public override EmissionResult Emit(EmissionContext context)
+        //{
+        //    // Hack
+        //    if (context.Filename.StartsWith("\\"))
+        //        context.Filename = context.Filename.Substring(1);
+        //    var absolutePath = Path.Combine(context.TargetDirectory.FullName, _globPath, context.Filename);
+        //    Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
+        //    using (var fs = File.Create(absolutePath))
+        //    {
+        //        context.EmissionStream.Seek(0, SeekOrigin.Begin);
+        //        context.EmissionStream.CopyTo(fs);
+        //    }
+        //    return new EmissionResult();
+        //}
+
+        protected override string GetEmissionTarget()
         {
-            // Hack
+            return _globPath;
+        }
+
+        public override IEnumerable<ActualEmitter> CreateEmitters(EmissionContext context)
+        {
             if (context.Filename.StartsWith("\\"))
                 context.Filename = context.Filename.Substring(1);
             var absolutePath = Path.Combine(context.TargetDirectory.FullName, _globPath, context.Filename);
             Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
-            using (var fs = File.Create(absolutePath))
-            {
-                context.EmissionStream.Seek(0, SeekOrigin.Begin);
-                context.EmissionStream.CopyTo(fs);
-            }
-            return new EmissionResult();
+            yield return new ActualFileEmitter(absolutePath);
         }
     }
 }

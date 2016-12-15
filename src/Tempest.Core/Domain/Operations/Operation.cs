@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Tempest.Core.Domain.Streaming;
 using Tempest.Core.Emission;
 
 namespace Tempest.Core.Domain.Operations
@@ -14,20 +15,21 @@ namespace Tempest.Core.Domain.Operations
     /// </summary>
     public class Operation
     {
-        private readonly Stream _sourceStream;
+        private readonly StreamFactory _sourceStreamFactory;
         private readonly Func<Stream, Stream> _transformer;
         private readonly ActualEmitter _emitter;
 
-        public Operation(Stream sourceStream, Func<Stream, Stream> transformer, ActualEmitter emitter)
+        public Operation(StreamFactory sourceStreamFactory, Func<Stream, Stream> transformer, ActualEmitter emitter)
         {
-            _sourceStream = sourceStream;
+            _sourceStreamFactory = sourceStreamFactory;
             _transformer = transformer;
             _emitter = emitter;
         }
 
         public virtual void Execute()
         {
-            _emitter.Emit(_transformer(_sourceStream));
+            
+            _emitter.Emit(_transformer(_sourceStreamFactory.Create()));
         }
     }
 }

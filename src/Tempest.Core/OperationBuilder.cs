@@ -55,7 +55,7 @@ namespace Tempest.Core
                 foreach (var emitter in step.GetEmitters())
                 {
                     foreach (var actualEmitter in  emitter.CreateEmitters(emissionContext))
-                        yield return new Operation(result.OutputStream, transformer, actualEmitter);
+                        yield return new Operation(result.OutputStreamFactory, transformer, actualEmitter);
                 }
             }
 

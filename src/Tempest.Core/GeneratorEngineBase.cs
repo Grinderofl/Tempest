@@ -50,30 +50,37 @@ namespace Tempest.Core
                 TargetRoot = BuildTargetPath(context)
             };
 
-            var executors = new List<ScaffoldStepExecutor>(Steps.Count);
-            executors.AddRange(Steps.Select(scaffoldStep => new ScaffoldStepExecutor(scaffoldStep)));
+            var operationBuilder = new OperationBuilder();
+            var operations = operationBuilder.Build(Steps, sourcingContext);
+            foreach (var operation in operations)
+            {
+                operation.Execute();
+            }
 
-            RetrieveSources(sourcingContext, executors);
-            Transform(executors, GlobalTransformers);
-            Emit(sourcingContext, executors);
+            //var executors = new List<ScaffoldStepExecutor>(Steps.Count);
+            //executors.AddRange(Steps.Select(scaffoldStep => new ScaffoldStepExecutor(scaffoldStep)));
+
+            //RetrieveSources(sourcingContext, executors);
+            //Transform(executors, GlobalTransformers);
+            //Emit(sourcingContext, executors);
         }
 
-        protected virtual void Emit(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
-        {
-            foreach (var executor in executors)
-                executor.ExecuteEmitters(sourcingContext);
-        }
+        //protected virtual void Emit(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
+        //{
+        //    foreach (var executor in executors)
+        //        executor.ExecuteEmitters(sourcingContext);
+        //}
 
-        protected virtual void Transform(IList<ScaffoldStepExecutor> executors, ICollection<Transformer> globalTransformers)
-        {
-            foreach (var executor in executors)
-                executor.ExecuteTransformers(globalTransformers);
-        }
+        //protected virtual void Transform(IList<ScaffoldStepExecutor> executors, ICollection<Transformer> globalTransformers)
+        //{
+        //    foreach (var executor in executors)
+        //        executor.ExecuteTransformers(globalTransformers);
+        //}
 
-        protected virtual void RetrieveSources(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
-        {
-            foreach (var executor in executors)
-                executor.ExecuteSources(sourcingContext);
-        }
+        //protected virtual void RetrieveSources(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
+        //{
+        //    foreach (var executor in executors)
+        //        executor.ExecuteSources(sourcingContext);
+        //}
     }
 }

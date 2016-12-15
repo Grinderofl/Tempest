@@ -12,8 +12,8 @@ namespace Tempest.CoreTests.Transformation
             public void transforms_to_empty()
             {
                 var transformer = Transformers.Empty;
-                var result = transformer.Transform(new TransformerContext("", "TestContent".ToStream()));
-                var resultString = result.OutputStream.ReadAsString();
+                var result = transformer.TransformStream("TestContent".ToStream());
+                var resultString = result.ReadAsString();
                 Assert.Equal("", resultString);
 
             }
@@ -25,8 +25,8 @@ namespace Tempest.CoreTests.Transformation
             public void does_not_transform()
             {
                 var transformer = Transformers.NoOp;
-                var result = transformer.Transform(new TransformerContext("", "TestContent".ToStream()));
-                var resultString = result.OutputStream.ReadAsString();
+                var result = transformer.TransformStream("TestContent".ToStream());
+                var resultString = result.ReadAsString();
                 Assert.Equal("TestContent", resultString);
             }
         }

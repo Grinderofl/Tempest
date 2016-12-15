@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Tempest.Core.Domain.Streaming;
 
 namespace Tempest.Core.Sourcing
 {
@@ -27,7 +28,8 @@ namespace Tempest.Core.Sourcing
             yield return new SourcingResult
             {
                 FileName = fileName,
-                OutputStream = _resourceAssembly.GetManifestResourceStream(_resourcePath)
+                //OutputStream = _resourceAssembly.GetManifestResourceStream(_resourcePath),
+                OutputStreamFactory = new AssemblyManifestStreamFactory(_resourceAssembly, _resourcePath)
             };
         }
     }

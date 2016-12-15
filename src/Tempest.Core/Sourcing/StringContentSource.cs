@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Tempest.Core.Domain.Streaming;
 using Tempest.Core.Utils;
 
 namespace Tempest.Core.Sourcing
@@ -17,7 +18,8 @@ namespace Tempest.Core.Sourcing
             yield return new SourcingResult
             {
                 FileName = "",
-                OutputStream = _string.ToStream()
+                OutputStreamFactory = new StringStreamFactory(_string),
+                //OutputStream = _string.ToStream()
             };
         }
     }

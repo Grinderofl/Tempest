@@ -17,17 +17,17 @@ namespace Tempest.Core.Emission
             _relativePath = relativePath;
         }
 
-        public override EmissionResult Emit(EmissionContext context)
-        {
-            var absolutePath = Path.Combine(context.TargetDirectory.FullName, _relativePath);
-            Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
-            using (var fs = File.Create(absolutePath))
-            {
-                context.EmissionStream.Seek(0, SeekOrigin.Begin);
-                context.EmissionStream.CopyTo(fs);
-            }
-            return new EmissionResult();
-        }
+        //public override EmissionResult Emit(EmissionContext context)
+        //{
+        //    var absolutePath = Path.Combine(context.TargetDirectory.FullName, _relativePath);
+        //    Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
+        //    using (var fs = File.Create(absolutePath))
+        //    {
+        //        context.EmissionStream.Seek(0, SeekOrigin.Begin);
+        //        context.EmissionStream.CopyTo(fs);
+        //    }
+        //    return new EmissionResult();
+        //}
 
         protected override string GetEmissionTarget()
         {

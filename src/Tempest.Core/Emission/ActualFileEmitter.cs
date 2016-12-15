@@ -20,4 +20,5 @@ namespace Tempest.Core.Emission
             }
         }
     }
+
 }
