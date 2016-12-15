@@ -11,14 +11,14 @@ namespace Tempest.Core.Transformation
     /// </summary>
     public abstract class Transformer
     {
-        public virtual TransformationResult Transform(TransformerContext context)
-        {
-            return new TransformationResult(TransformStream(context), TransformFilename(context.Filename));
+        //public virtual TransformationResult Transform(TransformerContext context)
+        //{
+        //    return new TransformationResult(TransformStream(context), TransformFilename(context.Filename));
 
-        }
+        //}
 
-        protected virtual string TransformFilename(string source) => source;
+        public virtual string TransformFilename(string source) => source;
 
-        protected virtual Stream TransformStream(TransformerContext context) => context.TransformationStream;
+        public virtual Stream TransformStream(Stream context) => context;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Tempest.Core.Emission
@@ -6,11 +7,11 @@ namespace Tempest.Core.Emission
     /// <summary>
     ///     Emits to file
     /// </summary>
-    public class FileEmitter : Emitter
+    public class FileEmitterFactory : EmitterFactory
     {
         private readonly string _relativePath;
 
-        public FileEmitter(string relativePath)
+        public FileEmitterFactory(string relativePath)
         {
             if (relativePath == null) throw new ArgumentNullException(nameof(relativePath));
             _relativePath = relativePath;
@@ -26,6 +27,18 @@ namespace Tempest.Core.Emission
                 context.EmissionStream.CopyTo(fs);
             }
             return new EmissionResult();
+        }
+
+        protected override string GetEmissionTarget()
+        {
+            return _relativePath;
+        }
+
+        public override IEnumerable<ActualEmitter> CreateEmitters(EmissionContext context)
+        {
+            var absolutePath = Path.Combine(context.TargetDirectory.FullName, _relativePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
+            yield return new ActualFileEmitter(absolutePath);
         }
     }
 }

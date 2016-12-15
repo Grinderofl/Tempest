@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Tempest.Core.Emission
 {
-    public class GlobFileExpressionEmitter : Emitter
+    public class GlobFileExpressionEmitterFactory : EmitterFactory
     {
         private readonly Func<string> _globPathFunc;
 
-        public GlobFileExpressionEmitter(Func<string> globPathFunc)
+        public GlobFileExpressionEmitterFactory(Func<string> globPathFunc)
         {
             _globPathFunc = globPathFunc;
         }

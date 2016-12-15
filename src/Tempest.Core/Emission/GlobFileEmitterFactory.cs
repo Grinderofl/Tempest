@@ -3,13 +3,15 @@ using System.IO;
 
 namespace Tempest.Core.Emission
 {
-    public class GlobFunctioningFileEmitter : Emitter
+    // TODO Lots of inheritance possibilities here
+    public class GlobFileEmitterFactory : EmitterFactory
     {
-        private readonly Func<string, string> _func;
+        private readonly string _globPath;
 
-        public GlobFunctioningFileEmitter(Func<string, string> func)
+        public GlobFileEmitterFactory(string globPath)
         {
-            _func = func;
+            if (globPath == null) throw new ArgumentNullException(nameof(globPath));
+            _globPath = globPath;
         }
 
         public override EmissionResult Emit(EmissionContext context)
@@ -17,10 +19,7 @@ namespace Tempest.Core.Emission
             // Hack
             if (context.Filename.StartsWith("\\"))
                 context.Filename = context.Filename.Substring(1);
-            var path = _func(context.Filename);
-            if (path.StartsWith("\\"))
-                path = path.Substring(1);
-            var absolutePath = Path.Combine(context.TargetDirectory.FullName, path);
+            var absolutePath = Path.Combine(context.TargetDirectory.FullName, _globPath, context.Filename);
             Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
             using (var fs = File.Create(absolutePath))
             {

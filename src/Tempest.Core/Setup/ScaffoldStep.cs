@@ -14,11 +14,11 @@ namespace Tempest.Core.Setup
         /// <summary>
         ///     Emits the final output to the provided emitter
         /// </summary>
-        /// <param name="emitter"></param>
+        /// <param name="emitterFactory"></param>
         /// <returns></returns>
-        public ScaffoldStep To(Emitter emitter)
+        public ScaffoldStep To(EmitterFactory emitterFactory)
         {
-            InternalEmitters.Add(emitter);
+            InternalEmitters.Add(emitterFactory);
             return this;
         }
 

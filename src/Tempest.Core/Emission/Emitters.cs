@@ -4,12 +4,12 @@ namespace Tempest.Core.Emission
 {
     public class Emitters
     {
-        public static Emitter ToFile(string relativePath) => new FileEmitter(relativePath);
-        public static Emitter ToFile(Func<string> relativePathFunc) => new FileExpressionEmitter(relativePathFunc);
-        public static Emitter ToFiles(string globPattern) => new GlobFileEmitter(globPattern);
-        public static Emitter ToFiles(Func<string> globPatternFunc) => new GlobFileExpressionEmitter(globPatternFunc);
-        public static Emitter ToFiles() => new GlobFileEmitter("");
+        public static EmitterFactory ToFile(string relativePath) => new FileEmitterFactory(relativePath);
+        public static EmitterFactory ToFile(Func<string> relativePathFunc) => new FileExpressionEmitterFactory(relativePathFunc);
+        public static EmitterFactory ToFiles(string globPattern) => new GlobFileEmitterFactory(globPattern);
+        public static EmitterFactory ToFiles(Func<string> globPatternFunc) => new GlobFileExpressionEmitterFactory(globPatternFunc);
+        public static EmitterFactory ToFiles() => new GlobFileEmitterFactory("");
 
-        public static Emitter ToFiles(Func<string, string> fileNameTransformationFunc) => new GlobFunctioningFileEmitter(fileNameTransformationFunc);
+        public static EmitterFactory ToFiles(Func<string, string> fileNameTransformationFunc) => new GlobFunctioningFileEmitterFactory(fileNameTransformationFunc);
     }
 }

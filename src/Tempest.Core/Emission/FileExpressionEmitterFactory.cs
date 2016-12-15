@@ -4,11 +4,11 @@ using System.IO;
 namespace Tempest.Core.Emission
 {
     // TODO Lots of inheritance possibilities here
-    public class FileExpressionEmitter : Emitter
+    public class FileExpressionEmitterFactory : EmitterFactory
     {
         private readonly Func<string> _relativePathFunc;
 
-        public FileExpressionEmitter(Func<string> relativePathFunc)
+        public FileExpressionEmitterFactory(Func<string> relativePathFunc)
         {
             _relativePathFunc = relativePathFunc;
         }

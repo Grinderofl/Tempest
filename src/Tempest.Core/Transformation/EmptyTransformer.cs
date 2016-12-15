@@ -5,7 +5,7 @@ namespace Tempest.Core.Transformation
 {
     public class EmptyTransformer : Transformer
     {
-        protected override Stream TransformStream(TransformerContext context)
+        public override Stream TransformStream(TransformerContext context)
         {
             return "".ToStream();
         }

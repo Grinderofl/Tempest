@@ -16,14 +16,14 @@ namespace Tempest.Core.Transformation
             _replaceFileNames = replaceFileNames;
         }
 
-        protected override Stream TransformStream(TransformerContext context)
+        public override Stream TransformStream(Stream context)
         {
-            var asString = context.TransformationStream.ReadAsString();
+            var asString = context.ReadAsString();
             asString = asString.Replace(_token, _replaceWith);
             return asString.ToStream();
         }
 
-        protected override string TransformFilename(string source)
+        public override string TransformFilename(string source)
             => _replaceFileNames ? source.Replace(_token, _replaceWith) : source;
     }
 }
