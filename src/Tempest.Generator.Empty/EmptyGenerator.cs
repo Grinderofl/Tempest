@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tempest.Core;
 using Tempest.Core.Options;
-using Tempest.Core.Transformation;
 
 namespace Tempest.Generator.Empty
 {

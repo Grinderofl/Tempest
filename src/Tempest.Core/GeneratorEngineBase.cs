@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Tempest.Core.Emission;
+using Tempest.Core.OperationBuilding;
 using Tempest.Core.Options;
-using Tempest.Core.Setup;
-using Tempest.Core.Sourcing;
-using Tempest.Core.Transformation;
+using Tempest.Core.Setup.Sourcing;
+using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core
 {
     public abstract class GeneratorEngineBase
     {
         private readonly OptionExecutor _optionExecutor = new OptionExecutor();
+        
+        protected internal IList<OperationStep> Steps { get; set; } = new List<OperationStep>();
 
-        protected internal IList<ScaffoldStep> Steps { get; set; } = new List<ScaffoldStep>();
-
-        protected internal IList<Transformer> GlobalTransformers { get; set; } = new List<Transformer>();
+        protected internal IList<OperationTransformer> GlobalTransformers { get; set; } = new List<OperationTransformer>();
 
         protected abstract DirectoryInfo BuildTargetPath(GeneratorContext generatorContext);
 
@@ -35,7 +34,7 @@ namespace Tempest.Core
         /// </summary>
         protected abstract void ExecuteCore();
 
-        protected virtual IEnumerable<Transformer> GetEligibleTransformers(ScaffoldStep step)
+        protected virtual IEnumerable<OperationTransformer> GetEligibleTransformers(OperationStep step)
             => GlobalTransformers.Union(step.GetTransformers());
 
         public virtual void Run(GeneratorContext context)
@@ -51,36 +50,13 @@ namespace Tempest.Core
             };
 
             var operationBuilder = new OperationBuilder();
-            var operations = operationBuilder.Build(Steps, sourcingContext);
+            var operations = operationBuilder.Build(Steps, GlobalTransformers, sourcingContext);
             foreach (var operation in operations)
             {
                 operation.Execute();
             }
-
-            //var executors = new List<ScaffoldStepExecutor>(Steps.Count);
-            //executors.AddRange(Steps.Select(scaffoldStep => new ScaffoldStepExecutor(scaffoldStep)));
-
-            //RetrieveSources(sourcingContext, executors);
-            //Transform(executors, GlobalTransformers);
-            //Emit(sourcingContext, executors);
         }
 
-        //protected virtual void Emit(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
-        //{
-        //    foreach (var executor in executors)
-        //        executor.ExecuteEmitters(sourcingContext);
-        //}
 
-        //protected virtual void Transform(IList<ScaffoldStepExecutor> executors, ICollection<Transformer> globalTransformers)
-        //{
-        //    foreach (var executor in executors)
-        //        executor.ExecuteTransformers(globalTransformers);
-        //}
-
-        //protected virtual void RetrieveSources(SourcingContext sourcingContext, IList<ScaffoldStepExecutor> executors)
-        //{
-        //    foreach (var executor in executors)
-        //        executor.ExecuteSources(sourcingContext);
-        //}
     }
 }

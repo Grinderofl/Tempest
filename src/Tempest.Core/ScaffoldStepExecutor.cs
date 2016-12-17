@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Tempest.Core.Emission;
-using Tempest.Core.Setup;
-using Tempest.Core.Sourcing;
-using Tempest.Core.Transformation;
-
-namespace Tempest.Core
+﻿namespace Tempest.Core
 {
     //public class ScaffoldStepExecutor
     //{

@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Tempest.Core.Setup;
+using Tempest.Core.OperationBuilding;
 
 namespace Tempest.Core
 {
@@ -11,32 +11,32 @@ namespace Tempest.Core
         protected GeneratorBase()
         {
             Options = new OptionsFactory(this);
-            Update = new UpdateFactory(this);
-            Copy = new CopyFactory(this);
-            Create = new CreateFactory(this);
-            Set = new SetFactory(this);
-            Globally = new GlobalFactory(this);
+            Update = new UpdateOperationBuilder(this);
+            Copy = new CopyOperationBuilder(this);
+            Create = new CreateOperationBuilder(this);
+            Set = new SetOperationBuilder(this);
+            Globally = new GlobalOperationBuilder(this);
         }
 
         /// <summary>
         ///     Creates a new file
         /// </summary>
-        public CreateFactory Create { get; set; }
+        public CreateOperationBuilder Create { get; set; }
 
         /// <summary>
         ///     Updates an existing file in the target directory
         /// </summary>
-        public UpdateFactory Update { get; set; }
+        public UpdateOperationBuilder Update { get; set; }
 
         /// <summary>
         ///     Copies a file from templates
         /// </summary>
-        public CopyFactory Copy { get; set; }
+        public CopyOperationBuilder Copy { get; set; }
 
         /// <summary>
         ///     Sets some internal variables
         /// </summary>
-        public SetFactory Set { get; set; }
+        public SetOperationBuilder Set { get; set; }
 
         /// <summary>
         ///     Creates some configuration options
@@ -46,7 +46,7 @@ namespace Tempest.Core
         /// <summary>
         ///     Globally uses transformers or emitters (executed for every source)
         /// </summary>
-        public GlobalFactory Globally { get; set; }
+        public GlobalOperationBuilder Globally { get; set; }
 
         protected override DirectoryInfo BuildTemplatePath(GeneratorContext generatorContext)
             =>

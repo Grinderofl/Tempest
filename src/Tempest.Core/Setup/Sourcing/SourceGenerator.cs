@@ -1,0 +1,16 @@
+using System.Collections.Generic;
+
+namespace Tempest.Core.Setup.Sourcing
+{
+    /// <summary>
+    ///     Generates an output stream
+    ///     Could be:
+    ///     GenerateEmpty
+    ///     GenerateByCopying
+    ///     GenerateFromWebstream
+    /// </summary>
+    public abstract class SourceGenerator
+    {
+        public abstract IEnumerable<SourcingResult> Generate(SourcingContext context);
+    }
+}

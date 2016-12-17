@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Tempest.Core.Domain.Operations;
-using Tempest.Core.Emission;
-using Tempest.Core.Setup;
-using Tempest.Core.Sourcing;
+using System.Linq;
+using Tempest.Core.OperationBuilding;
+using Tempest.Core.Scaffolding.Operations;
+using Tempest.Core.Scaffolding.Persistence;
+using Tempest.Core.Scaffolding.Transforms;
+using Tempest.Core.Setup.Sourcing;
+using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core
 {
     public class OperationBuilder
     {
-        public virtual IEnumerable<Operation> Build(IEnumerable<ScaffoldStep> steps, SourcingContext context)
+        public virtual IEnumerable<Operation> Build(IEnumerable<OperationStep> steps, IList<OperationTransformer> globalTransformers, SourcingContext context)
         {
             foreach (var step in steps)
             {
-                foreach (var operation in BuildOperations(step, context))
+                foreach (var operation in BuildOperations(step, globalTransformers, context))
                     yield return operation;
             }
 
@@ -23,30 +26,25 @@ namespace Tempest.Core
             // 3) Emitters? Targets?
         }
 
-        private IEnumerable<Operation> BuildOperations(ScaffoldStep step, SourcingContext context)
+        private IEnumerable<Operation> BuildOperations(OperationStep step, IList<OperationTransformer> globalTransformers, SourcingContext context)
         {
             var source = step.GetSource();
             var sourcingResults = source.Generate(context);
             
             foreach (var result in sourcingResults)
             {
-                var funcs = new List<Func<Stream, Stream>>();
                 var destinationFilename = result.FileName;
-                Func<Stream, Stream> transformer = stream => stream;
-
-                foreach (var t in step.GetTransformers())
-                {
-                    destinationFilename = t.TransformFilename(destinationFilename);
-
-                    transformer = stream => t.TransformStream(stream);
-                    
-                    //
-
-                    Func<Stream, Stream> func = s => t.TransformStream(s);
-                    funcs.Add(func);
-                }
+                var streamTransformers = new List<IStreamTransformer>();
                 
-                var emissionContext = new EmissionContext()
+                foreach (var transformer in globalTransformers.Union(step.GetTransformers()))
+                {
+                    destinationFilename = transformer.TransformFilename(destinationFilename);
+                    streamTransformers.Add(transformer.CreateStreamTransformer());
+                }
+
+                var actualTransformer = new CompoundStreamTransformer(streamTransformers);
+
+                var emissionContext = new PersistenceContext()
                 {
                     FilePath = result.FilePath,
                     Filename = destinationFilename
@@ -54,8 +52,8 @@ namespace Tempest.Core
 
                 foreach (var emitter in step.GetEmitters())
                 {
-                    foreach (var actualEmitter in  emitter.CreateEmitters(emissionContext))
-                        yield return new Operation(result.OutputStreamFactory, transformer, actualEmitter);
+                    foreach (var actualEmitter in  emitter.CreatePersisters(emissionContext))
+                        yield return new Operation(result.Source, actualTransformer, actualEmitter);
                 }
             }
 
