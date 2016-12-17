@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tempest.Core.Domain.Streaming
 {
-    public abstract class StreamFactory
+    public abstract class AbstractStreamFactory : IStreamFactory
     {
         public abstract Stream Create();
     }

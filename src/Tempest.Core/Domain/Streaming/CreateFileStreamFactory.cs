@@ -2,7 +2,7 @@
 
 namespace Tempest.Core.Domain.Streaming
 {
-    public class CreateFileStreamFactory : StreamFactory
+    public class CreateFileStreamFactory : AbstractStreamFactory
     {
         private readonly string _filePath;
 

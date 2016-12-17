@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Tempest.Core.Domain.Streaming
 {
-    public class AssemblyManifestStreamFactory : StreamFactory
+    public class AssemblyManifestStreamFactory : AbstractStreamFactory
     {
         private readonly Assembly _assembly;
         private readonly string _resource;

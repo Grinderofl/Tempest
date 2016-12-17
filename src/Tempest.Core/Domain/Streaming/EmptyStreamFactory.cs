@@ -2,10 +2,10 @@ using System.IO;
 
 namespace Tempest.Core.Domain.Streaming
 {
-    public class EmptyStreamFactory : StreamFactory
+    public class EmptyStreamFactory : AbstractStreamFactory
     {
 
-        public static StreamFactory Instance = new EmptyStreamFactory();
+        public static AbstractStreamFactory Instance = new EmptyStreamFactory();
 
         private EmptyStreamFactory()
         {

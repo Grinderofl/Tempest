@@ -6,7 +6,7 @@ namespace Tempest.Core.Sourcing
     public class SourcingResult
     {
         //public Stream OutputStream { get; set; }
-        public StreamFactory OutputStreamFactory { get; set; }
+        public AbstractStreamFactory OutputStreamFactory { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
     }

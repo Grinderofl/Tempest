@@ -5,7 +5,7 @@ using Tempest.Core.Utils;
 
 namespace Tempest.Core.Domain.Streaming
 {
-    public class StringStreamFactory : StreamFactory
+    public class StringStreamFactory : AbstractStreamFactory
     {
         private readonly string _s;
 
@@ -20,7 +20,7 @@ namespace Tempest.Core.Domain.Streaming
         }
     }
 
-    public class HttpStreamFactory : StreamFactory
+    public class HttpStreamFactory : AbstractStreamFactory
     {
         private Uri _uri;
         protected static readonly HttpClient HttpClient = new HttpClient();

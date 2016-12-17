@@ -15,11 +15,11 @@ namespace Tempest.Core.Domain.Operations
     /// </summary>
     public class Operation
     {
-        private readonly StreamFactory _sourceStreamFactory;
+        private readonly IStreamFactory _sourceStreamFactory;
         private readonly Func<Stream, Stream> _transformer;
-        private readonly ActualEmitter _emitter;
+        private readonly IStreamEmitter _emitter;
 
-        public Operation(StreamFactory sourceStreamFactory, Func<Stream, Stream> transformer, ActualEmitter emitter)
+        public Operation(IStreamFactory sourceStreamFactory, Func<Stream, Stream> transformer, IStreamEmitter emitter)
         {
             _sourceStreamFactory = sourceStreamFactory;
             _transformer = transformer;
@@ -28,8 +28,9 @@ namespace Tempest.Core.Domain.Operations
 
         public virtual void Execute()
         {
-            
-            _emitter.Emit(_transformer(_sourceStreamFactory.Create()));
+            var stream = _sourceStreamFactory.Create();
+            var transformedStream = _transformer(stream);
+            _emitter.Emit(transformedStream);
         }
     }
 }
