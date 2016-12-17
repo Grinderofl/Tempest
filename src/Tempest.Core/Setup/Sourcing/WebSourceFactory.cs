@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Tempest.Core.Scaffolding.Sources;
+using Tempest.Core.Scaffolding.Providers;
 
 namespace Tempest.Core.Setup.Sourcing
 {
@@ -17,7 +17,7 @@ namespace Tempest.Core.Setup.Sourcing
         {
             yield return new SourcingResult()
             {
-                Source = new HttpStreamSource(_uri)
+                Provider = new HttpStreamProvider(_uri)
             };
         }
     }

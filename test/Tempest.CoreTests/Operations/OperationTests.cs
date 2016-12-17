@@ -4,7 +4,7 @@ using System.IO;
 using Moq;
 using Tempest.Core.Scaffolding.Operations;
 using Tempest.Core.Scaffolding.Persistence;
-using Tempest.Core.Scaffolding.Sources;
+using Tempest.Core.Scaffolding.Providers;
 using Tempest.Core.Scaffolding.Transforms;
 using Tempest.Core.Utils;
 using Xunit;
@@ -25,14 +25,14 @@ namespace Tempest.CoreTests.Operations
                 return operation;
             }
 
-            protected virtual IStreamSource CreateStreamFactory()
+            protected virtual IStreamProvider CreateStreamFactory()
             {
-                var streamFactory = new Mock<IStreamSource>();
+                var streamFactory = new Mock<IStreamProvider>();
                 ModifyStreamFactory(streamFactory);
                 return streamFactory.Object;
             }
 
-            protected virtual void ModifyStreamFactory(Mock<IStreamSource> streamFactory)
+            protected virtual void ModifyStreamFactory(Mock<IStreamProvider> streamFactory)
             {
             }
 
@@ -53,9 +53,9 @@ namespace Tempest.CoreTests.Operations
 
         public class ExecutingMinimalOperation : OperationContext
         {
-            protected override void ModifyStreamFactory(Mock<IStreamSource> streamFactory)
+            protected override void ModifyStreamFactory(Mock<IStreamProvider> streamFactory)
             {
-                streamFactory.Setup(x => x.Create()).Returns("Foo".ToStream());
+                streamFactory.Setup(x => x.Provide()).Returns("Foo".ToStream());
             }
 
             [Fact]
@@ -75,9 +75,9 @@ namespace Tempest.CoreTests.Operations
 
         public class ExecutingSimpleTransformOperation : OperationContext
         {
-            protected override void ModifyStreamFactory(Mock<IStreamSource> streamFactory)
+            protected override void ModifyStreamFactory(Mock<IStreamProvider> streamFactory)
             {
-                streamFactory.Setup(x => x.Create()).Returns("Foo".ToStream());
+                streamFactory.Setup(x => x.Provide()).Returns("Foo".ToStream());
             }
 
             protected override IStreamTransformer CreateTransformer()
@@ -103,9 +103,9 @@ namespace Tempest.CoreTests.Operations
 
         public class ExecutingMultiTransformOperation : OperationContext
         {
-            protected override void ModifyStreamFactory(Mock<IStreamSource> streamFactory)
+            protected override void ModifyStreamFactory(Mock<IStreamProvider> streamFactory)
             {
-                streamFactory.Setup(x => x.Create()).Returns("Fizz".ToStream());
+                streamFactory.Setup(x => x.Provide()).Returns("Fizz".ToStream());
             }
 
             protected override IStreamTransformer CreateTransformer()
@@ -131,9 +131,9 @@ namespace Tempest.CoreTests.Operations
 
         public class ExecutingCompoundTransformOperation : OperationContext
         {
-            protected override void ModifyStreamFactory(Mock<IStreamSource> streamFactory)
+            protected override void ModifyStreamFactory(Mock<IStreamProvider> streamFactory)
             {
-                streamFactory.Setup(x => x.Create()).Returns("Fizz".ToStream());
+                streamFactory.Setup(x => x.Provide()).Returns("Fizz".ToStream());
             }
 
 

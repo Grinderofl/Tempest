@@ -1,4 +1,6 @@
-﻿using Tempest.Core.Setup.Transformation;
+﻿using System.Collections.Generic;
+using Tempest.Core.Scaffolding.Transforms;
+using Tempest.Core.Setup.Transformation;
 using Tempest.Core.Utils;
 using Xunit;
 
@@ -28,6 +30,38 @@ namespace Tempest.CoreTests.Transformation
                 var result = transformer.CreateStreamTransformer();
                 var resultString = result.Transform("TestContent".ToStream()).ReadAsString();
                 Assert.Equal("TestContent", resultString);
+            }
+        }
+
+        public class TokenTransformationTests
+        {
+            [Fact]
+            public void transforms_tokens()
+            {
+                var transformer = new TokenStreamTransformer("foo", "bar");
+                var result = transformer.Transform("foos".ToStream()).ReadAsString();
+                Assert.Equal("bars", result);
+            }
+
+            [Fact]
+            public void transforms_multiple_tokens()
+            {
+                var transformer = new MultiTokenStreamTransformer(new Dictionary<string, string>
+                {
+                    ["i"] = "u",
+                    ["F"] = "B"
+                });
+
+                var result = transformer.Transform("Fizz".ToStream()).ReadAsString();
+                Assert.Equal("Buzz", result);
+            }
+
+            [Fact]
+            public void transforms_compound_tokens()
+            {
+                var transformer = new CompoundStreamTransformer(new []{new TokenStreamTransformer("i", "u"),new TokenStreamTransformer("F", "B") });
+                var result = transformer.Transform("Fizz".ToStream()).ReadAsString();
+                Assert.Equal("Buzz", result);
             }
         }
     }

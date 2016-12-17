@@ -20,6 +20,6 @@ namespace Tempest.Core.Setup.Transformation
         public override IStreamTransformer CreateStreamTransformer() => new TokenStreamTransformer(_token, _replaceWith);
 
         public override string TransformFilename(string source)
-            => _replaceFileNames ? source.Replace(_token, _replaceWith) : source;
+            => _replaceFileNames ? source?.Replace(_token, _replaceWith) : source;
     }
 }

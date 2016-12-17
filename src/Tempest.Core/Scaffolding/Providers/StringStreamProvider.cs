@@ -1,18 +1,18 @@
 using System.IO;
 using Tempest.Core.Utils;
 
-namespace Tempest.Core.Scaffolding.Sources
+namespace Tempest.Core.Scaffolding.Providers
 {
-    public class StringStreamSource : AbstractStreamSource
+    public class StringStreamProvider : AbstractStreamProvider
     {
         private readonly string _s;
 
-        public StringStreamSource(string s)
+        public StringStreamProvider(string s)
         {
             _s = s;
         }
 
-        public override Stream Create()
+        public override Stream Provide()
         {
             return _s.ToStream();
         }

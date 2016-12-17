@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using Tempest.Core.Scaffolding.Sources;
+using Tempest.Core.Scaffolding.Providers;
 
 namespace Tempest.Core.Setup.Sourcing
 {
@@ -23,7 +23,7 @@ namespace Tempest.Core.Setup.Sourcing
             yield return new SourcingResult
             {
                 FileName = fileName,
-                Source = new OpenFileStreamSource(absolutePath),
+                Provider = new OpenFileStreamProvider(absolutePath),
                 FilePath = absolutePath
             };
         }

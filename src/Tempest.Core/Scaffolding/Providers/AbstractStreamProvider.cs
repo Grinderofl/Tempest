@@ -1,11 +1,11 @@
 using System.IO;
 
-namespace Tempest.Core.Scaffolding.Sources
+namespace Tempest.Core.Scaffolding.Providers
 {
-    public abstract class AbstractStreamSource : IStreamSource
+    public abstract class AbstractStreamProvider : IStreamProvider
     {
 
-        public abstract Stream Create();
+        public abstract Stream Provide();
         public virtual string Describe()
         {
             return $"{GetStreamDescriptor()} - {GetType()}";

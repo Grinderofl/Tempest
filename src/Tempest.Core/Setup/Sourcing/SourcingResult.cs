@@ -1,10 +1,10 @@
-﻿using Tempest.Core.Scaffolding.Sources;
+﻿using Tempest.Core.Scaffolding.Providers;
 
 namespace Tempest.Core.Setup.Sourcing
 {
     public class SourcingResult
     {
-        public AbstractStreamSource Source { get; set; }
+        public AbstractStreamProvider Provider { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
     }

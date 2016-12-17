@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Tempest.Core.Scaffolding.Sources;
+using Tempest.Core.Scaffolding.Providers;
 
 namespace Tempest.Core.Setup.Sourcing
 {
@@ -17,7 +17,7 @@ namespace Tempest.Core.Setup.Sourcing
             yield return new SourcingResult
             {
                 FileName = "",
-                Source = new StringStreamSource(_string),
+                Provider = new StringStreamProvider(_string),
             };
         }
     }

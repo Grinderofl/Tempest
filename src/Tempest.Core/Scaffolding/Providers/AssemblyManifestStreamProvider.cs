@@ -1,20 +1,20 @@
 using System.IO;
 using System.Reflection;
 
-namespace Tempest.Core.Scaffolding.Sources
+namespace Tempest.Core.Scaffolding.Providers
 {
-    public class AssemblyManifestStreamSource : AbstractStreamSource
+    public class AssemblyManifestStreamProvider : AbstractStreamProvider
     {
         private readonly Assembly _assembly;
         private readonly string _resource;
 
-        public AssemblyManifestStreamSource(Assembly assembly, string resource)
+        public AssemblyManifestStreamProvider(Assembly assembly, string resource)
         {
             _assembly = assembly;
             _resource = resource;
         }
 
-        public override Stream Create()
+        public override Stream Provide()
         {
             return _assembly.GetManifestResourceStream(_resource);
         }

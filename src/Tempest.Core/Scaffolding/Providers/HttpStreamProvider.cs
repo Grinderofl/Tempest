@@ -2,18 +2,18 @@ using System;
 using System.IO;
 using System.Net.Http;
 
-namespace Tempest.Core.Scaffolding.Sources
+namespace Tempest.Core.Scaffolding.Providers
 {
-    public class HttpStreamSource : AbstractStreamSource
+    public class HttpStreamProvider : AbstractStreamProvider
     {
         private readonly Uri _uri;
         protected static readonly HttpClient HttpClient = new HttpClient();
-        public HttpStreamSource(Uri uri)
+        public HttpStreamProvider(Uri uri)
         {
             _uri = uri;
         }
 
-        public override Stream Create()
+        public override Stream Provide()
         {
             return HttpClient.GetStreamAsync(_uri).Result;
         }

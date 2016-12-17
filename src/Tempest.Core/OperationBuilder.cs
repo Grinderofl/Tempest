@@ -34,10 +34,12 @@ namespace Tempest.Core
             foreach (var result in sourcingResults)
             {
                 var destinationFilename = result.FileName;
+                var destinationFilepath = result.FilePath;
                 var streamTransformers = new List<IStreamTransformer>();
                 
                 foreach (var transformer in globalTransformers.Union(step.GetTransformers()))
                 {
+                    destinationFilepath = transformer.TransformFilename(destinationFilepath);
                     destinationFilename = transformer.TransformFilename(destinationFilename);
                     streamTransformers.Add(transformer.CreateStreamTransformer());
                 }
@@ -46,14 +48,15 @@ namespace Tempest.Core
 
                 var emissionContext = new PersistenceContext()
                 {
-                    FilePath = result.FilePath,
-                    Filename = destinationFilename
+                    FilePath = destinationFilepath,
+                    Filename = destinationFilename,
+                    TargetDirectory = context.TargetRoot
                 };
 
                 foreach (var emitter in step.GetEmitters())
                 {
                     foreach (var actualEmitter in  emitter.CreatePersisters(emissionContext))
-                        yield return new Operation(result.Source, actualTransformer, actualEmitter);
+                        yield return new Operation(result.Provider, actualTransformer, actualEmitter);
                 }
             }
 

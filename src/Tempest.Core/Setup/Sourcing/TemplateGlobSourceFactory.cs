@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using Tempest.Core.Scaffolding.Sources;
+using Tempest.Core.Scaffolding.Providers;
 using Tempest.Core.Utils;
 
 namespace Tempest.Core.Setup.Sourcing
@@ -29,7 +29,7 @@ namespace Tempest.Core.Setup.Sourcing
                 {
                     FilePath = fileRelativePath,
                     FileName = fileRelativePath,
-                    Source = new OpenFileStreamSource(file.FullName)
+                    Provider = new OpenFileStreamProvider(file.FullName)
                 };
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Tempest.Core.Utils;
 
@@ -16,6 +17,7 @@ namespace Tempest.Core.Scaffolding.Transforms
 
         public override Stream Transform(Stream stream)
         {
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             return stream.ReadAsString().Replace(_searchForToken, _replaceWith).ToStream();
         }
     }

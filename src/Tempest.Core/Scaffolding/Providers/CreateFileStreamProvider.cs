@@ -1,19 +1,19 @@
 ﻿using System.IO;
 
-namespace Tempest.Core.Scaffolding.Sources
+namespace Tempest.Core.Scaffolding.Providers
 {
-    public class OpenFileStreamSource : AbstractStreamSource
+    public class CreateFileStreamProvider : AbstractStreamProvider
     {
         private readonly string _filePath;
 
-        public OpenFileStreamSource(string filePath)
+        public CreateFileStreamProvider(string filePath)
         {
             _filePath = filePath;
         }
 
-        public override Stream Create()
+        public override Stream Provide()
         {
-            return File.Open(_filePath, FileMode.Open);
+            return File.Create(_filePath);
         }
 
         protected override string GetStreamDescriptor()
