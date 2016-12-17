@@ -3,11 +3,11 @@ using Tempest.Core.Scaffolding.Sources;
 
 namespace Tempest.Core.Setup.Sourcing
 {
-    public class StringContentSourceGenerator : SourceGenerator
+    public class StringContentSourceFactory : SourceFactory
     {
         private readonly string _string;
 
-        public StringContentSourceGenerator(string s)
+        public StringContentSourceFactory(string s)
         {
             _string = s;
         }

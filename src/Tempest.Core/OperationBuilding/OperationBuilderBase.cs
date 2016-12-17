@@ -13,9 +13,9 @@ namespace Tempest.Core.OperationBuilding
             Engine = engine;
         }
 
-        protected virtual OperationStep CreateStep(SourceGenerator sourceGenerator)
+        protected virtual OperationStep CreateStep(SourceFactory sourceFactory)
         {
-            var step = new OperationStep(sourceGenerator);
+            var step = new OperationStep(sourceFactory);
             Engine.Steps.Add(step);
             return step;
         }

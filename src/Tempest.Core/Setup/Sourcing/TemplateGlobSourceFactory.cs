@@ -6,11 +6,11 @@ using Tempest.Core.Utils;
 namespace Tempest.Core.Setup.Sourcing
 {
     // Lots of inheritance possibilities here
-    public class TemplateGlobSourceGenerator : SourceGenerator
+    public class TemplateGlobSourceFactory : SourceFactory
     {
         private readonly string _globPattern;
 
-        public TemplateGlobSourceGenerator(string globPattern)
+        public TemplateGlobSourceFactory(string globPattern)
         {
             _globPattern = globPattern;
         }

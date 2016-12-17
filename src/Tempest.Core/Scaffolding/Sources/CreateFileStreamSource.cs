@@ -15,5 +15,10 @@ namespace Tempest.Core.Scaffolding.Sources
         {
             return File.Create(_filePath);
         }
+
+        protected override string GetStreamDescriptor()
+        {
+            return _filePath;
+        }
     }
 }

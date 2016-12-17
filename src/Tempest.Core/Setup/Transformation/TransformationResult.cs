@@ -17,6 +17,5 @@ namespace Tempest.Core.Setup.Transformation
 
         public Stream OutputStream { get; set; }
         public string Filename { get; set; }
-        public string FilePath { get; set; }
     }
 }

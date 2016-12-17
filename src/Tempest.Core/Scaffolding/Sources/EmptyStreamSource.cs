@@ -15,5 +15,10 @@ namespace Tempest.Core.Scaffolding.Sources
         {
             return new MemoryStream();
         }
+
+        protected override string GetStreamDescriptor()
+        {
+            return "[Empty stream]";
+        }
     }
 }

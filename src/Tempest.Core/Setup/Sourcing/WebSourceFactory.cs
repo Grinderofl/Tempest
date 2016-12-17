@@ -4,11 +4,11 @@ using Tempest.Core.Scaffolding.Sources;
 
 namespace Tempest.Core.Setup.Sourcing
 {
-    public class WebSourceGenerator : SourceGenerator
+    public class WebSourceFactory : SourceFactory
     {
         private readonly Uri _uri;
         
-        public WebSourceGenerator(Uri uri)
+        public WebSourceFactory(Uri uri)
         {
             if (uri == null) throw new ArgumentNullException(nameof(uri));
             _uri = uri;

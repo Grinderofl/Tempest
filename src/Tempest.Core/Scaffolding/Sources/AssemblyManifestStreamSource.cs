@@ -18,5 +18,10 @@ namespace Tempest.Core.Scaffolding.Sources
         {
             return _assembly.GetManifestResourceStream(_resource);
         }
+
+        protected override string GetStreamDescriptor()
+        {
+            return $"{_resource} ({_assembly.FullName})";
+        }
     }
 }

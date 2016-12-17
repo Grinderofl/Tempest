@@ -9,7 +9,7 @@ namespace Tempest.Core.Setup.Sourcing
     ///     GenerateByCopying
     ///     GenerateFromWebstream
     /// </summary>
-    public abstract class SourceGenerator
+    public abstract class SourceFactory
     {
         public abstract IEnumerable<SourcingResult> Generate(SourcingContext context);
     }

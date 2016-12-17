@@ -3,9 +3,9 @@ using System.IO;
 namespace Tempest.Core.Setup.Sourcing
 {
     // Lots of inheritance possibilities here
-    public class TemplateFileSourceGenerator : FileSourceGenerator
+    public class TemplateFileSourceFactory : FileSourceFactory
     {
-        public TemplateFileSourceGenerator(string relativePath) : base(relativePath)
+        public TemplateFileSourceFactory(string relativePath) : base(relativePath)
         {
         }
 

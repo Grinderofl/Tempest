@@ -19,6 +19,11 @@ namespace Tempest.Core.Scaffolding.Persistence
                 sourceStream.CopyTo(fs);
             }
         }
+
+        protected override string GetStreamDescriptor()
+        {
+            return $"{FilePath}";
+        }
     }
 
 }

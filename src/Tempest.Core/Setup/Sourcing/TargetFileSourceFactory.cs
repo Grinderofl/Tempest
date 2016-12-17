@@ -2,9 +2,9 @@ using System.IO;
 
 namespace Tempest.Core.Setup.Sourcing
 {
-    public class TargetFileSourceGenerator : FileSourceGenerator
+    public class TargetFileSourceFactory : FileSourceFactory
     {
-        public TargetFileSourceGenerator(string relativePath) : base(relativePath)
+        public TargetFileSourceFactory(string relativePath) : base(relativePath)
         {
         }
 

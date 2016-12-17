@@ -8,7 +8,7 @@ namespace Tempest.Core.OperationBuilding
 {
     public class OperationStep : OperationStepBase
     {
-        public OperationStep(SourceGenerator sourceGenerator) : base(sourceGenerator)
+        public OperationStep(SourceFactory sourceFactory) : base(sourceFactory)
         {
         }
 

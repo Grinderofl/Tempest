@@ -16,5 +16,10 @@ namespace Tempest.Core.Scaffolding.Persistence
             sourceStream.Seek(0, SeekOrigin.Begin);
             sourceStream.CopyTo(_destinationStream);
         }
+
+        protected override string GetStreamDescriptor()
+        {
+            return $"[New stream]";
+        }
     }
 }

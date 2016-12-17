@@ -3,14 +3,15 @@ using System.IO;
 
 namespace Tempest.Core.Scaffolding.Persistence
 {
-    [DebuggerDisplay("{DebuggerDisplay()}")]
+    [DebuggerDisplay("{Describe()}")]
     public abstract class AbstractStreamPersister : IStreamPersister
     {
-        protected virtual string DebuggerDisplay()
-        {
-            return $"{GetType()}";
-        }
+        protected abstract string GetStreamDescriptor();
 
         public abstract void Persist(Stream sourceStream);
+        public virtual string Describe()
+        {
+            return $"{GetStreamDescriptor()} {GetType()}";
+        }
     }
 }

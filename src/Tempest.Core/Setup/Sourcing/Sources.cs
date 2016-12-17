@@ -5,12 +5,12 @@ namespace Tempest.Core.Setup.Sourcing
 {
     public class Sources
     {
-        public static SourceGenerator FromString(string source) => new StringContentSourceGenerator(source);
-        public static SourceGenerator FromTemplate(string filePath) => new TemplateFileSourceGenerator(filePath);
-        public static SourceGenerator FromResource(string resourcePath, Assembly resourceAssembly)
-            => new ResourceFileSourceGenerator(resourcePath, resourceAssembly);
-        public static SourceGenerator FromTarget(string filePath) =>new TargetFileSourceGenerator(filePath);
-        public static SourceGenerator FromTemplateGlob(string glob) => new TemplateGlobSourceGenerator(glob);
-        public static SourceGenerator FromUri(Uri uri) => new WebSourceGenerator(uri);
+        public static SourceFactory FromString(string source) => new StringContentSourceFactory(source);
+        public static SourceFactory FromTemplate(string filePath) => new TemplateFileSourceFactory(filePath);
+        public static SourceFactory FromResource(string resourcePath, Assembly resourceAssembly)
+            => new ResourceFileSourceFactory(resourcePath, resourceAssembly);
+        public static SourceFactory FromTarget(string filePath) =>new TargetFileSourceFactory(filePath);
+        public static SourceFactory FromTemplateGlob(string glob) => new TemplateGlobSourceFactory(glob);
+        public static SourceFactory FromUri(Uri uri) => new WebSourceFactory(uri);
     }
 }

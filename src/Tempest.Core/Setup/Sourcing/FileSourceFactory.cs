@@ -4,11 +4,11 @@ using Tempest.Core.Scaffolding.Sources;
 
 namespace Tempest.Core.Setup.Sourcing
 {
-    public abstract class FileSourceGenerator : SourceGenerator
+    public abstract class FileSourceFactory : SourceFactory
     {
         private readonly string _relativePath;
 
-        protected FileSourceGenerator(string relativePath)
+        protected FileSourceFactory(string relativePath)
         {
             _relativePath = relativePath;
         }

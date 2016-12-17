@@ -15,7 +15,7 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var generator = new StringContentSourceGenerator("TestContent");
+                var generator = new StringContentSourceFactory("TestContent");
 
                 var result = generator.Generate(new SourcingContext());
 
@@ -44,9 +44,9 @@ namespace Tempest.CoreTests.Sourcing
                 Assert.Equal("Foobar", resultValue);
             }
 
-            private static TemplateFileSourceGenerator BuildTemplateSourceLocation()
+            private static TemplateFileSourceFactory BuildTemplateSourceLocation()
             {
-                var generator = new TemplateFileSourceGenerator("foo.bar");
+                var generator = new TemplateFileSourceFactory("foo.bar");
                 return generator;
             }
 
@@ -61,7 +61,7 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var source = new ResourceFileSourceGenerator("Tempest.CoreTests.Sourcing.EmbeddedResource.txt",
+                var source = new ResourceFileSourceFactory("Tempest.CoreTests.Sourcing.EmbeddedResource.txt",
                     typeof(TemplateFileSourceTests).GetTypeInfo().Assembly);
                 var context = new SourcingContext();
                 var result = source.Generate(context);

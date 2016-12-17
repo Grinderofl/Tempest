@@ -7,12 +7,12 @@ using Tempest.Core.Scaffolding.Sources;
 namespace Tempest.Core.Setup.Sourcing
 {
     // Lots of inheritance possibilities here
-    public class ResourceFileSourceGenerator : SourceGenerator
+    public class ResourceFileSourceFactory : SourceFactory
     {
         private readonly Assembly _resourceAssembly;
         private readonly string _resourcePath;
 
-        public ResourceFileSourceGenerator(string resourcePath, Assembly resourceAssembly)
+        public ResourceFileSourceFactory(string resourcePath, Assembly resourceAssembly)
         {
             if (resourcePath == null) throw new ArgumentNullException(nameof(resourcePath));
             if (resourceAssembly == null) throw new ArgumentNullException(nameof(resourceAssembly));

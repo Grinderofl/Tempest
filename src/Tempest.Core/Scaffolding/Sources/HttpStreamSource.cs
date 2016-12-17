@@ -6,7 +6,7 @@ namespace Tempest.Core.Scaffolding.Sources
 {
     public class HttpStreamSource : AbstractStreamSource
     {
-        private Uri _uri;
+        private readonly Uri _uri;
         protected static readonly HttpClient HttpClient = new HttpClient();
         public HttpStreamSource(Uri uri)
         {
@@ -16,6 +16,11 @@ namespace Tempest.Core.Scaffolding.Sources
         public override Stream Create()
         {
             return HttpClient.GetStreamAsync(_uri).Result;
+        }
+
+        protected override string GetStreamDescriptor()
+        {
+            return _uri.AbsoluteUri;
         }
     }
 }
