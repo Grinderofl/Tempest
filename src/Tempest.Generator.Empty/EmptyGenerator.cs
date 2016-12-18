@@ -26,7 +26,7 @@ namespace Tempest.Generator.Empty
         protected override IEnumerable<ConfigurationOption> SetupOptions()
         {
             // Split into SimpleList and ComplexList
-            // Simple list is for stuff where choices only return one value performed by list
+            // Simple list is for stuff where choices only return one value performC:\P\P\Tempest\src\Tempest.Core\Utils\StringExtensions.csed by list
             // Complex list is for stuff where choices all do their own thing
             // Better polymorphism and API.
 

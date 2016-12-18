@@ -1,4 +1,5 @@
 ﻿using Tempest.Boot;
+using Tempest.Boot.Strapper;
 
 namespace Tempest
 {

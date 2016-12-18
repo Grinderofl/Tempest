@@ -1,0 +1,22 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Microsoft.Extensions.CommandLineUtils": "1.1.0",
+    "Microsoft.Extensions.DependencyInjection": "1.1.0",
+    "Microsoft.Extensions.DependencyModel": "1.1.0",
+    "Scrutor": "1.10.0",
+    "System.Runtime.Loader": "4.0.0",
+    "NETStandard.Library": "1.6.1",
+    "Tempest.Core": {
+      "version": "1.0.0-*",
+      "type": "default"
+    }
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

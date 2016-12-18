@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tempest.Boot.Arguments.Impl;
 using Xunit;
 
 namespace Tempest.CoreTests.Arguments
