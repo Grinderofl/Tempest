@@ -1,5 +1,7 @@
 using System;
-using Tempest.Core.Setup.Persisters;
+using System.IO;
+using Tempest.Core.Scaffolding.Persistence;
+using Tempest.Core.Setup.Persistence;
 using Tempest.Core.Setup.Sourcing;
 using Tempest.Core.Setup.Transformation;
 
@@ -42,6 +44,8 @@ namespace Tempest.Core.Setup.OperationBuilding
         public OperationStep ToFiles(Func<string, string> fileNameTransformationFunc)
             => To(Scaffolding.Persistence.Persisters.ToFiles(fileNameTransformationFunc));
 
+        public OperationStep ToStream(Stream targetStream) => To(Persisters.ToStream(targetStream));
+        public OperationStep ToStream(Action<Stream> streamAction) => To(Persisters.ToStream(streamAction));
 
         public OperationStep Using(OperationTransformer operationTransformer)
         {

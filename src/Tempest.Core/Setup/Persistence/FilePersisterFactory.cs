@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Tempest.Core.Scaffolding.Persistence;
 
-namespace Tempest.Core.Setup.Persisters
+namespace Tempest.Core.Setup.Persistence
 {
     /// <summary>
     ///     Emits to file

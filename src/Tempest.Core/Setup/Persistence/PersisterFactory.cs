@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Tempest.Core.Scaffolding.Persistence;
 
-namespace Tempest.Core.Setup.Persisters
+namespace Tempest.Core.Setup.Persistence
 {
     /// <summary>
     ///     Emits the input stream into ... wherever

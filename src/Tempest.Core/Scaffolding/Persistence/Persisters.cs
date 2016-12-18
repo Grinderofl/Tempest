@@ -1,5 +1,6 @@
 using System;
-using Tempest.Core.Setup.Persisters;
+using System.IO;
+using Tempest.Core.Setup.Persistence;
 
 namespace Tempest.Core.Scaffolding.Persistence
 {
@@ -10,7 +11,8 @@ namespace Tempest.Core.Scaffolding.Persistence
         public static PersisterFactory ToFiles(string globPattern) => new GlobFilePersisterFactory(globPattern);
         public static PersisterFactory ToFiles(Func<string> globPatternFunc) => new GlobFileExpressionPersisterFactory(globPatternFunc);
         public static PersisterFactory ToFiles() => new GlobFilePersisterFactory("");
-
         public static PersisterFactory ToFiles(Func<string, string> fileNameTransformationFunc) => new GlobFunctioningFilePersisterFactory(fileNameTransformationFunc);
+        public static PersisterFactory ToStream(Stream targetStream) => new StreamPersisterFactory(targetStream);
+        public static PersisterFactory ToStream(Action<Stream> targetStreamAction) => new StreamActionPersisterFactory(targetStreamAction);
     }
 }

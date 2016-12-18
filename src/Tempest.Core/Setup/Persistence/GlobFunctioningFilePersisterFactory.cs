@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using System.IO;
 using Tempest.Core.Scaffolding.Persistence;
 
-namespace Tempest.Core.Setup.Persisters
+namespace Tempest.Core.Setup.Persistence
 {
-    // TODO Lots of inheritance possibilities here
-    public class GlobFilePersisterFactory : PersisterFactory
+    public class GlobFunctioningFilePersisterFactory : PersisterFactory
     {
-        private readonly string _globPath;
+        private readonly Func<string, string> _func;
 
-        public GlobFilePersisterFactory(string globPath)
+        public GlobFunctioningFilePersisterFactory(Func<string, string> func)
         {
-            if (globPath == null) throw new ArgumentNullException(nameof(globPath));
-            _globPath = globPath;
+            _func = func;
         }
 
         protected override string GetPersistenceTarget()
         {
-            return _globPath;
+            return "Glob";
         }
 
         public override IEnumerable<IStreamPersister> CreatePersisters(PersistenceContext context)
         {
+            // Hack
             if (context.Filename.StartsWith("\\"))
                 context.Filename = context.Filename.Substring(1);
-            var absolutePath = Path.Combine(context.TargetDirectory.FullName, _globPath, context.Filename);
+            var path = _func(context.Filename);
+            if (path.StartsWith("\\"))
+                path = path.Substring(1);
+            var absolutePath = Path.Combine(context.TargetDirectory.FullName, path);
             Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
             yield return new FilePersister(absolutePath);
         }
