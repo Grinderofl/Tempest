@@ -1,6 +1,6 @@
 using Tempest.Core.Setup.Sourcing;
 
-namespace Tempest.Core.OperationBuilding
+namespace Tempest.Core.Setup.OperationBuilding
 {
     /// <summary>
     /// Builds operations sourced from target directory

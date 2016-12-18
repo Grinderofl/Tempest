@@ -1,6 +1,6 @@
 using Tempest.Core.Setup.Transformation;
 
-namespace Tempest.Core.OperationBuilding
+namespace Tempest.Core.Setup.OperationBuilding
 {
     public class TransformOperationBuilder : OperationBuilderBase
     {

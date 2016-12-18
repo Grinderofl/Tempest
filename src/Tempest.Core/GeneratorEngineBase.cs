@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Tempest.Core.OperationBuilding;
+using Microsoft.Extensions.Logging;
 using Tempest.Core.Options;
+using Tempest.Core.Setup.OperationBuilding;
 using Tempest.Core.Setup.Sourcing;
 using Tempest.Core.Setup.Transformation;
 
@@ -51,8 +52,10 @@ namespace Tempest.Core
 
             var operationBuilder = new OperationBuilder();
             var operations = operationBuilder.Build(Steps, GlobalTransformers, sourcingContext);
+
             foreach (var operation in operations)
             {
+                if(context.ShouldLogOperation())
                 operation.Execute();
             }
         }

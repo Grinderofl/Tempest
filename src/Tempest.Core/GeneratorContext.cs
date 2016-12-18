@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace Tempest.Core
 {
@@ -10,5 +12,16 @@ namespace Tempest.Core
         public DirectoryInfo TemplateDirectory { get; set; }
         public DirectoryInfo[] GeneratorDirectories { get; set; }
         public DirectoryInfo TempestDirectory { get; set; }
+
+        public LogLevel LogLevel { get; set; }
+
+        private static readonly LogLevel[] OperationLogLevels =
+        {
+            LogLevel.Debug,
+            LogLevel.Information,
+            LogLevel.Trace
+        };
+
+        public bool ShouldLogOperation() => OperationLogLevels.Contains(LogLevel);
     }
 }

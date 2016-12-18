@@ -1,7 +1,7 @@
 using System.Reflection;
 using Tempest.Core.Setup.Sourcing;
 
-namespace Tempest.Core.OperationBuilding
+namespace Tempest.Core.Setup.OperationBuilding
 {
     /// <summary>
     ///     Contains methods that should copy a template file
