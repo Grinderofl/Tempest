@@ -10,14 +10,14 @@ namespace Tempest.Boot.Runner.Impl
     {
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorLocator _generatorLocator;
-        private readonly IGeneratorLoader _generatorLoader;
+        private readonly IGeneratorRunner _generatorRunner;
 
-        public TempestRunner(IGeneratorLoader generatorLoader, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
+        public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
         {
-            if (generatorLoader == null) throw new ArgumentNullException(nameof(generatorLoader));
+            if (generatorRunner == null) throw new ArgumentNullException(nameof(generatorRunner));
             if (directoryFinder == null) throw new ArgumentNullException(nameof(directoryFinder));
             if (generatorLocator == null) throw new ArgumentNullException(nameof(generatorLocator));
-            _generatorLoader = generatorLoader;
+            _generatorRunner = generatorRunner;
             _directoryFinder = directoryFinder;
             _generatorLocator = generatorLocator;
         }
@@ -46,17 +46,29 @@ namespace Tempest.Boot.Runner.Impl
                 Name = generatorType.Name,
                 AdditionalSearchPath = runnerArgs.SearchPath
             };
-            var generator = _generatorLoader.Load(loaderContext);
+
+            // GeneratorExecutorFactory puts together all the dependency stuff then?
+            // It also retrieves the executor from service provider
+
             var generatorContext = new GeneratorContext
             {
+                GeneratorType = generatorType,
                 Arguments = runnerArgs.GeneratorParameters,
                 GeneratorName = runnerArgs.GeneratorName,
                 TemplateDirectory = generatorType.GetAssembly().GetAssemblyDirectory().GetDirectories("Template").FirstOrDefault() ?? generatorType.GetAssembly().GetAssemblyDirectory(),
                 WorkingDirectory = _directoryFinder.FindWorkingDirectory(),
                 TempestDirectory = _directoryFinder.FindTempestExecutableDirectory()
             };
-            generator.Run(generatorContext);
-            return 0;
+
+            return _generatorRunner.Run(generatorContext);
+            
+            ////generatorExecutor.Run(generatorContext);
+            //var executionResult = generatorExecutor.Execute(generatorContext);
+
+            //foreach (var operation in executionResult.Operations)
+            //    operation.Execute();
+
+            //return 0;
         }
 
         protected Type GetGeneratorFromSelection(TempestRunnerArguments runnerArguments)

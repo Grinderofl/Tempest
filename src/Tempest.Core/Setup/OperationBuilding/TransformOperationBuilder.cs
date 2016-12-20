@@ -5,25 +5,21 @@ namespace Tempest.Core.Setup.OperationBuilding
 {
     public class TransformOperationBuilder : OperationBuilderBase
     {
-        public TransformOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
-        {
-        }
-
         public TransformOperationBuilder NoOp()
         {
-            Configuration.GlobalTransformers.Add(Transformers.NoOp);
+            Actions.Add(s => s.GlobalTransformers.Add(Transformers.NoOp));
             return this;
         }
 
         public TransformOperationBuilder Empty()
         {
-            Configuration.GlobalTransformers.Add(Transformers.Empty);
+            Actions.Add(s => s.GlobalTransformers.Add(Transformers.Empty));
             return this;
         }
 
         public TransformOperationBuilder Token(string token, string replaceWith)
         {
-            Configuration.GlobalTransformers.Add(Transformers.Token(token, replaceWith));
+            Actions.Add(s => s.GlobalTransformers.Add(Transformers.Token(token, replaceWith)));
             return this;
         }
     }

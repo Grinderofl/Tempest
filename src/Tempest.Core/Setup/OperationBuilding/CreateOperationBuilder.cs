@@ -8,9 +8,6 @@ namespace Tempest.Core.Setup.OperationBuilding
     /// </summary>
     public class CreateOperationBuilder : OperationBuilderBase
     {
-        public CreateOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
-        {
-        }
 
         public OperationStep FromString(string source) => CreateStep(Sources.FromString(source));
     }

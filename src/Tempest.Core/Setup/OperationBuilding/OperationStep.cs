@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Tempest.Core.Scaffolding;
 using Tempest.Core.Scaffolding.Persistence;
 using Tempest.Core.Setup.Persistence;
 using Tempest.Core.Setup.Sourcing;

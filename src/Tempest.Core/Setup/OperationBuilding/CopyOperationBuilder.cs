@@ -9,9 +9,6 @@ namespace Tempest.Core.Setup.OperationBuilding
     /// </summary>
     public class CopyOperationBuilder : OperationBuilderBase
     {
-        public CopyOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
-        {
-        }
 
         /// <summary>
         ///     Copy a template to your target directory

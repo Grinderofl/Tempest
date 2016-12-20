@@ -4,13 +4,14 @@ namespace Tempest.Core.Setup.OperationBuilding
 {
     public class GlobalOperationBuilder : OperationBuilderBase
     {
-        public GlobalOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
-        {
-            Transform = new TransformOperationBuilder(Configuration);
-        }
-
-        public TransformOperationBuilder Transform { get; }
+        public TransformOperationBuilder Transform { get; } = new TransformOperationBuilder();
 
         public TransformOperationBuilder TransformToken(string token, string replaceWith) => Transform.Token(token, replaceWith);
+
+        public override void VisitConfiguration(ScaffoldOperationConfiguration configuration)
+        {
+            Transform.VisitConfiguration(configuration);
+            base.VisitConfiguration(configuration);
+        }
     }
 }

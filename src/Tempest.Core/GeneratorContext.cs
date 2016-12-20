@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +15,7 @@ namespace Tempest.Core
         public DirectoryInfo TempestDirectory { get; set; }
 
         public LogLevel LogLevel { get; set; }
+        public Type GeneratorType { get; set; }
 
         private static readonly LogLevel[] OperationLogLevels =
         {

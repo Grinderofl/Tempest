@@ -4,7 +4,7 @@ using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core.Scaffolding
 {
-    public class ScaffoldingConfiguration
+    public class ScaffoldOperationConfiguration
     {
         public IList<OperationStep> Steps { get; } = new List<OperationStep>();
         public IList<OperationTransformer> GlobalTransformers { get; } = new List<OperationTransformer>();

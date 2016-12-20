@@ -28,6 +28,7 @@ namespace Tempest.Core
 
         private IEnumerable<Operation> BuildOperations(OperationStep step, IList<OperationTransformer> globalTransformers, SourcingContext context)
         {
+            // Need to have the configuration here
             var source = step.GetSource();
             var sourcingResults = source.Generate(context);
             

@@ -1,5 +1,4 @@
-﻿using Tempest.Core.Scaffolding;
-using Tempest.Core.Setup.OperationBuilding;
+﻿using Tempest.Core.Setup.OperationBuilding;
 
 namespace Tempest.Core
 {
@@ -8,17 +7,13 @@ namespace Tempest.Core
     /// </summary>
     public class ScaffolderConfigurer : ScaffolderConfigurerBase
     {
-        public ScaffolderConfigurer(ScaffoldingConfiguration configuration) : base(configuration)
+        public ScaffolderConfigurer()
         {
-            Create = new CreateOperationBuilder(configuration);
-            Update = new UpdateOperationBuilder(configuration);
-            Copy = new CopyOperationBuilder(configuration);
-            Set = new SetOperationBuilder(configuration);
-            Globally = new GlobalOperationBuilder(configuration);
-        }
-
-        public ScaffolderConfigurer() : this(new ScaffoldingConfiguration())
-        {
+            Create = AddBuilder(new CreateOperationBuilder());
+            Update = AddBuilder(new UpdateOperationBuilder());
+            Copy = AddBuilder(new CopyOperationBuilder());
+            Set = AddBuilder(new SetOperationBuilder());
+            Globally = AddBuilder(new GlobalOperationBuilder());
         }
 
         /// <summary>
@@ -41,10 +36,10 @@ namespace Tempest.Core
         /// </summary>
         public SetOperationBuilder Set { get; set; }
 
-        /// <summary>
-        ///     Creates some configuration options
-        /// </summary>
-        public OptionsFactory Options { get; set; }
+        ///// <summary>
+        /////     Creates some configuration options
+        ///// </summary>
+        //public OptionsFactory Options { get; set; }
 
         /// <summary>
         ///     Globally uses transformers or emitters (executed for every source)

@@ -8,10 +8,6 @@ namespace Tempest.Core.Setup.OperationBuilding
     /// </summary>
     public class UpdateOperationBuilder : OperationBuilderBase
     {
-        public UpdateOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
-        {
-        }
-
         /// <summary>
         /// Updates an existing file in target directory
         /// </summary>
