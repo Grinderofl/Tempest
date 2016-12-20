@@ -1,4 +1,5 @@
 using System.Reflection;
+using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.Sourcing;
 
 namespace Tempest.Core.Setup.OperationBuilding
@@ -8,7 +9,7 @@ namespace Tempest.Core.Setup.OperationBuilding
     /// </summary>
     public class CopyOperationBuilder : OperationBuilderBase
     {
-        public CopyOperationBuilder(GeneratorBase engine) : base(engine)
+        public CopyOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
         {
         }
 
@@ -30,6 +31,6 @@ namespace Tempest.Core.Setup.OperationBuilding
         /// <param name="resourcePath"></param>
         /// <returns></returns>
         public OperationStep Resource(string resourcePath)
-            => CreateStep(Sources.FromResource(resourcePath, Engine.GetType().GetTypeInfo().Assembly));
+            => CreateStep(Sources.FromResource(resourcePath, Configuration.GetType().GetTypeInfo().Assembly));
     }
 }

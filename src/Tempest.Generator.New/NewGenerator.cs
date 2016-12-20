@@ -5,6 +5,15 @@ using Tempest.Core.Options;
 
 namespace Tempest.Generator.New
 {
+    public class NewGeneratorScaffolderConfiguration : ScaffolderConfigurer
+    {
+        public NewGeneratorScaffolderConfiguration()
+        {
+        }
+    }
+
+    
+
     public class NewGenerator : GeneratorBase
     {
         private string _generatorName;
@@ -14,9 +23,14 @@ namespace Tempest.Generator.New
 
         private bool _useConventionalStructure = false;
 
-        public NewGenerator()
-        {
 
+        public NewGenerator(IScaffolderServiceFactory scaffolderServiceFactory) : base(scaffolderServiceFactory)
+        {
+        }
+
+        protected override void ConfigureOptions(OptionConfigurer configuration)
+        {
+            
         }
 
         protected override IEnumerable<ConfigurationOption> SetupOptions()
@@ -89,6 +103,11 @@ namespace Tempest.Generator.New
                 Copy.Resource(_locateResource("build.ps1")).ToFile("build.ps1");
                 Copy.Resource(_locateResource("build.cake")).ToFile("build.cake");
             }
+        }
+
+        protected override void ConfigureScaffolder(ScaffolderConfigurer configuration)
+        {
+            
         }
     }
 }

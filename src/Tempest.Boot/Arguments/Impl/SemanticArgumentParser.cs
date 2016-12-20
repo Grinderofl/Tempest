@@ -3,9 +3,6 @@ using System.Linq;
 
 namespace Tempest.Boot.Arguments.Impl
 {
-    /// <summary>
-    ///     Parses arguments using semantics through convention
-    /// </summary>
     public class SemanticArgumentParser : IArgumentParser
     {
         public string[] ParseArguments(string[] args)
@@ -31,7 +28,8 @@ namespace Tempest.Boot.Arguments.Impl
                 }
                 else
                 {
-                    commandArgs.Add(argument.Replace("\"", ""));
+                    commandArgs.Add(argument);
+                    justAddedCommandArgument = false;
                     // Allow insertion of a single '-' argument
                     // and its single parameter
                     if (!argument.StartsWith("-"))
@@ -43,12 +41,12 @@ namespace Tempest.Boot.Arguments.Impl
             {
                 commandArgs.Add("-g");
                 commandArgs.Add(semanticArgs.First());
-            }
 
-            if (semanticArgs.Count > 1)
-            {
-                commandArgs.Add("-p");
-                commandArgs.Add($"{string.Join(" ", semanticArgs.Skip(1))}");
+                if (semanticArgs.Count > 1)
+                {
+                    commandArgs.Add("-p");
+                    commandArgs.Add($"{string.Join(" ", semanticArgs.Skip(1))}");
+                }
             }
 
 

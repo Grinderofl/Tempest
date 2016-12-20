@@ -1,14 +1,16 @@
+using Tempest.Core.Scaffolding;
+
 namespace Tempest.Core.Setup.OperationBuilding
 {
     public class SetOperationBuilder : OperationBuilderBase
     {
-        public SetOperationBuilder(GeneratorBase engine) : base(engine)
+        public SetOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
         {
         }
 
         public SetOperationBuilder TargetSubDirectory(string relativePath)
         {
-            Engine.SetTargetSubDirectory(relativePath);
+            Configuration.TargetSubDirectory = relativePath;
             return this;
         }
     }

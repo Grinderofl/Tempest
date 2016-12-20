@@ -1,3 +1,4 @@
+using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.Sourcing;
 
 namespace Tempest.Core.Setup.OperationBuilding
@@ -7,7 +8,7 @@ namespace Tempest.Core.Setup.OperationBuilding
     /// </summary>
     public class UpdateOperationBuilder : OperationBuilderBase
     {
-        public UpdateOperationBuilder(GeneratorBase engine) : base(engine)
+        public UpdateOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
         {
         }
 

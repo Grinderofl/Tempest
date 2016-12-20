@@ -1,10 +1,12 @@
+using Tempest.Core.Scaffolding;
+
 namespace Tempest.Core.Setup.OperationBuilding
 {
     public class GlobalOperationBuilder : OperationBuilderBase
     {
-        public GlobalOperationBuilder(GeneratorBase engine) : base(engine)
+        public GlobalOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
         {
-            Transform = new TransformOperationBuilder(Engine);
+            Transform = new TransformOperationBuilder(Configuration);
         }
 
         public TransformOperationBuilder Transform { get; }

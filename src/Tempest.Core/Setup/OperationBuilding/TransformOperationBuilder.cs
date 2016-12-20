@@ -1,28 +1,29 @@
+using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core.Setup.OperationBuilding
 {
     public class TransformOperationBuilder : OperationBuilderBase
     {
-        public TransformOperationBuilder(GeneratorBase engine) : base(engine)
+        public TransformOperationBuilder(ScaffoldingConfiguration configuration) : base(configuration)
         {
         }
 
         public TransformOperationBuilder NoOp()
         {
-            Engine.GlobalTransformers.Add(Transformers.NoOp);
+            Configuration.GlobalTransformers.Add(Transformers.NoOp);
             return this;
         }
 
         public TransformOperationBuilder Empty()
         {
-            Engine.GlobalTransformers.Add(Transformers.Empty);
+            Configuration.GlobalTransformers.Add(Transformers.Empty);
             return this;
         }
 
         public TransformOperationBuilder Token(string token, string replaceWith)
         {
-            Engine.GlobalTransformers.Add(Transformers.Token(token, replaceWith));
+            Configuration.GlobalTransformers.Add(Transformers.Token(token, replaceWith));
             return this;
         }
     }
