@@ -1,7 +1,7 @@
 using System.IO;
 using Tempest.Core.Utils;
 
-namespace Tempest.Core.Scaffolding.Providers
+namespace Tempest.Core.Operations.Providers
 {
     public class StringStreamProvider : AbstractStreamProvider
     {

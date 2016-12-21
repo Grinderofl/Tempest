@@ -1,5 +1,4 @@
 using System.Reflection;
-using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.Sourcing;
 
 namespace Tempest.Core.Setup.OperationBuilding

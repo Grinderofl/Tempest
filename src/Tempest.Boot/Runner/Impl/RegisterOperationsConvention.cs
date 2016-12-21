@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Boot.Strapper;
 using Tempest.Core;
-using Tempest.Core.Scaffolding;
+using Tempest.Core.Operations;
 
 namespace Tempest.Boot.Runner.Impl
 {

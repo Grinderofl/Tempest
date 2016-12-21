@@ -1,5 +1,5 @@
 using System.IO;
-using Tempest.Core.Scaffolding.Transforms;
+using Tempest.Core.Operations.Transforms;
 using Tempest.Core.Utils;
 
 namespace Tempest.Core.Setup.Transformation

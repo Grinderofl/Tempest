@@ -1,4 +1,3 @@
-using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core.Setup.OperationBuilding

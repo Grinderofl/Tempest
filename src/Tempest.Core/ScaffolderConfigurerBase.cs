@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Tempest.Core.Operations;
 using Tempest.Core.Options;
-using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.OperationBuilding;
 
 namespace Tempest.Core

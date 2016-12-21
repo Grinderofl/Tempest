@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Tempest.Core.Scaffolding;
+using Tempest.Core.Operations;
 using Tempest.Core.Setup.Persistence;
 using Tempest.Core.Setup.Sourcing;
 using Tempest.Core.Setup.Transformation;

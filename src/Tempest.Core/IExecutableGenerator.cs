@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Tempest.Core.Operations;
 using Tempest.Core.Options;
-using Tempest.Core.Scaffolding;
 
 namespace Tempest.Core
 {

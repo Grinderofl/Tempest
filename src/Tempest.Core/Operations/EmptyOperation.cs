@@ -1,8 +1,8 @@
-using Tempest.Core.Scaffolding.Persistence;
-using Tempest.Core.Scaffolding.Providers;
-using Tempest.Core.Scaffolding.Transforms;
+using Tempest.Core.Operations.Persistence;
+using Tempest.Core.Operations.Providers;
+using Tempest.Core.Operations.Transforms;
 
-namespace Tempest.Core.Scaffolding.Operations
+namespace Tempest.Core.Operations
 {
     public class EmptyOperation : Operation
     {

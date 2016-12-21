@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using Moq;
-using Tempest.Core.Scaffolding.Operations;
-using Tempest.Core.Scaffolding.Persistence;
-using Tempest.Core.Scaffolding.Providers;
-using Tempest.Core.Scaffolding.Transforms;
+using Tempest.Core.Operations;
+using Tempest.Core.Operations.Persistence;
+using Tempest.Core.Operations.Providers;
+using Tempest.Core.Operations.Transforms;
 using Tempest.Core.Utils;
 using Xunit;
 

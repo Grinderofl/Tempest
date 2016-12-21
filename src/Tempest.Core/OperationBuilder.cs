@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Tempest.Core.Scaffolding.Operations;
-using Tempest.Core.Scaffolding.Persistence;
-using Tempest.Core.Scaffolding.Transforms;
+using Tempest.Core.Operations;
+using Tempest.Core.Operations.Persistence;
+using Tempest.Core.Operations.Transforms;
 using Tempest.Core.Setup.OperationBuilding;
 using Tempest.Core.Setup.Sourcing;
 using Tempest.Core.Setup.Transformation;

@@ -1,7 +1,7 @@
 using System.IO;
 using Tempest.Core.Utils;
 
-namespace Tempest.Core.Scaffolding.Transforms
+namespace Tempest.Core.Operations.Transforms
 {
     public class EmptyStreamTransformer : AbstractStreamTransformer
     {

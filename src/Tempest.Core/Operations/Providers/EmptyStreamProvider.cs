@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tempest.Core.Scaffolding.Providers
+namespace Tempest.Core.Operations.Providers
 {
     public class EmptyStreamProvider : AbstractStreamProvider
     {

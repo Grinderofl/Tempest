@@ -1,7 +1,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Tempest.Core.Scaffolding.Providers
+namespace Tempest.Core.Operations.Providers
 {
     public class AssemblyManifestStreamProvider : AbstractStreamProvider
     {

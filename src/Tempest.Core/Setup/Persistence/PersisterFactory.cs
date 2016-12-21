@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Tempest.Core.Scaffolding.Persistence;
+using Tempest.Core.Operations.Persistence;
 
 namespace Tempest.Core.Setup.Persistence
 {

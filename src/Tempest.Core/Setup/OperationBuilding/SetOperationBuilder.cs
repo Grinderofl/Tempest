@@ -1,5 +1,4 @@
 using System;
-using Tempest.Core.Scaffolding;
 
 namespace Tempest.Core.Setup.OperationBuilding
 {

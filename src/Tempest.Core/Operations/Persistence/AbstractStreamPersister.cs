@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace Tempest.Core.Scaffolding.Persistence
+namespace Tempest.Core.Operations.Persistence
 {
     [DebuggerDisplay("{Describe()}")]
     public abstract class AbstractStreamPersister : IStreamPersister

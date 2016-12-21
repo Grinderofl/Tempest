@@ -2,7 +2,7 @@
 using Tempest.Core.Setup.OperationBuilding;
 using Tempest.Core.Setup.Transformation;
 
-namespace Tempest.Core.Scaffolding
+namespace Tempest.Core.Operations
 {
     public class ScaffoldOperationConfiguration
     {

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Tempest.Core.Setup.Persistence;
 
-namespace Tempest.Core.Scaffolding.Persistence
+namespace Tempest.Core.Operations.Persistence
 {
     public class Persisters
     {

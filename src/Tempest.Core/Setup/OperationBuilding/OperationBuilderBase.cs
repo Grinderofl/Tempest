@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Tempest.Core.Scaffolding;
+using Tempest.Core.Operations;
 using Tempest.Core.Setup.Sourcing;
 
 namespace Tempest.Core.Setup.OperationBuilding

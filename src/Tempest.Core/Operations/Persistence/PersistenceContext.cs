@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tempest.Core.Scaffolding.Persistence
+namespace Tempest.Core.Operations.Persistence
 {
     public class PersistenceContext
     {

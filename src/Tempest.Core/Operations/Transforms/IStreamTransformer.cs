@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tempest.Core.Scaffolding.Transforms
+namespace Tempest.Core.Operations.Transforms
 {
     public interface IStreamTransformer
     {

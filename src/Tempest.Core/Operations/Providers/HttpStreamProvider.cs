@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 
-namespace Tempest.Core.Scaffolding.Providers
+namespace Tempest.Core.Operations.Providers
 {
     public class HttpStreamProvider : AbstractStreamProvider
     {

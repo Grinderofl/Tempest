@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Tempest.Core.Scaffolding.Transforms
+namespace Tempest.Core.Operations.Transforms
 {
     public class CompoundStreamTransformer : AbstractStreamTransformer
     {

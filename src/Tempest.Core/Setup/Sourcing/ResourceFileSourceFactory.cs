@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Tempest.Core.Scaffolding.Providers;
+using Tempest.Core.Operations.Providers;
 
 namespace Tempest.Core.Setup.Sourcing
 {

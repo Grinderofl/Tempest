@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Tempest.Core;
+using Tempest.Core.Operations;
 using Tempest.Core.Options;
-using Tempest.Core.Scaffolding;
 using Tempest.Core.Setup.Sourcing;
 
 namespace Tempest.Boot.Runner.Impl
 {
+    // Will be: Scaffolder : IScaffolder
     public class GeneratorExecutor : IGeneratorExecutor
     {
         private readonly GeneratorContext _generatorContext;
@@ -15,9 +16,9 @@ namespace Tempest.Boot.Runner.Impl
         private readonly IEnumerable<IScaffoldConfigurer> _configurers;
         private readonly IExecutableGenerator _generator;
         private readonly OperationBuilder _operationBuilder;
-        private OptionExecutor _optionExecutor;
-
-        public GeneratorExecutor(GeneratorContext generatorContext, ScaffoldOperationConfiguration configuration, IEnumerable<IScaffoldConfigurer> configurers, IExecutableGenerator generator, OperationBuilder operationBuilder, OptionExecutor optionExecutor)
+        private readonly OptionExecutor _optionExecutor;
+        private readonly IOperationExecutor _operationExecutor;
+        public GeneratorExecutor(GeneratorContext generatorContext, ScaffoldOperationConfiguration configuration, IEnumerable<IScaffoldConfigurer> configurers, IExecutableGenerator generator, OperationBuilder operationBuilder, OptionExecutor optionExecutor, IOperationExecutor operationExecutor)
         {
             _generatorContext = generatorContext;
             _configuration = configuration;
@@ -25,6 +26,7 @@ namespace Tempest.Boot.Runner.Impl
             _generator = generator;
             _operationBuilder = operationBuilder;
             _optionExecutor = optionExecutor;
+            _operationExecutor = operationExecutor;
         }
 
         protected DirectoryInfo BuildTargetPath(GeneratorContext generatorContext,
@@ -51,15 +53,23 @@ namespace Tempest.Boot.Runner.Impl
             var operations = _operationBuilder.Build(configuration.Steps, configuration.GlobalTransformers,
                 sourcingContext);
 
-            foreach (var operation in operations)
-            {
-                if (_generatorContext.ShouldLogOperation())
-                {
-                    // Log
-                }
-                operation.Execute();
-            }
+            // Maybe ask user if this is OK?
+            _operationExecutor.Execute(operations);
+
+            //foreach (var operation in operations)
+            //{
+            //    if (_generatorContext.ShouldLogOperation())
+            //    {
+            //        // Log
+            //    }
+            //    operation.Execute();
+            //}
 
         }
+    }
+
+    public interface IOperationExecutor
+    {
+        void Execute(IEnumerable<Operation> operations);
     }
 }
