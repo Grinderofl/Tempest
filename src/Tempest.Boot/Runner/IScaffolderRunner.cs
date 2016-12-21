@@ -3,7 +3,7 @@ using Tempest.Core;
 
 namespace Tempest.Boot.Runner
 {
-    public interface IGeneratorRunner
+    public interface IScaffolderRunner
     {
         //GeneratorEngineBase Create(LoaderContext loaderContext);
         int Run(GeneratorContext loaderContext);

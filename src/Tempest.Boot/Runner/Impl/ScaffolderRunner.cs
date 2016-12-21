@@ -16,13 +16,15 @@ namespace Tempest.Boot.Runner.Impl
     // The relevant parameters are also added as services
     // then bootstrapper executes the generator itself
 
-    public class GeneratorRunner : IGeneratorRunner
+    // This will run scaffolder
+
+    public class ScaffolderRunner : IScaffolderRunner
     {
         private readonly IGeneratorActivator _activator;
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorLocator _locator;
 
-        public GeneratorRunner(IDirectoryFinder directoryFinder, IGeneratorLocator locator, IGeneratorActivator activator)
+        public ScaffolderRunner(IDirectoryFinder directoryFinder, IGeneratorLocator locator, IGeneratorActivator activator)
         {
             if (directoryFinder == null) throw new ArgumentNullException(nameof(directoryFinder));
             if (locator == null) throw new ArgumentNullException(nameof(locator));
@@ -31,31 +33,31 @@ namespace Tempest.Boot.Runner.Impl
             _activator = activator;
         }
 
-        public GeneratorEngineBase Create(LoaderContext loaderContext)
-        {
-            GeneratorEngineBase result = null;
-            var generatorType = loaderContext.Type;
-            if (generatorType == null)
-            {
-                var directoriesToSearch = SearchableDirectories(loaderContext).ToArray();
-                generatorType = _locator.Locate(directoriesToSearch, loaderContext.Name);
-                if (generatorType == null)
-                    throw new GeneratorNotFoundException(
-                        $"{loaderContext.Name}, searched locations: '{string.Join("', '", directoriesToSearch.Select(x => x.FullName))}'");
-            }
+        //public GeneratorEngineBase Create(LoaderContext loaderContext)
+        //{
+        //    GeneratorEngineBase result = null;
+        //    var generatorType = loaderContext.Type;
+        //    if (generatorType == null)
+        //    {
+        //        var directoriesToSearch = SearchableDirectories(loaderContext).ToArray();
+        //        generatorType = _locator.Locate(directoriesToSearch, loaderContext.Name);
+        //        if (generatorType == null)
+        //            throw new GeneratorNotFoundException(
+        //                $"{loaderContext.Name}, searched locations: '{string.Join("', '", directoriesToSearch.Select(x => x.FullName))}'");
+        //    }
             
-            result = _activator.Activate(generatorType);
-            return result;
-        }
+        //    result = _activator.Activate(generatorType);
+        //    return result;
+        //}
 
-        private IEnumerable<DirectoryInfo> SearchableDirectories(LoaderContext loaderContext)
-        {
-            if (!string.IsNullOrEmpty(loaderContext.AdditionalSearchPath))
-                yield return new DirectoryInfo(loaderContext.AdditionalSearchPath);
+        //private IEnumerable<DirectoryInfo> SearchableDirectories(LoaderContext loaderContext)
+        //{
+        //    if (!string.IsNullOrEmpty(loaderContext.AdditionalSearchPath))
+        //        yield return new DirectoryInfo(loaderContext.AdditionalSearchPath);
 
-            foreach (var dir in _directoryFinder.FindGeneratorDirectories())
-                yield return dir;
-        }
+        //    foreach (var dir in _directoryFinder.FindGeneratorDirectories())
+        //        yield return dir;
+        //}
 
         public virtual int Run(GeneratorContext loaderContext)
         {

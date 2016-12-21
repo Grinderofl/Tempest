@@ -10,14 +10,14 @@ namespace Tempest.Boot.Runner.Impl
     {
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorLocator _generatorLocator;
-        private readonly IGeneratorRunner _generatorRunner;
+        private readonly IScaffolderRunner _scaffolderRunner;
 
-        public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
+        public TempestRunner(IScaffolderRunner scaffolderRunner, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
         {
-            if (generatorRunner == null) throw new ArgumentNullException(nameof(generatorRunner));
+            if (scaffolderRunner == null) throw new ArgumentNullException(nameof(scaffolderRunner));
             if (directoryFinder == null) throw new ArgumentNullException(nameof(directoryFinder));
             if (generatorLocator == null) throw new ArgumentNullException(nameof(generatorLocator));
-            _generatorRunner = generatorRunner;
+            _scaffolderRunner = scaffolderRunner;
             _directoryFinder = directoryFinder;
             _generatorLocator = generatorLocator;
         }
@@ -60,7 +60,7 @@ namespace Tempest.Boot.Runner.Impl
                 TempestDirectory = _directoryFinder.FindTempestExecutableDirectory()
             };
 
-            return _generatorRunner.Run(generatorContext);
+            return _scaffolderRunner.Run(generatorContext);
             
             ////generatorExecutor.Run(generatorContext);
             //var executionResult = generatorExecutor.Execute(generatorContext);
