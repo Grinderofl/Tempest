@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Tempest.Core.Setup.Persistence;
+using Tempest.Core.Configuration.Operations.Persistence;
 
 namespace Tempest.Core.Operations.Persistence
 {

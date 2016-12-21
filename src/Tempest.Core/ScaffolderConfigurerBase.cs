@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Operations;
 using Tempest.Core.Options;
-using Tempest.Core.Setup.OperationBuilding;
 
 namespace Tempest.Core
 {

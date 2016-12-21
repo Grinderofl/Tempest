@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Tempest.Core.Setup.OperationBuilding;
-using Tempest.Core.Setup.Transformation;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
+using Tempest.Core.Configuration.Operations.Transformation;
 
 namespace Tempest.Core.Operations
 {

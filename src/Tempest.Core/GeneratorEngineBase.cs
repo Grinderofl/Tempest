@@ -2,10 +2,10 @@
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
+using Tempest.Core.Configuration.Operations.Sourcing;
+using Tempest.Core.Configuration.Operations.Transformation;
 using Tempest.Core.Options;
-using Tempest.Core.Setup.OperationBuilding;
-using Tempest.Core.Setup.Sourcing;
-using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core
 {

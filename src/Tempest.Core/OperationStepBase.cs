@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Tempest.Core.Configuration.Operations.Persistence;
+using Tempest.Core.Configuration.Operations.Sourcing;
+using Tempest.Core.Configuration.Operations.Transformation;
 using Tempest.Core.Operations;
-using Tempest.Core.Setup.Persistence;
-using Tempest.Core.Setup.Sourcing;
-using Tempest.Core.Setup.Transformation;
 
 namespace Tempest.Core
 {

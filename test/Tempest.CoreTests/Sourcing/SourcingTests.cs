@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Tempest.Core.Setup.Sourcing;
+using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Utils;
 using Xunit;
 

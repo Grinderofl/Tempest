@@ -1,4 +1,4 @@
-﻿using Tempest.Core.Setup.OperationBuilding;
+﻿using Tempest.Core.Configuration.Operations.OperationBuilding;
 
 namespace Tempest.Core
 {

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Tempest.Core;
+using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Operations;
 using Tempest.Core.Options;
-using Tempest.Core.Setup.Sourcing;
 
 namespace Tempest.Boot.Runner.Impl
 {

@@ -6,7 +6,6 @@ using System.Linq;
 using Tempest.Boot.Strapper;
 using Tempest.Core;
 using Tempest.Core.Operations;
-using Tempest.Core.Setup.OperationBuilding;
 
 namespace Tempest.Boot.Runner.Impl
 {
