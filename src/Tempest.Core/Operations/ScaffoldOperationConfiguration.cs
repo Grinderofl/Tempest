@@ -8,6 +8,6 @@ namespace Tempest.Core.Operations
     {
         public IList<OperationStep> Steps { get; } = new List<OperationStep>();
         public IList<OperationTransformer> GlobalTransformers { get; } = new List<OperationTransformer>();
-        public string TargetSubDirectory { get; set; }
+        public string TargetSubDirectory { get; set; } = "";
     }
 }

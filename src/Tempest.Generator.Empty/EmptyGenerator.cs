@@ -9,6 +9,7 @@ using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Generator;
 using Tempest.Core.Operations;
 using Tempest.Core.Options;
+using Tempest.Core.Scaffolding;
 
 namespace Tempest.Generator.Empty
 {
@@ -104,7 +105,7 @@ namespace Tempest.Generator.Empty
             throw new NotImplementedException();
         }
 
-        protected override void ConfigureGenerator(ScaffoldOperationConfiguration configuration)
+        protected override void ConfigureGenerator(ScaffolderConfigurer scaffold)
         {
             throw new NotImplementedException();
         }

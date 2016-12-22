@@ -110,7 +110,7 @@ namespace Tempest.Generator.New
             throw new NotImplementedException();
         }
 
-        protected override void ConfigureGenerator(ScaffoldOperationConfiguration configuration)
+        protected override void ConfigureGenerator(ScaffolderConfigurer scaffold)
         {
             throw new NotImplementedException();
         }

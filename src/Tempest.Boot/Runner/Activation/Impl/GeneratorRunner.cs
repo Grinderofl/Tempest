@@ -18,34 +18,73 @@ namespace Tempest.Boot.Runner.Activation.Impl
 
     public class GeneratorRunner : IGeneratorRunner
     {
+        private readonly IGeneratorBootstrapperFactory _bootstrapperFactory;
+
+        public GeneratorRunner(IGeneratorBootstrapperFactory bootstrapperFactory)
+        {
+            _bootstrapperFactory = bootstrapperFactory;
+        }
+
         public virtual int Run(GeneratorContext generatorContext)
         {
             if (generatorContext == null) throw new ArgumentNullException(nameof(generatorContext));
-            var strapper = CreateBootstrapper();
-            ConfigureBootstrapper(generatorContext, strapper);
-
+            var strapper = _bootstrapperFactory.Create(generatorContext);
             return strapper.Execute(null);
         }
 
-        protected virtual void ConfigureBootstrapper(GeneratorContext generatorContext, GeneratorBootstrapper strapper)
+        //protected virtual void ConfigureBootstrapper(GeneratorContext generatorContext, GeneratorBootstrapper strapper)
+        //{
+        //    if (generatorContext == null) throw new ArgumentNullException(nameof(generatorContext));
+        //    if (strapper == null) throw new ArgumentNullException(nameof(strapper));
+        //    var configuration = CreateConfiguration();
+
+        //    // This is kept separate from Bootstrapper because you might want to use your own assemblies.
+        //    // You might also want to pass in your own version of generator context
+        //    strapper.RegisterConvention(
+        //        new MultiAssemblyImplementationRegistrationConvention(
+        //            generatorContext.GeneratorType.GetTypeInfo().Assembly));
+        //    strapper.RegisterConvention(new GeneratorRegistrationConvention(configuration, generatorContext));
+        //}
+
+        
+
+        
+    }
+
+    public class GeneratorBootstrapperFactory : IGeneratorBootstrapperFactory
+    {
+        public virtual GeneratorBootstrapper Create(GeneratorContext generatorContext)
         {
             if (generatorContext == null) throw new ArgumentNullException(nameof(generatorContext));
-            if (strapper == null) throw new ArgumentNullException(nameof(strapper));
+
+            var bootstrapper = CreateBootstrapper();
+            ConfigureBootstrapper(bootstrapper, generatorContext);
+            return bootstrapper;
+        }
+
+        protected virtual void ConfigureBootstrapper(GeneratorBootstrapper bootstrapper, GeneratorContext generatorContext)
+        {
+            if (bootstrapper == null) throw new ArgumentNullException(nameof(bootstrapper));
+            if (generatorContext == null) throw new ArgumentNullException(nameof(generatorContext));
             var configuration = CreateConfiguration();
 
             // This is kept separate from Bootstrapper because you might want to use your own assemblies.
             // You might also want to pass in your own version of generator context
-            strapper.RegisterConvention(
+            bootstrapper.RegisterConvention(
                 new MultiAssemblyImplementationRegistrationConvention(
                     generatorContext.GeneratorType.GetTypeInfo().Assembly));
-            strapper.RegisterConvention(new GeneratorRegistrationConvention(configuration, generatorContext));
+            bootstrapper.RegisterConvention(new GeneratorRegistrationConvention(configuration, generatorContext));
         }
 
         protected virtual GeneratorBootstrapper CreateBootstrapper()
             => new GeneratorBootstrapper();
 
-        protected virtual ScaffoldOperationConfiguration CreateConfiguration() 
+        protected virtual ScaffoldOperationConfiguration CreateConfiguration()
             => new ScaffoldOperationConfiguration();
+    }
 
+    public interface IGeneratorBootstrapperFactory
+    {
+        GeneratorBootstrapper Create(GeneratorContext generatorContext);
     }
 }

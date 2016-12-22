@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
 
-namespace Tempest.Core.Options
+namespace Tempest.Core.Options.Impl
 {
-    public class OptionExecutor
+    public class OptionExecutor : IOptionExecutor
     {
         public virtual void Execute(ConfigurationOption[] options, string[] selectedOptions)
         {

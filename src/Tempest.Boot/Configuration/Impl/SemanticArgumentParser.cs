@@ -29,11 +29,7 @@ namespace Tempest.Boot.Configuration.Impl
                 else
                 {
                     commandArgs.Add(argument);
-                    justAddedCommandArgument = false;
-                    // Allow insertion of a single '-' argument
-                    // and its single parameter
-                    if (!argument.StartsWith("-"))
-                        justAddedCommandArgument = true;
+                    justAddedCommandArgument = !argument.StartsWith("-");
                 }
             }
 

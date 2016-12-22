@@ -7,6 +7,7 @@ using Tempest.Core;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Generator;
 using Tempest.Core.Operations;
+using Tempest.Core.Scaffolding;
 
 namespace Tempest.CoreTests.Scaffolding
 {
@@ -26,7 +27,7 @@ namespace Tempest.CoreTests.Scaffolding
                 throw new NotImplementedException();
             }
 
-            protected override void ConfigureGenerator(ScaffoldOperationConfiguration configuration)
+            protected override void ConfigureGenerator(ScaffolderConfigurer scaffold)
             {
                 throw new NotImplementedException();
             }

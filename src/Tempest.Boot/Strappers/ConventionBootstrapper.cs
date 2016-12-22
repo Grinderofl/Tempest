@@ -46,9 +46,9 @@ namespace Tempest.Boot.Strappers
         {
             var provider = base.CreateProvider();
             ConfigureProvider(provider);
-            return provider;
+            return provider.CreateScope().ServiceProvider;
         }
-
+         
         protected virtual void ConfigureProvider(IServiceProvider provider)
         {
             var loggerFatory = provider.GetRequiredService<ILoggerFactory>();
@@ -58,7 +58,14 @@ namespace Tempest.Boot.Strappers
 
         protected virtual void ConfigureLogging(ILoggerFactory loggerFactory, IConfiguration configuration)
         {
-            loggerFactory.AddConsole(configuration.GetSection("Logging")).AddDebug();
+            loggerFactory.AddDebug();
+            var loggingConfiguration = configuration.GetSection("Logging");
+            if (loggingConfiguration != null)
+                loggerFactory.AddConsole(loggingConfiguration);
+            else
+            {
+                
+            }
         }
 
         protected abstract void ConfigureBootstrapper();

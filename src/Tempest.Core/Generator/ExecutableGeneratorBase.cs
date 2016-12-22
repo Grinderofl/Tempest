@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
-using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
-using Tempest.Core.Generator;
 using Tempest.Core.Operations;
-using Tempest.Core.Options;
+using Tempest.Core.Scaffolding;
 
-namespace Tempest.Core
+namespace Tempest.Core.Generator
 {
     public abstract class ExecutableGeneratorBase : IExecutableGenerator
     {
@@ -27,10 +25,12 @@ namespace Tempest.Core
 
         ScaffoldOperationConfiguration IExecutableGenerator.ConfigureOperations(ScaffoldOperationConfiguration configuration)
         {
-            ConfigureGenerator(configuration);
+            var configurer = new ScaffolderConfigurer();
+            ConfigureGenerator(configurer);
+            ((IScaffoldConfigurer)configurer).ConfigureOperations(configuration);
             return configuration;
         }
 
-        protected abstract void ConfigureGenerator(ScaffoldOperationConfiguration configuration);
+        protected abstract void ConfigureGenerator(ScaffolderConfigurer scaffold);
     }
 }

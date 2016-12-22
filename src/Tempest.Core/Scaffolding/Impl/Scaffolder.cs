@@ -7,6 +7,7 @@ using Tempest.Core.Operations;
 using Tempest.Core.Operations.Execution;
 using Tempest.Core.Operations.Execution.Impl;
 using Tempest.Core.Options;
+using Tempest.Core.Options.Impl;
 
 namespace Tempest.Core.Scaffolding.Impl
 {
@@ -18,9 +19,12 @@ namespace Tempest.Core.Scaffolding.Impl
         private readonly IEnumerable<IScaffoldConfigurer> _configurers;
         private readonly IExecutableGenerator _generator;
         private readonly IOperationBuilder _operationBuilder;
-        private readonly OptionExecutor _optionExecutor;
+        private readonly IOptionExecutor _optionExecutor;
         private readonly IOperationExecutor _operationExecutor;
-        public Scaffolder(GeneratorContext generatorContext, ScaffoldOperationConfiguration configuration, IEnumerable<IScaffoldConfigurer> configurers, IExecutableGenerator generator, OperationBuilder operationBuilder, OptionExecutor optionExecutor, IOperationExecutor operationExecutor)
+
+        public Scaffolder(GeneratorContext generatorContext, ScaffoldOperationConfiguration configuration,
+            IEnumerable<IScaffoldConfigurer> configurers, IExecutableGenerator generator,
+            IOperationBuilder operationBuilder, IOptionExecutor optionExecutor, IOperationExecutor operationExecutor)
         {
             _generatorContext = generatorContext;
             _configuration = configuration;
