@@ -1,4 +1,4 @@
-﻿namespace Tempest.Boot
+﻿namespace Tempest.Boot.Configuration
 {
     public class TempestRunnerArguments
     {

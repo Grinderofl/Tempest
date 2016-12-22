@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Tempest.Boot.Configuration;
+using Tempest.Boot.Utils;
 using Tempest.Core;
 
 namespace Tempest.Boot.Runner.Activation.Impl

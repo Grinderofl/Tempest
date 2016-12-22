@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
 
-namespace Tempest.Boot
+namespace Tempest.Boot.Runner.Activation
 {
     public class AssemblyLoader : AssemblyLoadContext
     {

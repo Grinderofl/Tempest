@@ -2,6 +2,7 @@
 using System.Reflection;
 using Tempest.Boot.Conventions.Base;
 using Tempest.Boot.Runner.Impl;
+using Tempest.Core.Scaffolding;
 
 namespace Tempest.Boot.Conventions.Defaults
 {
@@ -15,6 +16,7 @@ namespace Tempest.Boot.Conventions.Defaults
         protected virtual IEnumerable<Assembly> GetDefaultAssemblies()
         {
             yield return typeof(TempestRunner).GetTypeInfo().Assembly;
+            yield return typeof(IScaffolder).GetTypeInfo().Assembly;
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Tempest.Boot
+namespace Tempest.Boot.Utils
 {
     public static class TypeExtensions
     {
