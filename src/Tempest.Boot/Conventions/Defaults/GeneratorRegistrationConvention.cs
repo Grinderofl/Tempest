@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Scrutor;
 using Tempest.Core;
+using Tempest.Core.Generator;
 using Tempest.Core.Operations;
 
 namespace Tempest.Boot.Conventions.Defaults

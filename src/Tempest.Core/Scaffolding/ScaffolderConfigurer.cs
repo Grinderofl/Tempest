@@ -1,6 +1,6 @@
 ﻿using Tempest.Core.Configuration.Operations.OperationBuilding;
 
-namespace Tempest.Core
+namespace Tempest.Core.Scaffolding
 {
     /// <summary>
     /// Actually is 'ScaffoldConfigurationBuilder' or something

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Tempest.Core.Configuration.Options;
+using Tempest.Core.Configuration.Options.Base;
 
 namespace Tempest.Core.Options
 {

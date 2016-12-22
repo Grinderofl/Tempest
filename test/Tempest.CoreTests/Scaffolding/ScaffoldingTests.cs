@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Tempest.Core;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
+using Tempest.Core.Generator;
+using Tempest.Core.Operations;
 
 namespace Tempest.CoreTests.Scaffolding
 {
@@ -18,10 +21,20 @@ namespace Tempest.CoreTests.Scaffolding
                 _streamAction = streamAction;
             }
 
-            protected override void ExecuteCore()
+            protected override void ConfigureOptions(OptionsFactory options)
             {
-                Create.FromString("Foo").ToStream(_streamAction);
+                throw new NotImplementedException();
             }
+
+            protected override void ConfigureGenerator(ScaffoldOperationConfiguration configuration)
+            {
+                throw new NotImplementedException();
+            }
+
+            //protected override void ExecuteCore()
+            //{
+            //    Create.FromString("Foo").ToStream(_streamAction);
+            //}
         }
     }
 }

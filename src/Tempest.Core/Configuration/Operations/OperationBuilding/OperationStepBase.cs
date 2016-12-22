@@ -5,7 +5,7 @@ using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Configuration.Operations.Transformation;
 using Tempest.Core.Operations;
 
-namespace Tempest.Core
+namespace Tempest.Core.Configuration.Operations.OperationBuilding
 {
     public abstract class OperationStepBase
     {

@@ -13,17 +13,17 @@ namespace Tempest.Boot.Runner.Impl
     public class TempestRunner : ITempestRunner
     {
         private readonly IDirectoryFinder _directoryFinder;
-        private readonly IGeneratorLocator _generatorLocator;
+        private readonly IGeneratorFinder _generatorFinder;
         private readonly IGeneratorRunner _generatorRunner;
 
-        public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
+        public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorFinder generatorFinder)
         {
             if (generatorRunner == null) throw new ArgumentNullException(nameof(generatorRunner));
             if (directoryFinder == null) throw new ArgumentNullException(nameof(directoryFinder));
-            if (generatorLocator == null) throw new ArgumentNullException(nameof(generatorLocator));
+            if (generatorFinder == null) throw new ArgumentNullException(nameof(generatorFinder));
             _generatorRunner = generatorRunner;
             _directoryFinder = directoryFinder;
-            _generatorLocator = generatorLocator;
+            _generatorFinder = generatorFinder;
         }
 
         // 
@@ -34,7 +34,7 @@ namespace Tempest.Boot.Runner.Impl
             if (runnerArgs.GeneratorName.IsNotNullOrWhiteSpace())
             {
                 var directoriesToSearch = _directoryFinder.FindGeneratorDirectories(runnerArgs.SearchPath).ToArray();
-                generatorType = _generatorLocator.Locate(directoriesToSearch, runnerArgs.GeneratorName);
+                generatorType = _generatorFinder.LocateGenerator(directoriesToSearch, runnerArgs.GeneratorName);
             }
 
             if (generatorType == null && runnerArgs.GeneratorName.IsNullOrWhiteSpace())
@@ -70,7 +70,7 @@ namespace Tempest.Boot.Runner.Impl
         // Should be delegated to another service maybe
         protected Type GetGeneratorFromSelection(TempestRunnerArguments runnerArguments)
         {
-            var generators = _generatorLocator.Locate(_directoryFinder.FindGeneratorDirectories(runnerArguments.SearchPath).ToArray()).ToArray();
+            var generators = _generatorFinder.LocateGenerators(_directoryFinder.FindGeneratorDirectories(runnerArguments.SearchPath).ToArray()).ToArray();
             Console.WriteLine("You haven't picked a generator. Available generators: ");
             var i = 1;
             foreach (var g in generators)

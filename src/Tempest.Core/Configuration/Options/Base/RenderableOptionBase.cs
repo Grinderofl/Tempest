@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Tempest.Core.Options.Rendering;
+using Tempest.Core.Configuration.Options.Rendering;
 
-namespace Tempest.Core.Options
+namespace Tempest.Core.Configuration.Options.Base
 {
     public abstract class RenderableOptionBase
     {

@@ -6,11 +6,12 @@ using System.Reflection;
 using Tempest.Boot.Configuration;
 using Tempest.Boot.Utils;
 using Tempest.Core;
+using Tempest.Core.Generator;
 
 namespace Tempest.Boot.Runner.Activation.Impl
 {
     // TODO This class is doing too much...
-    public class GeneratorLocator : IGeneratorLocator
+    public class GeneratorFinder : IGeneratorFinder
     {
         
         private readonly string[] _assemblyPatterns =
@@ -37,7 +38,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
         private readonly ITempestAssemblyLoader _tempestAssemblyLoader;
         private readonly ITempestConfigurationService _configurationService;
 
-        public GeneratorLocator(ITempestAssemblyLoader tempestAssemblyLoader, ITempestConfigurationService configurationService)
+        public GeneratorFinder(ITempestAssemblyLoader tempestAssemblyLoader, ITempestConfigurationService configurationService)
         {
             if (tempestAssemblyLoader == null) throw new ArgumentNullException(nameof(tempestAssemblyLoader));
             if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
@@ -45,7 +46,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
             _configurationService = configurationService;
         }
 
-        public Type Locate(DirectoryInfo[] directoriesToSearch, string generatorName)
+        public Type LocateGenerator(DirectoryInfo[] directoriesToSearch, string generatorName)
         {
             // Attempts to go through the following directories in order
             // Pattern:
@@ -69,7 +70,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
                     assembly.ExportedTypes.Where(
                             t =>
                                 t.IsConcrete() &&
-                                t.IsSubclassOf(typeof(GeneratorEngineBase)))
+                                t.Implements(typeof(IExecutableGenerator)))
                         .ToArray();
 
                 if (!types.Any()) continue;
@@ -94,7 +95,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
             return null;
         }
 
-        public IEnumerable<Type> Locate(DirectoryInfo[] directoriesToSearch)
+        public IEnumerable<Type> LocateGenerators(DirectoryInfo[] directoriesToSearch)
         {
             var directoriesWithCombined =
                 directoriesToSearch.Union(directoriesToSearch.SelectMany(x => x.GetDirectories())).ToArray();
@@ -110,7 +111,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
                             loadedAssembly.ExportedTypes.Where(
                                     t =>
                                         t.IsConcrete() &&
-                                        t.IsSubclassOf(typeof(GeneratorEngineBase)))
+                                        t.Implements(typeof(IExecutableGenerator)))
                                 .ToArray();
 
                         if (!types.Any()) continue;

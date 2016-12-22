@@ -1,6 +1,6 @@
 using System;
 
-namespace Tempest.Core.Options
+namespace Tempest.Core.Configuration.Options
 {
     /// <summary>
     ///     Option choice. Loaded conventionally by Id through arguments.

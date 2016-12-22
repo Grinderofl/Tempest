@@ -1,6 +1,6 @@
 using Tempest.Core.Operations;
 
-namespace Tempest.Core
+namespace Tempest.Core.Scaffolding
 {
     public interface IScaffoldConfigurer
     {

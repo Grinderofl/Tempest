@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Options;
 
-namespace Tempest.Core
+namespace Tempest.Core.Configuration.Options
 {
     public class OptionsConfiguration
     {

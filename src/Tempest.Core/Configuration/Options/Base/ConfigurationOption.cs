@@ -1,6 +1,6 @@
 using System;
 
-namespace Tempest.Core.Options
+namespace Tempest.Core.Configuration.Options.Base
 {
     public abstract class ConfigurationOption<TOption> : ConfigurationOption
         where TOption : ConfigurationOption<TOption>

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tempest.Core.Options.Rendering;
+using Tempest.Core.Configuration.Options.Base;
+using Tempest.Core.Configuration.Options.Rendering;
 
-namespace Tempest.Core.Options
+namespace Tempest.Core.Configuration.Options.Defaults
 {
     public class ListConfigurationOption : ConfigurationOption<ListConfigurationOption>
     {

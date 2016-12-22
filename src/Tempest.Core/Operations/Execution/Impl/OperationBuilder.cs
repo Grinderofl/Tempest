@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Configuration.Operations.Sourcing;
-using Tempest.Core.Configuration.Operations.Transformation;
-using Tempest.Core.Operations;
 using Tempest.Core.Operations.Persistence;
 using Tempest.Core.Operations.Transforms;
 
-namespace Tempest.Core
+namespace Tempest.Core.Operations.Execution.Impl
 {
-    public class OperationBuilder
+    public class OperationBuilder : IOperationBuilder
     {
-        public virtual IEnumerable<Operation> Build(IEnumerable<OperationStep> steps, IList<OperationTransformer> globalTransformers, SourcingContext context)
+        public IEnumerable<Operation> Build(ScaffoldOperationConfiguration configuration, SourcingContext sourcingContext)
         {
-            foreach (var step in steps)
+            foreach (var step in configuration.Steps)
             {
-                foreach (var operation in BuildOperations(step, globalTransformers, context))
+                foreach (var operation in BuildOperations(step, configuration, sourcingContext))
                     yield return operation;
             }
 
@@ -26,10 +22,9 @@ namespace Tempest.Core
             // 3) Emitters? Targets?
         }
 
-        private IEnumerable<Operation> BuildOperations(OperationStep step, IList<OperationTransformer> globalTransformers, SourcingContext context)
+        protected virtual IEnumerable<Operation> BuildOperations(OperationStep step, ScaffoldOperationConfiguration configuration, SourcingContext context)
         {
-            // Need to have the configuration here
-            var source = step.GetSource();
+            var source = step.GetSource(configuration);
             var sourcingResults = source.Generate(context);
             
             foreach (var result in sourcingResults)
@@ -38,7 +33,7 @@ namespace Tempest.Core
                 var destinationFilepath = result.FilePath;
                 var streamTransformers = new List<IStreamTransformer>();
                 
-                foreach (var transformer in globalTransformers.Union(step.GetTransformers()))
+                foreach (var transformer in configuration.GlobalTransformers.Union(step.GetTransformers()))
                 {
                     destinationFilepath = transformer.TransformFilename(destinationFilepath);
                     destinationFilename = transformer.TransformFilename(destinationFilename);
@@ -62,6 +57,7 @@ namespace Tempest.Core
             }
 
         }
+
 
 
     }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
-namespace Tempest.Core.Operations.Execution
+namespace Tempest.Core.Operations.Execution.Impl
 {
     public class OperationExecutor : IOperationExecutor
     {

@@ -1,9 +1,10 @@
 using System;
-using Tempest.Core.Options;
+using Tempest.Core.Configuration.Options.Base;
+using Tempest.Core.Configuration.Options.Defaults;
 
-namespace Tempest.Core
+namespace Tempest.Core.Configuration.Options.Impl
 {
-    public class OptionConfigurer
+    public class OptionConfigurer : IOptionConfigurer
     {
         public OptionsConfiguration Options { get; }
 
