@@ -23,12 +23,12 @@ namespace Tempest.Generator.New
 
     public class NewGenerator : GeneratorBase
     {
-        private string _generatorName;
+        //private string _generatorName;
 
-        private bool _includeBuildScript;
-        private string _buildScriptType;
+        //private bool _includeBuildScript;
+        //private string _buildScriptType;
 
-        private bool _useConventionalStructure = false;
+        //private bool _useConventionalStructure = false;
 
 
 

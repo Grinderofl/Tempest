@@ -41,12 +41,6 @@ namespace Tempest.Boot.Strappers
             _serviceProviderFactory = serviceProviderFactory;
         }
 
-        public static BootstrapperBase<TBuilder> Create<TBuilder>(IServiceProviderFactory<TBuilder> factory)
-        {
-            if (factory == null) throw new ArgumentNullException(nameof(factory));
-            return new BootstrapperBase<TBuilder>(factory);
-        }
-
         protected override IServiceProvider CreateProvider()
         {
             var services = new ServiceCollection();

@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tempest.Core;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Generator;
+using Tempest.Core.Operations;
 using Tempest.Core.Options;
 
 namespace Tempest.Generator.Empty
 {
     public class EmptyGenerator : GeneratorBase
     {
-        private readonly Dictionary<string, Action> _projectFactories;
+        //private readonly Dictionary<string, Action> _projectFactories;
 
-        public EmptyGenerator()
-        {
-            _projectFactories = new Dictionary<string, Action>()
-            {
-                [OptionValues.NewProject] = CreateNewProject
-            };
-        }
-        
-        private string _projectName;
-        private string _projectType;
-        
+        //public EmptyGenerator()
+        //{
+        //    _projectFactories = new Dictionary<string, Action>()
+        //    {
+        //        [OptionValues.NewProject] = CreateNewProject
+        //    };
+        //}
+
+        //private string _projectName;
+        //private string _projectType;
+
 
         //protected override IEnumerable<ConfigurationOption> SetupOptions()
         //{
@@ -53,15 +55,15 @@ namespace Tempest.Generator.Empty
         //    _projectFactories[_projectType]();
         //}
 
-        private void CreateNewProject()
-        {
-            //Globally.TransformToken("ReplaceMe", _projectName);
+        //private void CreateNewProject()
+        //{
+        //    //Globally.TransformToken("ReplaceMe", _projectName);
 
 
-            // Uncomment/comment either below as needed
-            //CopyFromTemplates();
-            //CopyFromResources();
-        }
+        //    // Uncomment/comment either below as needed
+        //    //CopyFromTemplates();
+        //    //CopyFromResources();
+        //}
 
         /// <summary>
         /// Generate project using embedded resources
@@ -92,9 +94,19 @@ namespace Tempest.Generator.Empty
         /// <summary>
         /// Parameters used for possible input options
         /// </summary>
-        private static class OptionValues
+        //private static class OptionValues
+        //{
+        //    public const string NewProject = "new";
+        //}
+
+        protected override void ConfigureOptions(OptionsFactory options)
         {
-            public const string NewProject = "new";
+            throw new NotImplementedException();
+        }
+
+        protected override void ConfigureGenerator(ScaffoldOperationConfiguration configuration)
+        {
+            throw new NotImplementedException();
         }
     }
 }

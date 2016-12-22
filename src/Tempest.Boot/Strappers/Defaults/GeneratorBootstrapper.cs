@@ -9,10 +9,6 @@ namespace Tempest.Boot.Strappers.Defaults
         {
         }
 
-        public virtual void RegisterConvention(IServiceConfigurationConvention convention)
-        {
-            AddConvention(convention);
-        }
 
         protected override void ConfigureBootstrapper()
         {

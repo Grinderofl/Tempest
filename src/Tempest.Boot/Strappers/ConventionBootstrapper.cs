@@ -14,6 +14,10 @@ namespace Tempest.Boot.Strappers
         {
         }
 
+        public virtual void RegisterConvention(IServiceConfigurationConvention convention)
+        {
+            AddConvention(convention);
+        }
         protected virtual void AddConvention<T>() where T : IServiceConfigurationConvention, new()
             => AddConvention(new T());
 

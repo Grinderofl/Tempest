@@ -10,7 +10,7 @@ namespace Tempest.Boot.Strappers.Defaults
         {
         }
 
-        public static BootstrapperBase<IServiceCollection> Create()
+        public static TempestBootstrapper Create()
         {
             return new TempestBootstrapper(new DefaultServiceProviderFactory());
         }
