@@ -11,12 +11,12 @@ namespace Tempest.Boot.Runner.Activation.Impl
     // TODO Almost doing too much...
     public class DirectoryFinder : IDirectoryFinder
     {
-        private readonly ITempestConfigurationService _configurationService;
+        private readonly TempestConfiguration _configuration;
 
-        public DirectoryFinder(ITempestConfigurationService configurationService)
+        public DirectoryFinder(TempestConfiguration configuration)
         {
-            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
-            _configurationService = configurationService;
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            _configuration = configuration;
         }
 
         public DirectoryInfo FindTempestExecutableDirectory()
@@ -39,7 +39,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
             var defaultDirectory = FindTempestExecutableDirectory().GetDirectories("Generators").First();
             yield return defaultDirectory;
 
-            foreach (var path in _configurationService.GetGeneratorPaths())
+            foreach (var path in _configuration.AdditionalPaths)
                 yield return new DirectoryInfo(path);
         }
 

@@ -13,18 +13,24 @@ namespace Tempest.CoreTests.Boot
 {
     public class BootstrapperTests
     {
-        public class ExecutingTempestBootstrapper
+        private interface IMockService
         {
-            private class MockBootstrapperExecutor : IBootstrapperExecutor
-            {
-                public int Execute(IServiceProvider provider)
-                {
-                    provider.GetService<MockService>().Foo = "Bar";
-                    return 0;
-                }
-            }
+            string Foo { get; set; }
+        }
 
-            private class MockService
+        private class MockBootstrapperExecutor : IBootstrapperExecutor
+        {
+            public int Execute(IServiceProvider provider)
+            {
+                provider.GetService<IMockService>().Foo = "Bar";
+                return 0;
+            }
+        }
+
+        public class ExecutingBasicService
+        {
+
+            private class MockService : IMockService
             {
                 public string Foo { get; set; }
             }
@@ -34,12 +40,14 @@ namespace Tempest.CoreTests.Boot
             {
                 var mockService = new MockService();
                 var strapper = TempestBootstrapper.Create();
-                strapper.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton(mockService)));
+                strapper.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton<IMockService>(mockService)));
                 var mockExecutor = new MockBootstrapperExecutor();
                 strapper.Execute(mockExecutor);
 
                 Assert.Equal("Bar", mockService.Foo);
             }
         }
+
+        
     }
 }

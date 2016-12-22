@@ -36,14 +36,14 @@ namespace Tempest.Boot.Runner.Activation.Impl
         };
 
         private readonly ITempestAssemblyLoader _tempestAssemblyLoader;
-        private readonly ITempestConfigurationService _configurationService;
+        private readonly TempestConfiguration _configuration;
 
-        public GeneratorFinder(ITempestAssemblyLoader tempestAssemblyLoader, ITempestConfigurationService configurationService)
+        public GeneratorFinder(ITempestAssemblyLoader tempestAssemblyLoader, TempestConfiguration configuration)
         {
             if (tempestAssemblyLoader == null) throw new ArgumentNullException(nameof(tempestAssemblyLoader));
-            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             _tempestAssemblyLoader = tempestAssemblyLoader;
-            _configurationService = configurationService;
+            _configuration = configuration;
         }
 
         public Type LocateGenerator(DirectoryInfo[] directoriesToSearch, string generatorName)
@@ -83,7 +83,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
                 }
             }
 
-            if (_configurationService.ShouldInstallGeneratorsAutomatically())
+            if (_configuration.AutoInstallGenerators)
             {
                 // Install generators here.
                 // var locatedGenerator = _generatorInstaller.InstallGenerator(loaderContext.Name);

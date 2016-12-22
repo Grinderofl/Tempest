@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Tempest.Boot.Conventions;
+using Tempest.Boot.Conventions.Defaults;
 
 namespace Tempest.Boot.Strappers
 {
@@ -26,9 +30,35 @@ namespace Tempest.Boot.Strappers
 
         protected override void ConfigureServices(IServiceCollection services)
         {
+            ConfigureDefaultServices(services);
             ConfigureBootstrapper();
             foreach (var convention in _conventions)
                 convention.Configure(services);
+        }
+
+        protected virtual void ConfigureDefaultServices(IServiceCollection services)
+        {
+            AddConvention<TempestConfigurationRegistrationConvention>();
+            services.AddLogging();
+        }
+
+        protected override IServiceProvider CreateProvider()
+        {
+            var provider = base.CreateProvider();
+            ConfigureProvider(provider);
+            return provider;
+        }
+
+        protected virtual void ConfigureProvider(IServiceProvider provider)
+        {
+            var loggerFatory = provider.GetRequiredService<ILoggerFactory>();
+            var configuration = provider.GetRequiredService<IConfigurationRoot>();
+            ConfigureLogging(loggerFatory, configuration);
+        }
+
+        protected virtual void ConfigureLogging(ILoggerFactory loggerFactory, IConfiguration configuration)
+        {
+            loggerFactory.AddConsole(configuration.GetSection("Logging")).AddDebug();
         }
 
         protected abstract void ConfigureBootstrapper();
