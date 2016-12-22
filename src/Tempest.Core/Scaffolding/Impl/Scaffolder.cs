@@ -1,38 +1,29 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Tempest.Core.Configuration.Operations.Sourcing;
-using Tempest.Core.Generator;
+using Tempest.Core.Configuration.Scaffolding;
 using Tempest.Core.Operations;
 using Tempest.Core.Operations.Execution;
 using Tempest.Core.Operations.Execution.Impl;
-using Tempest.Core.Options;
 using Tempest.Core.Options.Impl;
 
 namespace Tempest.Core.Scaffolding.Impl
 {
-    // Will be: Scaffolder : IScaffolder
+
     public class Scaffolder : IScaffolder
     {
         private readonly GeneratorContext _generatorContext;
-        private readonly ScaffoldOperationConfiguration _configuration;
-        private readonly IEnumerable<IScaffoldConfigurer> _configurers;
-        private readonly IExecutableGenerator _generator;
         private readonly IOperationBuilder _operationBuilder;
-        private readonly IOptionExecutor _optionExecutor;
         private readonly IOperationExecutor _operationExecutor;
+        private readonly IConfigurationResolver _configurationResolver;
 
-        public Scaffolder(GeneratorContext generatorContext, ScaffoldOperationConfiguration configuration,
-            IEnumerable<IScaffoldConfigurer> configurers, IExecutableGenerator generator,
-            IOperationBuilder operationBuilder, IOptionExecutor optionExecutor, IOperationExecutor operationExecutor)
+        public Scaffolder(GeneratorContext generatorContext,
+            IOperationBuilder operationBuilder, IOperationExecutor operationExecutor, IConfigurationResolver configurationResolver)
         {
             _generatorContext = generatorContext;
-            _configuration = configuration;
-            _configurers = configurers;
-            _generator = generator;
             _operationBuilder = operationBuilder;
-            _optionExecutor = optionExecutor;
             _operationExecutor = operationExecutor;
+            _configurationResolver = configurationResolver;
         }
 
         protected DirectoryInfo BuildTargetPath(GeneratorContext generatorContext,
@@ -42,13 +33,7 @@ namespace Tempest.Core.Scaffolding.Impl
 
         public void Scaffold()
         {
-            var options = _generator.CreateOptions();
-            _optionExecutor.Execute(options.ToArray(), _generatorContext.Arguments);
-            
-            var configuration = _generator.ConfigureOperations(_configuration);
-
-            foreach (var configurer in _configurers.OrderBy(x => x.Order))
-                configurer.ConfigureOperations(configuration);
+            var configuration = _configurationResolver.Resolve();
 
             var sourcingContext = new SourcingContext()
             {
@@ -64,4 +49,6 @@ namespace Tempest.Core.Scaffolding.Impl
 
         }
     }
+
+
 }
