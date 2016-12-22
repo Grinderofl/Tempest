@@ -1,6 +1,7 @@
 using System;
+using Tempest.Core.Configuration.Options.Defaults;
 
-namespace Tempest.Core.Options.Rendering
+namespace Tempest.Core.Configuration.Options.Rendering
 {
     public class InputOptionRenderer : OptionRendererBase
     {

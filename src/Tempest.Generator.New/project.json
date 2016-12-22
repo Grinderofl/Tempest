@@ -21,7 +21,14 @@
   },
   "buildOptions": {
     "compile": {
-      "exclude": "./Template/**/*.*"
+      "excludeFiles": [
+        "Template/ZingGenerator.cs",
+        "Template/project.json",
+        "Template/build.ps1",
+        "Template/build.cake",
+        "Template/NuGet.config",
+        "Template/replace.me"
+      ]
     },
     "copyToOutput": {
       "include": "Template/**"

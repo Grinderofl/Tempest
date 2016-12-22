@@ -1,7 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using Tempest.Core.Sourcing;
+using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Utils;
 using Xunit;
 
@@ -14,17 +15,21 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var generator = new StringContentSource("TestContent");
+                var generator = new StringContentSourceFactory("TestContent");
 
                 var result = generator.Generate(new SourcingContext());
 
-                var resultValue = result.First().OutputStream.ReadAsString();
+                var resultValue = result.First().Provider.Provide().ReadAsString();
                 Assert.Equal("TestContent", resultValue);
             }
         }
 
-        public class TemplateFileSourceTests
+        public class TemplateFileSourceTests : IDisposable
         {
+            public TemplateFileSourceTests()
+            {
+                File.WriteAllText("foo.bar", "Foobar");
+            }
             [Fact]
             public void generates_valid_stream()
             {
@@ -35,17 +40,19 @@ namespace Tempest.CoreTests.Sourcing
                 };
 
                 var result = source.Generate(context);
-                var resultValue = result.First().OutputStream.ReadAsString();
-                Assert.True(resultValue.Length > 0);
+                var resultValue = result.First().Provider.Provide().ReadAsString();
+                Assert.Equal("Foobar", resultValue);
             }
 
-            // Hack to get Visual Studio test runner working at 
-            // the same time as our build script
-            private static TemplateFileSource BuildTemplateSourceLocation()
+            private static TemplateFileSourceFactory BuildTemplateSourceLocation()
             {
-                var useGlobalJson = File.Exists("global.json");
-                var generator = new TemplateFileSource(useGlobalJson ? "global.json" : "LICENSE.txt");
+                var generator = new TemplateFileSourceFactory("foo.bar");
                 return generator;
+            }
+
+            public void Dispose()
+            {
+                File.Delete("foo.bar");
             }
         }
 
@@ -54,11 +61,11 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var source = new ResourceFileSource("Tempest.CoreTests.Sourcing.EmbeddedResource.txt",
+                var source = new ResourceFileSourceFactory("Tempest.CoreTests.Sourcing.EmbeddedResource.txt",
                     typeof(TemplateFileSourceTests).GetTypeInfo().Assembly);
                 var context = new SourcingContext();
                 var result = source.Generate(context);
-                var resultValue = result.First().OutputStream.ReadAsString();
+                var resultValue = result.First().Provider.Provide().ReadAsString();
                 Assert.Equal("FOOBAR", resultValue);
             }
         }
