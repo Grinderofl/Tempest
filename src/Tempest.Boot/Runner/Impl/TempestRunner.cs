@@ -1,51 +1,52 @@
 using System;
 using System.Linq;
+using Tempest.Boot.Runner.Activation;
 using Tempest.Core;
 using Tempest.Core.Utils;
 
 namespace Tempest.Boot.Runner.Impl
 {
     // TODO This does waaay too much :D
+    // edit: fixed 8)
     public class TempestRunner : ITempestRunner
     {
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorLocator _generatorLocator;
-        private readonly IScaffolderRunner _scaffolderRunner;
+        private readonly IGeneratorRunner _generatorRunner;
 
-        public TempestRunner(IScaffolderRunner scaffolderRunner, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
+        public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorLocator generatorLocator)
         {
-            if (scaffolderRunner == null) throw new ArgumentNullException(nameof(scaffolderRunner));
+            if (generatorRunner == null) throw new ArgumentNullException(nameof(generatorRunner));
             if (directoryFinder == null) throw new ArgumentNullException(nameof(directoryFinder));
             if (generatorLocator == null) throw new ArgumentNullException(nameof(generatorLocator));
-            _scaffolderRunner = scaffolderRunner;
+            _generatorRunner = generatorRunner;
             _directoryFinder = directoryFinder;
             _generatorLocator = generatorLocator;
         }
 
-        public int Run(TempestRunnerArguments runnerArgs)
+        // 
+        public virtual int Run(TempestRunnerArguments runnerArgs)
         {
             Type generatorType = null;
 
             if (runnerArgs.GeneratorName.IsNotNullOrWhiteSpace())
             {
-                generatorType =
-                    _generatorLocator.Locate(
-                        _directoryFinder.FindGeneratorDirectories(runnerArgs.SearchPath).ToArray(),
-                        runnerArgs.GeneratorName);
+                var directoriesToSearch = _directoryFinder.FindGeneratorDirectories(runnerArgs.SearchPath).ToArray();
+                generatorType = _generatorLocator.Locate(directoriesToSearch, runnerArgs.GeneratorName);
             }
+
             if (generatorType == null && runnerArgs.GeneratorName.IsNullOrWhiteSpace())
-            {
                 generatorType = GetGeneratorFromSelection(runnerArgs);
-            }
+
             if (generatorType == null)
                 throw new GeneratorNotFoundException("No generators found");
             
-            var loaderContext = new LoaderContext
-            {
-                Type = generatorType,
-                Name = generatorType.Name,
-                AdditionalSearchPath = runnerArgs.SearchPath
-            };
+            //var loaderContext = new LoaderContext
+            //{
+            //    Type = generatorType,
+            //    Name = generatorType.Name,
+            //    AdditionalSearchPath = runnerArgs.SearchPath
+            //};
 
             // GeneratorExecutorFactory puts together all the dependency stuff then?
             // It also retrieves the executor from service provider
@@ -60,17 +61,11 @@ namespace Tempest.Boot.Runner.Impl
                 TempestDirectory = _directoryFinder.FindTempestExecutableDirectory()
             };
 
-            return _scaffolderRunner.Run(generatorContext);
-            
-            ////generatorExecutor.Run(generatorContext);
-            //var executionResult = generatorExecutor.Execute(generatorContext);
+            return _generatorRunner.Run(generatorContext);
 
-            //foreach (var operation in executionResult.Operations)
-            //    operation.Execute();
-
-            //return 0;
         }
 
+        // Should be delegated to another service maybe
         protected Type GetGeneratorFromSelection(TempestRunnerArguments runnerArguments)
         {
             var generators = _generatorLocator.Locate(_directoryFinder.FindGeneratorDirectories(runnerArguments.SearchPath).ToArray()).ToArray();

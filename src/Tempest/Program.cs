@@ -1,5 +1,6 @@
 ﻿using Tempest.Boot;
-using Tempest.Boot.Strapper;
+using Tempest.Boot.Strappers.Defaults;
+using Tempest.Boot.Strappers.Execution;
 
 namespace Tempest
 {
@@ -7,8 +8,9 @@ namespace Tempest
     {
         public static int Main(string[] args)
         {
-            var strapper = DefaultTempestBootstrapper.Create();
-            return strapper.Execute(args);
+            var strapper = TempestBootstrapper.Create();
+            var executor = new TempestExecutor(args);
+            return strapper.Execute(executor);
             //var semanticArguments = SemanticArgumentParser.Parse(args);
 
 

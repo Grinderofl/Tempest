@@ -36,5 +36,10 @@ namespace Tempest.Core.Operations
             var transformedStream = _transformer.Transform(stream);
             _persister.Persist(transformedStream);
         }
+
+        public virtual string Describe()
+        {
+            return $"{_streamProvider.Describe()} {_transformer.Describe()}";
+        }
     }
 }
