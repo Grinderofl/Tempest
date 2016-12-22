@@ -48,7 +48,7 @@ namespace Tempest.Boot.Conventions.Defaults
 
         private void RegisterGeneratorServices(IServiceCollection services)
         {
-            services.TryAddTransient(typeof(IExecutableGenerator), _context.GeneratorType);
+            services.TryAddScoped(typeof(IExecutableGenerator), _context.GeneratorType);
             services.TryAddSingleton(_configuration);
             services.TryAddSingleton(_context);
         }

@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Tempest.Boot.Conventions.Defaults;
 using Tempest.Boot.Strappers.Defaults;
+using Tempest.Boot.Strappers.Execution;
 using Tempest.Core;
 using Tempest.Core.Operations;
 
@@ -29,7 +30,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
         {
             if (generatorContext == null) throw new ArgumentNullException(nameof(generatorContext));
             var strapper = _bootstrapperFactory.Create(generatorContext);
-            return strapper.Execute(null);
+            return strapper.Execute(new GeneratorExecutor());
         }
 
         //protected virtual void ConfigureBootstrapper(GeneratorContext generatorContext, GeneratorBootstrapper strapper)

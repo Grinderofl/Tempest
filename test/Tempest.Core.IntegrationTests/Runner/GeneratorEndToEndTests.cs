@@ -17,7 +17,7 @@ using Xunit;
 
 namespace Tempest.Core.IntegrationTests.Runner
 {
-    public class GeneratorRunnerTests
+    public class GeneratorEndToEndTests
     {
         public class RunningMockGenerator
         {

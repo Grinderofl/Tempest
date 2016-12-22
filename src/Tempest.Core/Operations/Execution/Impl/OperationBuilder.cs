@@ -16,10 +16,6 @@ namespace Tempest.Core.Operations.Execution.Impl
                 foreach (var operation in BuildOperations(step, configuration, sourcingContext))
                     yield return operation;
             }
-
-            // 1) Get source (file, web url...)
-            // 2) Transformers
-            // 3) Emitters? Targets?
         }
 
         protected virtual IEnumerable<Operation> BuildOperations(OperationStep step, ScaffoldOperationConfiguration configuration, SourcingContext context)
@@ -42,7 +38,7 @@ namespace Tempest.Core.Operations.Execution.Impl
 
                 var actualTransformer = new CompoundStreamTransformer(streamTransformers);
 
-                var emissionContext = new PersistenceContext()
+                var persistenceContext = new PersistenceContext()
                 {
                     FilePath = destinationFilepath,
                     Filename = destinationFilename,
@@ -51,7 +47,7 @@ namespace Tempest.Core.Operations.Execution.Impl
 
                 foreach (var emitter in step.GetEmitters())
                 {
-                    foreach (var actualEmitter in  emitter.CreatePersisters(emissionContext))
+                    foreach (var actualEmitter in  emitter.CreatePersisters(persistenceContext))
                         yield return new Operation(result.Provider, actualTransformer, actualEmitter);
                 }
             }
