@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tempest.Core;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
+using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Options;
 using Tempest.Core.Generator;
+using Tempest.Core.Scaffolding;
 
 namespace Tempest.Generator.Zing
 {
@@ -10,21 +13,20 @@ namespace Tempest.Generator.Zing
     {
         private string _fooName;
 
-        protected override IEnumerable<ConfigurationOption> SetupOptions()
-        {
-            yield return
-                Options.Input("Welcome to new Zing generator! \n" +
-                              "Please enter the name for your Zing", 
-                              s => _fooName = s);
 
+        protected override void ConfigureOptions(OptionsFactory options)
+        {
+            options.Input("Welcome to new Zing generator! \n" +
+                          "Please enter the name for your Zing",
+                          s => _fooName = s);
         }
 
-        protected override void ExecuteCore()
+        protected override void ConfigureGenerator(ScaffolderConfigurer scaffold)
         {
-            Set.TargetSubDirectory(_fooName);
-            Globally.TransformToken("Bar", _fooName);
+            scaffold.Set.TargetSubDirectory(_fooName);
+            scaffold.Globally.TransformToken("Bar", _fooName);
 
-            Copy.Resource("Zing.Template.rename.me").ToFile($"{_fooName}Foo.bar");
+            scaffold.Copy.ResourceOf<ZingGenerator>("Zing.Template.rename.me").ToFile($"{_fooName}Foo.bar");
         }
     }
 }
