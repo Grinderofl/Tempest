@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Tempest.Core;
 using Tempest.Core.Options;
+using Tempest.Core.Generator;
 
 namespace Tempest.Generator.Zing
 {
