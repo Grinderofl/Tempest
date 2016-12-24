@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Tempest.Core;
-using Tempest.Core.Configuration.Operations.OperationBuilding;
-using Tempest.Core.Configuration.Options.Base;
-using Tempest.Core.Options;
+﻿using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Generator;
 using Tempest.Core.Scaffolding;
 
@@ -21,7 +16,7 @@ namespace Tempest.Generator.Zing
                           s => _fooName = s);
         }
 
-        protected override void ConfigureGenerator(Scaffold scaffold)
+        protected override void ConfigureGenerator(IScaffold scaffold)
         {
             scaffold.Set.TargetSubDirectory(_fooName);
             scaffold.Globally.TransformToken("Bar", _fooName);
