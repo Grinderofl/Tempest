@@ -1,6 +1,6 @@
 namespace Tempest.Core.Configuration.Operations.Transformation
 {
-    public class NoOpOperationTransformer : OperationTransformer
+    public class NoOpOperationTransformer : OperationTransformerBase
     {
     }
 }

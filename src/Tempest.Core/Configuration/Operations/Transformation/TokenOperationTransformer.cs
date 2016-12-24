@@ -2,7 +2,7 @@ using Tempest.Core.Operations.Transforms;
 
 namespace Tempest.Core.Configuration.Operations.Transformation
 {
-    public class TokenOperationTransformer : OperationTransformer
+    public class TokenOperationTransformer : OperationTransformerBase
     {
         private readonly bool _replaceFileNames;
         private readonly string _replaceWith;

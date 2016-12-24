@@ -6,7 +6,7 @@ namespace Tempest.Core.Configuration.Operations.Sourcing
 {
     public class Sources
     {
-        public static SourceFactory FromString(string source) => new StringContentSourceFactory(source);
+        public static SourceFactory FromString(string source, string filename = "") => new StringContentSourceFactory(source, filename);
         public static SourceFactory FromTemplate(string filePath) => new TemplateFileSourceFactory(filePath);
 
         public static SourceFactory FromResourceOf<T>(string resourcePath)

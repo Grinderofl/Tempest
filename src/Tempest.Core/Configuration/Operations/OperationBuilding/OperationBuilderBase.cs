@@ -12,6 +12,7 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
 
         protected virtual OperationStep CreateStep(SourceFactory sourceFactory)
         {
+            if (sourceFactory == null) throw new ArgumentNullException(nameof(sourceFactory));
             var step = new OperationStep(sourceFactory);
             Actions.Add(conf => conf.Steps.Add(step));
             return step;
@@ -19,13 +20,11 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
 
         public virtual void VisitConfiguration(ScaffoldOperationConfiguration configuration)
         {
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             foreach (var action in Actions)
             {
                 action(configuration);
             }
         }
     }
-
-    // Scaffold configuration is a single instance that is created somewhere
-    // and passed into scaffoldconfigurers?
 }

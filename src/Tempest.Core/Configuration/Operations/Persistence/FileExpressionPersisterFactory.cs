@@ -6,7 +6,7 @@ using Tempest.Core.Operations.Persistence;
 namespace Tempest.Core.Configuration.Operations.Persistence
 {
     // TODO Lots of inheritance possibilities here
-    public class FileExpressionPersisterFactory : PersisterFactory
+    public class FileExpressionPersisterFactory : PersisterFactoryBase
     {
         private readonly Func<string> _relativePathFunc;
 

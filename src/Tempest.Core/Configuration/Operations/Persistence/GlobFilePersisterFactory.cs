@@ -6,7 +6,7 @@ using Tempest.Core.Operations.Persistence;
 namespace Tempest.Core.Configuration.Operations.Persistence
 {
     // TODO Lots of inheritance possibilities here
-    public class GlobFilePersisterFactory : PersisterFactory
+    public class GlobFilePersisterFactory : PersisterFactoryBase
     {
         private readonly string _globPath;
 

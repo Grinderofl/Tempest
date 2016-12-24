@@ -9,7 +9,7 @@ namespace Tempest.Core.Configuration.Operations.Transformation
     ///     XdtTransformer
     ///     JsonTransformer
     /// </summary>
-    public abstract class OperationTransformer
+    public abstract class OperationTransformerBase
     {
         public virtual string TransformFilename(string source) => source;
 

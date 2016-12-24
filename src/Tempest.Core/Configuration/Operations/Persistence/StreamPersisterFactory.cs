@@ -1,15 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Tempest.Core.Operations.Persistence;
 
 namespace Tempest.Core.Configuration.Operations.Persistence
 {
-    public class StreamPersisterFactory : PersisterFactory
+    public class StreamPersisterFactory : PersisterFactoryBase
     {
         private readonly Stream _targetStream;
 
         public StreamPersisterFactory(Stream targetStream)
         {
+            if (targetStream == null) throw new ArgumentNullException(nameof(targetStream));
             _targetStream = targetStream;
         }
 

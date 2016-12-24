@@ -5,7 +5,7 @@ using Tempest.Core.Operations.Persistence;
 
 namespace Tempest.Core.Configuration.Operations.Persistence
 {
-    public class StreamActionPersisterFactory : PersisterFactory
+    public class StreamActionPersisterFactory : PersisterFactoryBase
     {
         private readonly Action<Stream> _targetStream;
 

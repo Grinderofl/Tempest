@@ -6,7 +6,6 @@ using Tempest.Core.Operations.Providers;
 
 namespace Tempest.Core.Configuration.Operations.Sourcing
 {
-    // Lots of inheritance possibilities here
     public class ResourceFileSourceFactory : SourceFactory
     {
         private readonly Assembly _resourceAssembly;

@@ -7,7 +7,7 @@ namespace Tempest.Core.Operations
     public class ScaffoldOperationConfiguration
     {
         public IList<OperationStep> Steps { get; } = new List<OperationStep>();
-        public IList<OperationTransformer> GlobalTransformers { get; } = new List<OperationTransformer>();
+        public IList<OperationTransformerBase> GlobalTransformers { get; } = new List<OperationTransformerBase>();
         public string TargetSubDirectory { get; set; } = "";
     }
 }

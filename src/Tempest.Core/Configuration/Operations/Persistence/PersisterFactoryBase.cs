@@ -14,7 +14,7 @@ namespace Tempest.Core.Configuration.Operations.Persistence
     ///     no, maybe the template needs to delete something in order to use another feature? idk!
     /// </summary>
     [DebuggerDisplay("{DebuggerDisplay()}")]
-    public abstract class PersisterFactory
+    public abstract class PersisterFactoryBase
     {
         protected virtual string DebuggerDisplay()
         {

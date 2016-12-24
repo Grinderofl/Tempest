@@ -2,10 +2,13 @@ using Tempest.Core.Configuration.Operations.OperationBuilding;
 
 namespace Tempest.Core.Scaffolding
 {
+    /// <summary>
+    /// Configures the scaffolding builder
+    /// </summary>
     public interface IScaffold
     {
         /// <summary>
-        ///     Creates a new file
+        ///     Creates a new file from no physically existing store
         /// </summary>
         CreateOperationBuilder Create { get;  }
 
@@ -15,7 +18,7 @@ namespace Tempest.Core.Scaffolding
         UpdateOperationBuilder Update { get;  }
 
         /// <summary>
-        ///     Copies a file from templates
+        ///     Copies a file from Template directory
         /// </summary>
         CopyOperationBuilder Copy { get;  }
 
@@ -25,7 +28,7 @@ namespace Tempest.Core.Scaffolding
         SetOperationBuilder Set { get;  }
 
         /// <summary>
-        ///     Globally uses transformers or emitters (executed for every source)
+        ///     Executes an action for every operation
         /// </summary>
         GlobalOperationBuilder Globally { get;  }
     }

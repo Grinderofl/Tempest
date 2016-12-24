@@ -5,7 +5,6 @@ using Tempest.Core.Utils;
 
 namespace Tempest.Core.Configuration.Operations.Sourcing
 {
-    // Lots of inheritance possibilities here
     public class TemplateGlobSourceFactory : SourceFactory
     {
         private readonly string _globPattern;
@@ -21,6 +20,7 @@ namespace Tempest.Core.Configuration.Operations.Sourcing
             var files = Glob.Expand(glob);
             foreach (var file in files)
             {
+                // Maybe should throw here?
                 if (!File.Exists(file.FullName))
                     continue;
 

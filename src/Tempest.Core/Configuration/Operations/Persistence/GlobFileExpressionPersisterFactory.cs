@@ -5,7 +5,7 @@ using Tempest.Core.Operations.Persistence;
 
 namespace Tempest.Core.Configuration.Operations.Persistence
 {
-    public class GlobFileExpressionPersisterFactory : PersisterFactory
+    public class GlobFileExpressionPersisterFactory : PersisterFactoryBase
     {
         private readonly Func<string> _globPathFunc;
 

@@ -18,7 +18,7 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
         /// </summary>
         /// <param name="persisterFactory"></param>
         /// <returns></returns>
-        public OperationStep To(PersisterFactory persisterFactory)
+        public OperationStep To(PersisterFactoryBase persisterFactory)
         {
             InternalEmitters.Add(persisterFactory);
             return this;
@@ -47,7 +47,7 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
         public OperationStep ToStream(Stream targetStream) => To(Persisters.ToStream(targetStream));
         public OperationStep ToStream(Action<Stream> streamAction) => To(Persisters.ToStream(streamAction));
 
-        public OperationStep TransformWith(OperationTransformer operationTransformer)
+        public OperationStep TransformWith(OperationTransformerBase operationTransformer)
         {
             InternalTransformers.Add(operationTransformer);
             return this;

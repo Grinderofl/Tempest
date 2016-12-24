@@ -11,8 +11,8 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
     {
         private readonly Func<ScaffoldOperationConfiguration, SourceFactory> _sourceFactoryFunc;
         private readonly SourceFactory _sourceFactory;
-        protected IList<PersisterFactory> InternalEmitters = new List<PersisterFactory>();
-        protected IList<OperationTransformer> InternalTransformers = new List<OperationTransformer>();
+        protected IList<PersisterFactoryBase> InternalEmitters = new List<PersisterFactoryBase>();
+        protected IList<OperationTransformerBase> InternalTransformers = new List<OperationTransformerBase>();
 
         protected OperationStepBase(SourceFactory sourceFactory)
         {
@@ -26,8 +26,8 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
 
         public SourceFactory GetSource(ScaffoldOperationConfiguration configuration) => _sourceFactoryFunc?.Invoke(configuration) ?? _sourceFactory;
 
-        public IEnumerable<OperationTransformer> GetTransformers() => InternalTransformers;
+        public IEnumerable<OperationTransformerBase> GetTransformers() => InternalTransformers;
 
-        public IEnumerable<PersisterFactory> GetEmitters() => InternalEmitters;
+        public IEnumerable<PersisterFactoryBase> GetEmitters() => InternalEmitters;
     }
 }

@@ -8,7 +8,7 @@ namespace Tempest.Core.Configuration.Operations.Persistence
     /// <summary>
     ///     Emits to file
     /// </summary>
-    public class FilePersisterFactory : PersisterFactory
+    public class FilePersisterFactory : PersisterFactoryBase
     {
         private readonly string _relativePath;
 
