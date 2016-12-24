@@ -31,6 +31,6 @@ namespace Tempest.Core.Generator
             return configuration;
         }
 
-        protected abstract void ConfigureGenerator(ScaffolderConfigurer scaffold);
+        protected abstract void ConfigureGenerator(IScaffold scaffold);
     }
 }

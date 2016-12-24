@@ -12,15 +12,6 @@ using Tempest.Core.Scaffolding;
 
 namespace Tempest.Generator.New
 {
-    public class NewGeneratorScaffolderConfiguration : ScaffolderConfigurer
-    {
-        public NewGeneratorScaffolderConfiguration()
-        {
-        }
-    }
-
-    
-
     public class NewGenerator : GeneratorBase
     {
         private string _generatorName;
@@ -128,7 +119,7 @@ namespace Tempest.Generator.New
                 .Choice("Sod off", "standard");
         }
 
-        protected override void ConfigureGenerator(ScaffolderConfigurer scaffold)
+        protected override void ConfigureGenerator(IScaffold scaffold)
         {
             var targetDirectory = _generatorName;
             var srcDirectory = "./";
@@ -152,7 +143,7 @@ namespace Tempest.Generator.New
 
             scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("project.json"))
                 .ToFile($"{srcDirectory}project.json")
-                .ReplaceToken("TEMPLATEMATCHINGPATTERN", projectRelativeTemplateMatch);
+                .TransformToken("TEMPLATEMATCHINGPATTERN", projectRelativeTemplateMatch);
 
             scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("ZingGenerator.cs")).ToFile(() => $"{srcDirectory}{_generatorName}.cs");
 

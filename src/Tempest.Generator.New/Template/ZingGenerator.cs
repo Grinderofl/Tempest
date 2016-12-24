@@ -21,7 +21,7 @@ namespace Tempest.Generator.Zing
                           s => _fooName = s);
         }
 
-        protected override void ConfigureGenerator(ScaffolderConfigurer scaffold)
+        protected override void ConfigureGenerator(Scaffold scaffold)
         {
             scaffold.Set.TargetSubDirectory(_fooName);
             scaffold.Globally.TransformToken("Bar", _fooName);

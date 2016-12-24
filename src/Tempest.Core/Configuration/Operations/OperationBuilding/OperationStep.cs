@@ -47,14 +47,14 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
         public OperationStep ToStream(Stream targetStream) => To(Persisters.ToStream(targetStream));
         public OperationStep ToStream(Action<Stream> streamAction) => To(Persisters.ToStream(streamAction));
 
-        public OperationStep Using(OperationTransformer operationTransformer)
+        public OperationStep TransformWith(OperationTransformer operationTransformer)
         {
             InternalTransformers.Add(operationTransformer);
             return this;
         }
 
-        public OperationStep ReplaceToken(string token, string replaceWith)
-            => Using(Transformers.Token(token, replaceWith));
+        public OperationStep TransformToken(string token, string replaceWith)
+            => TransformWith(Transformers.Token(token, replaceWith));
 
 
     }

@@ -5,7 +5,7 @@ namespace Tempest.Core.Scaffolding
     /// <summary>
     /// Actually is 'ScaffoldConfigurationBuilder' or something
     /// </summary>
-    public class ScaffolderConfigurer : ScaffolderConfigurerBase
+    public class ScaffolderConfigurer : ScaffolderConfigurerBase, IScaffold
     {
         public ScaffolderConfigurer()
         {
