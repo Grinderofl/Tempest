@@ -106,6 +106,7 @@ Task(BuildTasks.Package)
         };
 
         DotNetCorePack(config.SrcDir + "Tempest.Core", settings);
+        DotNetCorePack(config.SrcDir + "Tempest.Boot", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.New", settings);
         DotNetCorePack(config.SrcDir + "Tempest.Generator.Empty", settings);
 
