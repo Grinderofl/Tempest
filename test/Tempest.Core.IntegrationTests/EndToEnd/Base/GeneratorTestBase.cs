@@ -44,19 +44,19 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.Base
 
             }
 
-            protected override void ConfigureGenerator(IScaffold scaffold)
+            protected override void ConfigureGenerator(IScaffoldBuilder scaffoldBuilder)
             {
-                _helper.ScaffoldAction(scaffold);
+                _helper.ScaffoldAction(scaffoldBuilder);
             }
         }
 
 
         private class TestHelper
         {
-            public Action<IScaffold> ScaffoldAction { get; set; }
+            public Action<IScaffoldBuilder> ScaffoldAction { get; set; }
         }
 
-        protected virtual GeneratorBootstrapper CreateBootstrapper(Action<IScaffold> configurationAction)
+        protected virtual GeneratorBootstrapper CreateBootstrapper(Action<IScaffoldBuilder> configurationAction)
         {
             var helper = new TestHelper { ScaffoldAction = configurationAction };
 

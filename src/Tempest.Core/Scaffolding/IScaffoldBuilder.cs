@@ -3,9 +3,9 @@ using Tempest.Core.Configuration.Operations.OperationBuilding;
 namespace Tempest.Core.Scaffolding
 {
     /// <summary>
-    /// Configures the scaffolding builder
+    ///     Configures the scaffolding
     /// </summary>
-    public interface IScaffold
+    public interface IScaffoldBuilder
     {
         /// <summary>
         ///     Creates a new file from no physically existing store

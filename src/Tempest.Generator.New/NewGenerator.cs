@@ -119,7 +119,7 @@ namespace Tempest.Generator.New
                 .Choice("Sod off", "standard");
         }
 
-        protected override void ConfigureGenerator(IScaffold scaffold)
+        protected override void ConfigureGenerator(IScaffoldBuilder scaffoldBuilder)
         {
             var targetDirectory = _generatorName;
             var srcDirectory = "./";
@@ -134,25 +134,25 @@ namespace Tempest.Generator.New
                 projectRelativeTemplateMatch = $"Template\\\\**\\\\*.*";
             }
 
-            scaffold.Set.TargetSubDirectory(targetDirectory);
+            scaffoldBuilder.Set.TargetSubDirectory(targetDirectory);
 
-            scaffold.Globally.TransformToken("SRCDIRECTORY", srcDirectory);
-            scaffold.Globally.TransformToken("Zing", _generatorName);
+            scaffoldBuilder.Globally.TransformToken("SRCDIRECTORY", srcDirectory);
+            scaffoldBuilder.Globally.TransformToken("Zing", _generatorName);
 
 
 
-            scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("project.json"))
+            scaffoldBuilder.Copy.ResourceOf<NewGenerator>(_locateResource("project.json"))
                 .ToFile($"{srcDirectory}project.json")
                 .TransformToken("TEMPLATEMATCHINGPATTERN", projectRelativeTemplateMatch);
 
-            scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("ZingGenerator.cs")).ToFile(() => $"{srcDirectory}{_generatorName}.cs");
+            scaffoldBuilder.Copy.ResourceOf<NewGenerator>(_locateResource("ZingGenerator.cs")).ToFile(() => $"{srcDirectory}{_generatorName}.cs");
 
-            scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("replace.me")).ToFile(() => $"{srcDirectory}Template/replace.me");
+            scaffoldBuilder.Copy.ResourceOf<NewGenerator>(_locateResource("replace.me")).ToFile(() => $"{srcDirectory}Template/replace.me");
 
             if (_includeBuildScript && _buildScriptType == "appveyor")
             {
-                scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("build.ps1")).ToFile("build.ps1");
-                scaffold.Copy.ResourceOf<NewGenerator>(_locateResource("build.cake")).ToFile("build.cake");
+                scaffoldBuilder.Copy.ResourceOf<NewGenerator>(_locateResource("build.ps1")).ToFile("build.ps1");
+                scaffoldBuilder.Copy.ResourceOf<NewGenerator>(_locateResource("build.cake")).ToFile("build.cake");
             }
         }
     }
