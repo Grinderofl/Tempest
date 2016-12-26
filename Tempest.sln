@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{67E511A0-CFF7-40ED-943C-07713FC1526C}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		build.cake = build.cake
+		buildConfig.cake = buildConfig.cake
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest", "src\Tempest\Tempest.xproj", "{439AC6B4-8EE8-47F8-8B27-221493FDA6B4}"

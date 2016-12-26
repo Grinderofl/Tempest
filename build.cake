@@ -5,17 +5,19 @@ var config = BuildConfig.Create(Context, BuildSystem);
 
 void DotNetCoreTestGlob(string glob)
 {
-	var directories = System.IO.Directory.EnumerateDirectories(glob);
+	var directories = GetFiles(glob + "**/project.json");
 	
-	foreach(var directory in directories.Where(d => IsTestable(d)))
+	foreach(var directory in directories)
 	{
-		var directoryName = directory.Substring(glob.Length);
+	    Information("Found directory {0}", directory);
+
+		var directoryName = directory.GetDirectory().Segments.Last();
 		var resultsFile = "./artifacts/testResults-" + directoryName + ".xml";
 		var arg = string.Format("-xml \"{0}\"", resultsFile);
 		var settings = new DotNetCoreTestSettings(){
 			ArgumentCustomization = args => args.Append(arg)
 		};
-		DotNetCoreTest(directory, settings);
+		DotNetCoreTest(directory.FullPath, settings);
 	}
 }
 

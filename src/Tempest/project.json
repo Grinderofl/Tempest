@@ -1,84 +1,99 @@
 {
-  "version": "1.0.0-*",
-  "buildOptions": {
-    "debugType": "portable",
-    "emitEntryPoint": true,
-    "copyToOutput": {
-      "mappings": {
-        "Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll",
-        "Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
-        "Generators/Tempest.Generator.Empty/Template/project.json": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/project.json",
-        "Generators/Tempest.Generator.Empty/Template/Program.cs": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/Program.cs",
-        "Generators/Tempest.Generator.Empty/Template/ReplaceMeGreeter.cs": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/ReplaceMeGreeter.cs",
+    "version": "1.0.0-*",
+    "buildOptions": {
+        "debugType": "portable",
+        "emitEntryPoint": true,
+        "copyToOutput": {
+            "mappings": {
+                "Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll",
+                "Generators/Tempest.Generator.Empty/Tempest.Core.dll":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
+                "Generators/Tempest.Generator.Empty/Template/project.json":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/project.json",
+                "Generators/Tempest.Generator.Empty/Template/Program.cs":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/Program.cs",
+                "Generators/Tempest.Generator.Empty/Template/ReplaceMeGreeter.cs":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Template/ReplaceMeGreeter.cs",
 
-        "Generators/Tempest.Generator.New/Tempest.Generator.New.dll": "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Generator.New.dll",
-        "Generators/Tempest.Generator.New/Tempest.Core.dll": "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Core.dll"
-      }
-    }
-  },
-  "publishOptions": {
-    "mappings": {
-      "Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Tempest.Generator.Empty.dll",
-      "Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Tempest.Core.dll",
-      "Generators/Tempest.Generator.Empty/Template/project.json": "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Template/project.json",
-      "Generators/Tempest.Generator.Empty/Template/Program.cs": "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Template/Program.cs",
-      "Generators/Tempest.Generator.Empty/Template/ReplaceMeGreeter.cs": "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Template/ReplaceMeGreeter.cs",
-
-      "Generators/Tempest.Generator.New/Tempest.Generator.New.dll": "../Tempest.Generator.New/bin/Release/netstandard1.6/Tempest.Generator.New.dll",
-      "Generators/Tempest.Generator.New/Tempest.Core.dll": "../Tempest.Generator.New/bin/Release/netstandard1.6/Tempest.Core.dll"
-    }
-  },
-  "packOptions": {
-    "summary": "Template builder using .NET Core",
-    "files": {
-      "include": [
-        "**/Tempest.Core.dll",
-        "**/Tempest.Boot.dll"
-      ],
-      "mappings": {
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll",
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Tempest.Core.dll": "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Template/project.json": "../Tempest.Generator.Empty/netstandard1.6/Template/project.json",
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Template/Program.cs": "../Tempest.Generator.Empty/netstandard1.6/Template/Program.cs",
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Template/ReplaceMeGreeter.cs": "../Tempest.Generator.Empty/netstandard1.6/Template/ReplaceMeGreeter.cs",
-
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.New/Tempest.Generator.New.dll": "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Generator.New.dll",
-        "lib/netcoreapp1.0/Generators/Tempest.Generator.New/Tempest.Core.dll": "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Core.dll"
-      }
-    }
-  },
-  "dependencies": {
-
-
-    "Tempest.Core": {
-      "version": "1.0.0-*",
-      "type": "default"
+                "Generators/Tempest.Generator.New/Tempest.Generator.New.dll":
+                    "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Generator.New.dll",
+                "Generators/Tempest.Generator.New/Tempest.Core.dll":
+                    "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Core.dll"
+            }
+        }
     },
-    "Tempest.Boot": {
-      "version": "1.0.0-*",
-      "type" : "default" 
+    "publishOptions": {
+        "mappings": {
+            "Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll":
+                "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Tempest.Generator.Empty.dll",
+            "Generators/Tempest.Generator.Empty/Tempest.Core.dll":
+                "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Tempest.Core.dll",
+            "Generators/Tempest.Generator.Empty/Template/project.json":
+                "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Template/project.json",
+            "Generators/Tempest.Generator.Empty/Template/Program.cs":
+                "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Template/Program.cs",
+            "Generators/Tempest.Generator.Empty/Template/ReplaceMeGreeter.cs":
+                "../Tempest.Generator.Empty/bin/Release/netstandard1.6/Template/ReplaceMeGreeter.cs",
+
+            "Generators/Tempest.Generator.New/Tempest.Generator.New.dll":
+                "../Tempest.Generator.New/bin/Release/netstandard1.6/Tempest.Generator.New.dll",
+            "Generators/Tempest.Generator.New/Tempest.Core.dll":
+                "../Tempest.Generator.New/bin/Release/netstandard1.6/Tempest.Core.dll"
+        }
+    },
+    "packOptions": {
+        "summary": "Template builder using .NET Core",
+        "files": {
+            "include": [
+                "**/Tempest.Core.dll",
+                "**/Tempest.Boot.dll"
+            ],
+            "mappings": {
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Tempest.Generator.Empty.dll":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Generator.Empty.dll",
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Tempest.Core.dll":
+                    "../Tempest.Generator.Empty/bin/Debug/netstandard1.6/Tempest.Core.dll",
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Template/project.json":
+                    "../Tempest.Generator.Empty/netstandard1.6/Template/project.json",
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Template/Program.cs":
+                    "../Tempest.Generator.Empty/netstandard1.6/Template/Program.cs",
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.Empty/Template/ReplaceMeGreeter.cs":
+                    "../Tempest.Generator.Empty/netstandard1.6/Template/ReplaceMeGreeter.cs",
+
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.New/Tempest.Generator.New.dll":
+                    "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Generator.New.dll",
+                "lib/netcoreapp1.0/Generators/Tempest.Generator.New/Tempest.Core.dll":
+                    "../Tempest.Generator.New/bin/Debug/netstandard1.6/Tempest.Core.dll"
+            }
+        }
+    },
+    "dependencies": {
+        "Tempest.Core": {
+            "version": "1.0.0-*",
+            "type": "default"
+        },
+        "Tempest.Boot": {
+            "version": "1.0.0-*",
+            "type": "default"
+        },
+
+        "Microsoft.DotNet.Xdt.Tools": "1.0.0"
     },
 
-    "Microsoft.DotNet.Xdt.Tools": "1.0.0"
-  },
-
-  "frameworks": {
-    "netcoreapp1.0": {
-      "dependencies": {
-        "Microsoft.NETCore.App": "1.1.0"
-      }
-    } 
-  },
-  "compilationOptions": {
-  
-  },
-  "runtimes": {
-    "win7-x64": {},
-    "osx.10.10-x64": {},
-    "ubuntu.14.04-x64": {}
-    //"win10-x64": {},
-    //"win81-x64": {},
-    //"win8-x64": {},
-    //"win7-x64": {},
-  }
+    "frameworks": {
+        "netcoreapp1.0": {
+            "dependencies": {
+                "Microsoft.NETCore.App": "1.1.0"
+            }
+        }
+    },
+    "compilationOptions": {
+    },
+    "runtimes": {
+        "win7-x64": {},
+        "osx.10.11-x64": {},
+        "osx.10.10-x64": {},
+        "ubuntu.14.04-x64": {}
+    }
 }
