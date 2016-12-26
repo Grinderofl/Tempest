@@ -4,9 +4,9 @@ using Tempest.Core.IntegrationTests.EndToEnd.Base;
 using Tempest.Core.Utils;
 using Xunit;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd
+namespace Tempest.Core.IntegrationTests.EndToEnd.SourceToStreamTests
 {
-    public class StringSourceToStreamTests : GeneratorTestBase
+    public class StringSourceToStreamTests : ScaffoldingTestBase
     {
 
         [Fact]

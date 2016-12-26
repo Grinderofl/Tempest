@@ -16,12 +16,12 @@ namespace Tempest.Generator.Zing
                           s => _fooName = s);
         }
 
-        protected override void ConfigureGenerator(IScaffoldBuilder scaffoldBuilder)
+        protected override void ConfigureGenerator(IScaffoldBuilder builder)
         {
-            scaffoldBuilder.Set.TargetSubDirectory(_fooName);
-            scaffoldBuilder.Globally.TransformToken("Bar", _fooName);
+            builder.Set.TargetSubDirectory(_fooName);
+            builder.Globally.TransformToken("Bar", _fooName);
 
-            scaffoldBuilder.Copy.ResourceOf<ZingGenerator>("Zing.Template.rename.me").ToFile($"{_fooName}Foo.bar");
+            builder.Copy.ResourceOf<ZingGenerator>("Zing.Template.rename.me").ToFile($"{_fooName}Foo.bar");
         }
     }
 }

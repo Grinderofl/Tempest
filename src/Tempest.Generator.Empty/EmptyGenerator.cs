@@ -105,7 +105,7 @@ namespace Tempest.Generator.Empty
             throw new NotImplementedException();
         }
 
-        protected override void ConfigureGenerator(IScaffoldBuilder scaffoldBuilder)
+        protected override void ConfigureGenerator(IScaffoldBuilder builder)
         {
             throw new NotImplementedException();
         }
