@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Tempest.Core.Configuration.Options.Rendering;
+using Tempest.Core.Options.Rendering;
 
 namespace Tempest.Core.Configuration.Options.Base
 {

@@ -4,6 +4,7 @@ using Tempest.Boot.Configuration;
 using Tempest.Boot.Runner.Activation;
 using Tempest.Boot.Utils;
 using Tempest.Core;
+using Tempest.Core.Generator;
 using Tempest.Core.Utils;
 
 namespace Tempest.Boot.Runner.Impl

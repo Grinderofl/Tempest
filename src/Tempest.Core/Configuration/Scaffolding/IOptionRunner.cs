@@ -1,3 +1,5 @@
+using Tempest.Core.Generator;
+
 namespace Tempest.Core.Configuration.Scaffolding
 {
     public interface IOptionRunner

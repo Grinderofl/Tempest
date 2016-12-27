@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Configuration.Scaffolding;
+using Tempest.Core.Generator;
 using Tempest.Core.Operations;
 using Tempest.Core.Operations.Execution;
 using Tempest.Core.Operations.Execution.Impl;

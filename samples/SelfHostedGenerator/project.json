@@ -1,19 +1,43 @@
 {
-  "version": "1.0.0-*",
-  "buildOptions": {
-    "emitEntryPoint": true
-  },
+    "version": "1.0.0-*",
+    "buildOptions": {
+        "emitEntryPoint": true,
+        "compile": {
+            "excludeFiles": [
+                "Template/project.json",
+                "Template/Program.cs",
+                "Template/ReplaceMeGreeter.cs"
+            ]
+        },
+        "copyToOutput": {
+            "include": "Template/**"
+        },
+        "embed": {
+            "includeFiles": [
+                "Template/project.json",
+                "Template/Program.cs",
+                "Template/ReplaceMeGreeter.cs"
+            ]
+        }
+    },
+    "dependencies": {
+        "Tempest.Core": {
+            "version": "1.0.0-*",
+            "type": "default"
+        },
+        "Tempest.Boot": {
+            "version": "1.0.0-*",
+            "type": "default"
+        },
+        "Microsoft.NETCore.App": {
+            "type": "platform",
+            "version": "1.0.0"
+        }
+    },
 
-  "dependencies": {
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.0"
+    "frameworks": {
+        "netcoreapp1.0": {
+            "imports": "dnxcore50"
+        }
     }
-  },
-
-  "frameworks": {
-    "netcoreapp1.0": {
-      "imports": "dnxcore50"
-    }
-  }
 }

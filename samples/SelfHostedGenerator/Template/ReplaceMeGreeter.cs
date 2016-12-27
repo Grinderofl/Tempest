@@ -1,6 +1,6 @@
 using System;
 
-namespace Tempest.Generator.Empty.Template
+namespace SelfHostedGenerator.Template
 {
     public class ReplaceMeGreeter
     {

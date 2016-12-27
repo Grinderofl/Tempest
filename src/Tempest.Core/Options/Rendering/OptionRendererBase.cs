@@ -1,7 +1,7 @@
 using System;
 using Tempest.Core.Configuration.Options.Base;
 
-namespace Tempest.Core.Configuration.Options.Rendering
+namespace Tempest.Core.Options.Rendering
 {
     public abstract class OptionRendererBase
     {

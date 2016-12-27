@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tempest.Core.Configuration.Options.Base;
-using Tempest.Core.Configuration.Options.Rendering;
+using Tempest.Core.Options.Rendering;
 
 namespace Tempest.Core.Configuration.Options.Defaults
 {

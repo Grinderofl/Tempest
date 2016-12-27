@@ -1,6 +1,7 @@
 using System;
 using Tempest.Boot.Strappers.Execution;
 using Tempest.Core;
+using Tempest.Core.Generator;
 
 namespace Tempest.Boot.Runner.Activation.Impl
 {

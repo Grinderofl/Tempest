@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 
-namespace Tempest.Core
+namespace Tempest.Core.Generator
 {
     public class GeneratorContext
     {
