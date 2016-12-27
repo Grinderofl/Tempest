@@ -11,10 +11,7 @@ namespace Tempest.Core.Generator
 
         protected abstract void ConfigureOptions(OptionsFactory options);
 
-        IEnumerable<ConfigurationOption> IExecutableGenerator.CreateOptions()
-        {
-            return CreateOptionsCore();
-        }
+        IEnumerable<ConfigurationOption> IExecutableGenerator.CreateOptions() => CreateOptionsCore();
 
         protected virtual IEnumerable<ConfigurationOption> CreateOptionsCore()
         {
@@ -23,7 +20,10 @@ namespace Tempest.Core.Generator
             return factory.Options;
         }
 
-        ScaffoldOperationConfiguration IExecutableGenerator.ConfigureOperations(ScaffoldOperationConfiguration configuration)
+        ScaffoldOperationConfiguration IExecutableGenerator.ConfigureOperations(
+            ScaffoldOperationConfiguration configuration) => ConfigureOperationsCore(configuration);
+
+        protected virtual ScaffoldOperationConfiguration ConfigureOperationsCore(ScaffoldOperationConfiguration configuration)
         {
             var configurer = new ScaffolderConfigurer();
             ConfigureGenerator(configurer);
