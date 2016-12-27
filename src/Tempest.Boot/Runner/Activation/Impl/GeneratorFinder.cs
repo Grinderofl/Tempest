@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using Tempest.Boot.Configuration;
 using Tempest.Boot.Utils;
 using Tempest.Core;
@@ -104,6 +105,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
                 foreach (var file in generatorDir.EnumerateFiles("*.dll"))
 
                 {
+                    //var loadedAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
                     var loadedAssembly = _tempestAssemblyLoader.Load(file.FullName);
                     if (loadedAssembly != null)
                     {
