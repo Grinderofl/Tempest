@@ -5,12 +5,12 @@ namespace Tempest.Core.Configuration.Options.Rendering
 {
     public abstract class OptionRendererBase
     {
-        protected OptionRendererBase(RenderableOptionBase associatedOption)
+        protected OptionRendererBase(ConfigurationOptionBase associatedOption)
         {
             AssociatedOption = associatedOption;
         }
 
-        protected RenderableOptionBase AssociatedOption { get; }
+        protected ConfigurationOptionBase AssociatedOption { get; }
 
         /// <summary>
         ///     Render the option. Should have a RenderContext to output to - an abstraction around console possibly? at some point

@@ -43,17 +43,17 @@ namespace Tempest.Core.Configuration.Options.Defaults
             return this;
         }
 
-        public override void ActOn(string choice)
+        protected override void ActOnCore(string choice)
         {
             var option = FindOptionWithChoice(choice);
             option?.Action?.Invoke();
-            base.ActOn(choice);
+            base.ActOnCore(choice);
         }
 
         protected virtual OptionChoice FindOptionWithChoice(string choice)
             => OptionChoices.FirstOrDefault(x => x.Id == choice);
 
-        public override bool CanActUpon(string choice)
-            => (FindOptionWithChoice(choice) != null) || base.CanActUpon(choice);
+        protected override bool CanActUponCore(string choice)
+            => (FindOptionWithChoice(choice) != null) || base.CanActUponCore(choice);
     }
 }

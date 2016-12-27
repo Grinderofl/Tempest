@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
 
 namespace Tempest.Core.Options.Impl
 {
     public class OptionExecutor : IOptionExecutor
     {
-        public virtual void Execute(ConfigurationOption[] options, string[] selectedOptions)
+        public virtual void Execute(IConfigurationOption[] options, string[] selectedOptions)
         {
             var results = new List<string>();
 
-            Action<ConfigurationOption, string> actOnOption = (option, choice) =>
+            Action<IConfigurationOption, string> actOnOption = (option, choice) =>
             {
                 option.ActOn(choice);
                 results.Add(choice);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tempest.Core.Configuration.Options.Base
 {
@@ -18,10 +19,11 @@ namespace Tempest.Core.Configuration.Options.Base
         {
         }
 
+
         public virtual TOption When(Func<bool> showOnlyWhen) => (TOption) RenderWhen(showOnlyWhen);
     }
 
-    public abstract class ConfigurationOption : RenderableOptionBase
+    public abstract class ConfigurationOption : ConfigurationOptionBase
     {
         protected ConfigurationOption(Action<string> resultingAction, string title) : this(() => title, resultingAction)
         {
@@ -36,8 +38,19 @@ namespace Tempest.Core.Configuration.Options.Base
             ResultingAction = resultingAction;
         }
 
+        protected Func<bool> RenderCondition { get; private set; }
+
+        public virtual ConfigurationOptionBase RenderWhen(Func<bool> func)
+        {
+            RenderCondition = func;
+            return this;
+        }
+
         protected Action<string> ResultingAction { get; }
-        public virtual void ActOn(string choice) => ResultingAction?.Invoke(choice);
-        public virtual bool CanActUpon(string choice) => ResultingAction != null;
+
+        protected override void ActOnCore(string choice) => ResultingAction?.Invoke(choice);
+        protected override bool CanActUponCore(string choice) => ResultingAction != null;
+        protected override bool ShouldRenderCore(List<string> results) => (RenderCondition == null) || RenderCondition();
+
     }
 }

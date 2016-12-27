@@ -8,7 +8,7 @@ namespace Tempest.Core.Configuration.Options.Rendering
 {
     public class ListOptionRenderer : OptionRendererBase
     {
-        public ListOptionRenderer(RenderableOptionBase associatedOption) : base(associatedOption)
+        public ListOptionRenderer(ConfigurationOptionBase associatedOption) : base(associatedOption)
         {
         }
 
