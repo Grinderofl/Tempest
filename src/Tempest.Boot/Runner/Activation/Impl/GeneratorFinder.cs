@@ -107,12 +107,12 @@ namespace Tempest.Boot.Runner.Activation.Impl
                     var loadedAssembly = _tempestAssemblyLoader.Load(file.FullName);
                     if (loadedAssembly != null)
                     {
-                        var types =
-                            loadedAssembly.ExportedTypes.Where(
-                                    t =>
-                                        t.IsConcrete() &&
-                                        t.Implements(typeof(IExecutableGenerator)))
-                                .ToArray();
+                        var concreteTypes = loadedAssembly.ExportedTypes.Where(t => t.IsConcrete()).ToList();
+                        //var generatorTypes = concreteTypes.Where(t => t.IsSubclassOf(typeof(GeneratorBase))).ToList();
+                        var generatorTypes = concreteTypes.Where(t => t.GetTypeInfo()
+                            .ImplementedInterfaces.Any(i => i.Name == "IExecutableGenerator")).ToList();
+
+                        var types = generatorTypes.ToArray();
 
                         if (!types.Any()) continue;
                         foreach (var type in types)
