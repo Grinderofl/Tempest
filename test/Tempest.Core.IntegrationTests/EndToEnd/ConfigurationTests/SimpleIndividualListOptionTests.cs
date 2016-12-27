@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Boot.Conventions.Defaults;
 using Tempest.Boot.Strappers.Execution;
@@ -15,7 +11,7 @@ using Xunit;
 
 namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
 {
-    public class SimpleInputTests
+    public class SimpleIndividualListOptionTests
     {
         private class TestGenerator : GeneratorBase
         {
@@ -29,7 +25,7 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
 
             protected override void ConfigureOptions(OptionsFactory options)
             {
-                options.Input("Output?", s => _text = s);
+                options.List("Foo or bar?").Choice("Foo", "foo", () => _text = "foo").Choice("Bar", "bar", () => _text = "bar");
             }
 
             protected override void ConfigureGenerator(IScaffoldBuilder builder)
@@ -44,11 +40,11 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
         }
 
         [Fact]
-        public void test_simple_input()
+        public void test_simple_list_option_one()
         {
             var helper = new TestHelper();
             var context =
-                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "foo" });
+                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] {"foo"});
             new TestBootstrapperFactory(
                     x =>
                         x.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton(helper))))
@@ -58,17 +54,17 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
         }
 
         [Fact]
-        public void test_spaced_input()
+        public void test_simple_list_option_two()
         {
             var helper = new TestHelper();
             var context =
-                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "foo bar" });
+                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "bar" });
             new TestBootstrapperFactory(
                     x =>
                         x.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton(helper))))
                 .Create(context).Execute(new GeneratorExecutor());
 
-            Assert.Equal("foo bar", helper.Stream.ReadAsString());
+            Assert.Equal("bar", helper.Stream.ReadAsString());
         }
     }
 }

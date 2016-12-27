@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Boot.Conventions.Defaults;
 using Tempest.Boot.Strappers.Execution;
@@ -15,12 +11,13 @@ using Xunit;
 
 namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
 {
-    public class SimpleInputTests
+    public class CombinedTests
     {
         private class TestGenerator : GeneratorBase
         {
             private readonly TestHelper _helper;
             private string _text;
+            private bool _foo;
 
             public TestGenerator(TestHelper helper)
             {
@@ -29,46 +26,54 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
 
             protected override void ConfigureOptions(OptionsFactory options)
             {
+                options.List("Foo or bar?").Choice("Foo", "foo", () => _foo = true).Choice("Bar", "bar");
                 options.Input("Output?", s => _text = s);
             }
 
             protected override void ConfigureGenerator(IScaffoldBuilder builder)
             {
-                builder.Create.FromString(_text).ToStream(_helper.Stream);
+                builder.Create.FromString(_text).ToStream(_helper.Stream2);
+                if (_foo)
+                    builder.Create.FromString("AllYourBase").ToStream(_helper.Stream1);
+                else
+                    builder.Create.FromString("AreBelongToUs").ToStream(_helper.Stream1);
             }
         }
 
         private class TestHelper
         {
-            public Stream Stream { get; set; } = new MemoryStream();
+            public Stream Stream1 { get; set; } = new MemoryStream();
+            public Stream Stream2 { get; set; } = new MemoryStream();
         }
 
         [Fact]
-        public void test_simple_input()
+        public void test_combined_options_one()
         {
             var helper = new TestHelper();
             var context =
-                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "foo" });
+                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "foo", "base" });
             new TestBootstrapperFactory(
                     x =>
                         x.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton(helper))))
                 .Create(context).Execute(new GeneratorExecutor());
 
-            Assert.Equal("foo", helper.Stream.ReadAsString());
+            Assert.Equal("base", helper.Stream2.ReadAsString());
+            Assert.Equal("AllYourBase", helper.Stream1.ReadAsString());
         }
 
         [Fact]
-        public void test_spaced_input()
+        public void test_combined_options_two()
         {
             var helper = new TestHelper();
             var context =
-                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "foo bar" });
+                BootstrapperHelper.CreateTestContext<TestGenerator>(x => x.Arguments = new[] { "bar", "base" });
             new TestBootstrapperFactory(
                     x =>
                         x.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton(helper))))
                 .Create(context).Execute(new GeneratorExecutor());
 
-            Assert.Equal("foo bar", helper.Stream.ReadAsString());
+            Assert.Equal("base", helper.Stream2.ReadAsString());
+            Assert.Equal("AreBelongToUs", helper.Stream1.ReadAsString());
         }
     }
 }
