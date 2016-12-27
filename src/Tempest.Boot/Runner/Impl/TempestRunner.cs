@@ -43,16 +43,6 @@ namespace Tempest.Boot.Runner.Impl
 
             if (generatorType == null)
                 throw new GeneratorNotFoundException("No generators found");
-            
-            //var loaderContext = new LoaderContext
-            //{
-            //    Type = generatorType,
-            //    Name = generatorType.Name,
-            //    AdditionalSearchPath = runnerArgs.SearchPath
-            //};
-
-            // GeneratorExecutorFactory puts together all the dependency stuff then?
-            // It also retrieves the executor from service provider
 
             var generatorContext = new GeneratorContext
             {
@@ -90,9 +80,11 @@ namespace Tempest.Boot.Runner.Impl
                     var key = Console.ReadKey();
                     value = int.Parse(key.KeyChar.ToString()) - 1;
                     generator = generators[value.Value];
+                    Console.WriteLine($"Loaded {value.Value}");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     // Catch until we get an entry
                 }
             }
