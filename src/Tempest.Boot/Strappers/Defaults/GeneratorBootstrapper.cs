@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Boot.Conventions;
+using Tempest.Boot.Strappers.Execution;
 
 namespace Tempest.Boot.Strappers.Defaults
 {
@@ -12,6 +13,11 @@ namespace Tempest.Boot.Strappers.Defaults
 
         protected override void ConfigureBootstrapper()
         {
+        }
+
+        public void Execute()
+        {
+            Execute(new GeneratorExecutor());
         }
     }
 }

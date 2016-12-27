@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
+using Tempest.Core.Operations.Transforms;
 
 namespace Tempest.Core.Options.Impl
 {
@@ -21,7 +22,7 @@ namespace Tempest.Core.Options.Impl
             {
                 var option = options[i];
                 if (!option.ShouldRender(results)) continue;
-                if (selectedOptions.Length > i)
+                if (selectedOptions != null && selectedOptions.Length > i)
                 {
                     var launchArgument = selectedOptions[i];
                     if ((launchArgument != null)
