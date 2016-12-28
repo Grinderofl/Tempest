@@ -5,6 +5,7 @@ using Tempest.Boot.Strappers.Defaults;
 using Tempest.Core;
 using Tempest.Core.Generator;
 using Tempest.Core.Operations;
+using Tempest.Core.Utils;
 
 namespace Tempest.Boot.Runner.Activation.Impl
 {
@@ -29,7 +30,7 @@ namespace Tempest.Boot.Runner.Activation.Impl
             // You might also want to pass in your own version of generator context
             bootstrapper.RegisterConvention(
                 new MultiAssemblyImplementationRegistrationConvention(
-                    generatorContext.GeneratorType.GetTypeInfo().Assembly));
+                    generatorContext.GeneratorType.GetAssembly()));
             bootstrapper.RegisterConvention(new GeneratorRegistrationConvention(configuration, generatorContext));
         }
 

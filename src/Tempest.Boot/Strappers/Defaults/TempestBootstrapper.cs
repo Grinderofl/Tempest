@@ -6,7 +6,7 @@ namespace Tempest.Boot.Strappers.Defaults
 {
     public class TempestBootstrapper : ConventionBootstrapper
     {
-        private TempestBootstrapper(IServiceProviderFactory<IServiceCollection> serviceProviderFactory)
+        protected TempestBootstrapper(IServiceProviderFactory<IServiceCollection> serviceProviderFactory)
             : base(serviceProviderFactory)
         {
         }

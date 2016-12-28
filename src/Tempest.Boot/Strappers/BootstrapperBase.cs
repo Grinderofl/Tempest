@@ -11,13 +11,6 @@ namespace Tempest.Boot.Strappers
     {
         protected abstract IServiceProvider CreateProvider();
 
-        //public virtual int Execute(string[] args)
-        //{
-        //    var provider = CreateProvider();
-        //    var executor = provider.GetService<ICommandLineExecutor>();
-        //    return executor.Execute(args);
-        //}
-
         public virtual int Execute(IBootstrapperExecutor executor)
         {
             var provider = CreateProvider();

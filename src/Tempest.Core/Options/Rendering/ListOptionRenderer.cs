@@ -25,12 +25,12 @@ namespace Tempest.Core.Options.Rendering
         protected virtual string RenderMenu(IList<OptionChoice> optionChoices)
         {
             Console.CursorVisible = false;
-            var key = ConsoleKey.A;
+            ConsoleKey? key = null;
             var index = 0;
 
             while (key != ConsoleKey.Enter)
             {
-                if (key != ConsoleKey.A)
+                if (key != null)
                 {
                     Console.SetCursorPosition(0, Console.CursorTop - optionChoices.Count);
                 }

@@ -80,13 +80,29 @@ namespace Tempest.Boot.Helpers
 
         public static GeneratorContext Create(Type generatorType, string tempestDirectory, string workingDirectory, string templateDirectory)
         {
+            return Create(generatorType, new DirectoryInfo(tempestDirectory), new DirectoryInfo(workingDirectory),
+                new DirectoryInfo(templateDirectory));
+        }
+
+        public static GeneratorContext Create(Type generatorType, DirectoryInfo tempestDirectory,
+            DirectoryInfo workingDirectory, DirectoryInfo templateDirectory, params string[] arguments)
+        {
             return new GeneratorContext()
             {
                 GeneratorType = generatorType,
-                TempestDirectory = new DirectoryInfo(tempestDirectory),
-                WorkingDirectory = new DirectoryInfo(workingDirectory),
-                TemplateDirectory = new DirectoryInfo(templateDirectory),
+                TempestDirectory = tempestDirectory,
+                WorkingDirectory = workingDirectory,
+                TemplateDirectory = templateDirectory,
+                Arguments = arguments
             };
+        }
+
+        public static GeneratorContext Create(Type generatorType, DirectoryInfo tempestDirectory,
+            DirectoryInfo workingDirectory, DirectoryInfo templateDirectory, Action<GeneratorContext> action)
+        {
+            var context = Create(generatorType, tempestDirectory, workingDirectory, templateDirectory);
+            action(context);
+            return context;
         }
 
         public static GeneratorContext Create<T>(string tempestDirectory, string workingDirectory,

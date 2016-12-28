@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Tempest.Boot.Configuration;
+using Tempest.Boot.Helpers;
 using Tempest.Boot.Runner.Activation;
 using Tempest.Boot.Utils;
 using Tempest.Core;
@@ -27,7 +28,6 @@ namespace Tempest.Boot.Runner.Impl
             _generatorFinder = generatorFinder;
         }
 
-        // 
         public virtual int Run(TempestRunnerArguments runnerArgs)
         {
             Type generatorType = null;
@@ -44,15 +44,29 @@ namespace Tempest.Boot.Runner.Impl
             if (generatorType == null)
                 throw new GeneratorNotFoundException("No generators found");
 
-            var generatorContext = new GeneratorContext
-            {
-                GeneratorType = generatorType,
-                Arguments = runnerArgs.GeneratorParameters,
-                GeneratorName = runnerArgs.GeneratorName,
-                TemplateDirectory = generatorType.GetAssembly().GetAssemblyDirectory().GetDirectories("Template").FirstOrDefault() ?? generatorType.GetAssembly().GetAssemblyDirectory(),
-                WorkingDirectory = _directoryFinder.FindWorkingDirectory(),
-                TempestDirectory = _directoryFinder.FindTempestExecutableDirectory()
-            };
+            var templateDirectory = generatorType.GetAssembly()
+                                        .GetAssemblyDirectory()
+                                        .GetDirectories("Template")
+                                        .FirstOrDefault() ??
+                                    generatorType.GetAssembly().GetAssemblyDirectory();
+
+            var generatorContext = GeneratorContextFactory.Create(generatorType,
+                _directoryFinder.FindTempestExecutableDirectory(),
+                _directoryFinder.FindWorkingDirectory(), templateDirectory, x =>
+                {
+                    x.Arguments = runnerArgs.GeneratorParameters;
+                    x.GeneratorName = runnerArgs.GeneratorName;
+                });
+
+//            var generatorContext = new GeneratorContext
+//            {
+//                GeneratorType = generatorType,
+//                Arguments = runnerArgs.GeneratorParameters,
+//                GeneratorName = runnerArgs.GeneratorName,
+//                TemplateDirectory = generatorType.GetAssembly().GetAssemblyDirectory().GetDirectories("Template").FirstOrDefault() ?? generatorType.GetAssembly().GetAssemblyDirectory(),
+//                WorkingDirectory = _directoryFinder.FindWorkingDirectory(),
+//                TempestDirectory = _directoryFinder.FindTempestExecutableDirectory()
+//            };
 
             return _generatorRunner.Run(generatorContext);
 
