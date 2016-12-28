@@ -1,11 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tempest.Boot.Configuration;
 using Tempest.Boot.Helpers;
 using Tempest.Boot.Runner.Activation;
 using Tempest.Boot.Utils;
 using Tempest.Core;
+using Tempest.Core.Configuration.Operations.OperationBuilding;
+using Tempest.Core.Configuration.Options;
+using Tempest.Core.Configuration.Scaffolding.Impl;
 using Tempest.Core.Generator;
+using Tempest.Core.Options.Impl;
 using Tempest.Core.Utils;
 
 namespace Tempest.Boot.Runner.Impl
@@ -17,6 +22,7 @@ namespace Tempest.Boot.Runner.Impl
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorFinder _generatorFinder;
         private readonly IGeneratorRunner _generatorRunner;
+        private OptionsFactory _optionsFactory = new OptionsFactory();
 
         public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorFinder generatorFinder)
         {
@@ -76,33 +82,16 @@ namespace Tempest.Boot.Runner.Impl
         protected Type GetGeneratorFromSelection(TempestRunnerArguments runnerArguments)
         {
             var generators = _generatorFinder.LocateGenerators(_directoryFinder.FindGeneratorDirectories(runnerArguments.SearchPath).ToArray()).ToArray();
-            Console.WriteLine("You haven't picked a generator. Available generators: ");
-            var i = 1;
-            foreach (var g in generators)
+            var options = _optionsFactory.List("You haven't picked a generator. Available generators:");
+            var generatorMap = new Dictionary<string, Type>();
+            foreach (var generatorType in generators)
             {
-                Console.WriteLine($"{i}) {g.Name.Replace("Generator", "")}");
-                i++;
+                var generatorName = generatorType.Name.Replace("Generator", "");
+                generatorMap.Add(generatorName.ToLower(), generatorType);
+                options.Choice($"{generatorName}", generatorName.ToLower());
             }
-            
-            int? value = null;
-
-            Type generator = null;
-            while (value == null)
-            {
-                try
-                {
-                    var key = Console.ReadKey();
-                    value = int.Parse(key.KeyChar.ToString()) - 1;
-                    generator = generators[value.Value];
-                    Console.WriteLine($"Loaded {value.Value}");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    // Catch until we get an entry
-                }
-            }
-            
+            var generatorChoice = ((IConfigurationOption) options).Render();
+            var generator = generatorMap[generatorChoice];
             return generator;
         }
 
