@@ -7,6 +7,7 @@ using Tempest.Core.Options;
 
 namespace Tempest.Core.Configuration.Operations.OperationBuilding
 {
+    // todo: remake this into more like IScaffoldBuilder
     public class OptionsFactory
     {
         public IList<ConfigurationOption> Options { get; } = new List<ConfigurationOption>();

@@ -6,10 +6,6 @@
     /// </summary>
     public abstract class GeneratorBase : ExecutableGeneratorBase
     {
-        //protected GeneratorBase(IScaffolderServiceFactory scaffolderServiceFactory) : base(scaffolderServiceFactory)
-        //{
-        //}
 
-        
     }
 }

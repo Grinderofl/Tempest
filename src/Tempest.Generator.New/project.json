@@ -23,9 +23,9 @@
     "compile": {
       "excludeFiles": [
         "Template/ZingGenerator.cs",
-        "Template/project.json",
+        "Template/Library/project.json",
         "Template/build.ps1",
-        "Template/build.cake",
+        "Template/Library/build.cake",
         "Template/NuGet.config",
         "Template/replace.me"
       ]
@@ -36,9 +36,9 @@
     "embed": {
       "includeFiles": [
         "Template/ZingGenerator.cs",
-        "Template/project.json",
+        "Template/Library/project.json",
         "Template/build.ps1",
-        "Template/build.cake",
+        "Template/Library/build.cake",
         "Template/NuGet.config",
         "Template/replace.me"
       ]

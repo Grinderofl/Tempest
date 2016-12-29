@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Tempest.Boot.Conventions.Defaults;
 using Tempest.Core.Generator;
-using Tempest.Core.IntegrationTests.EndToEnd.Base;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd.Helpers
+namespace Tempest.Boot.Helpers
 {
     public class BootstrapperHelper
     {
@@ -26,6 +20,4 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.Helpers
         public static GeneratorContext CreateTestContext<TGenerator>(Action<GeneratorContext> configurationAction = null) where TGenerator : GeneratorBase
             => CreateTestContext(typeof(TGenerator), configurationAction);
     }
-
-
 }

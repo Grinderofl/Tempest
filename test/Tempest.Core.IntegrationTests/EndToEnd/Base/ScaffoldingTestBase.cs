@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Boot.Conventions.Defaults;
+using Tempest.Boot.Helpers;
 using Tempest.Boot.Runner.Activation.Impl;
 using Tempest.Boot.Strappers.Defaults;
 using Tempest.Core.Configuration.Operations.OperationBuilding;

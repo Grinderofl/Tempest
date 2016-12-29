@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0-*",
+
+  "description": "Zing Class Library",
+  "packOptions": {
+    "licenseUrl": ""
+  },
+
+  "dependencies": {
+      "Tempest.Core": {
+          "version": "1.0.0-*",
+          "type": "default"
+      },
+      "Tempest.Boot": {
+          "version": "1.0.0-*",
+          "type": "default"
+      },
+      "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+      }
+  },
+
+  "frameworks": {
+      "netcoreapp1.0": {
+          "imports": "dnxcore50"
+      }
+  },
+
+  "runtimes": {
+      "win7-x64": {},
+      "osx.10.11-x64": {},
+      "osx.10.10-x64": {},
+      "ubuntu.14.04-x64": {}
+  },
+
+  "buildOptions": {
+      "emitEntryPoint": true,
+      "compile": {
+      "exclude": "TEMPLATEMATCHINGPATTERN"
+    },
+    "copyToOutput": {
+      "include": [
+        "TEMPLATEMATCHINGPATTERN" 
+      ]
+    },
+    "embed": {
+      "include": [
+        "TEMPLATEMATCHINGPATTERN"
+      ]
+    }
+  },
+
+}

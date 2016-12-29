@@ -8,6 +8,13 @@ namespace Tempest
     {
         public static int Main(string[] args)
         {
+
+//            args = new string[]
+//            {
+//                "new"
+//              //  "-s",
+//              //  "/Users/Nero/Projects/Tempest/src/Tempest.Generator.New/bin/Debug/netstandard1.6"
+//            };
             var strapper = TempestBootstrapper.Create();
             var executor = new TempestExecutor(args);
             return strapper.Execute(executor);

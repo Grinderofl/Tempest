@@ -20,11 +20,6 @@ namespace SelfHostedGenerator
     {
         public static void Main(string[] args)
         {
-            // Simplest scenario:
-            // 1) Create a Generator Context
-            // 2) Create Generator Bootstrapper
-            // 3) Execute Bootstrapper
-
             var context = GeneratorContextFactory.Create<HelloWorldGenerator>(args);
             new GeneratorBootstrapperFactory().Create(context).Execute();
             Console.WriteLine("Completed");

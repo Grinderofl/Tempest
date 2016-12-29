@@ -30,12 +30,12 @@ Task("Package")
     {
         var publishRoot = "./artifacts/Zing/";
 
-        var settings = new DotNetCorePackSettings
+        var settings = new DotNetCorePublishSettings
         {
             Configuration = "Release",
             OutputDirectory = publishRoot
-        };   
-        DotNetCorePack("SRCDIRECTORY", settings);
+        };
+        DotNetCorePublish("SRCDIRECTORY", settings);
         Zip(publishRoot, "./artifacts/Zing.zip");
     });
     
