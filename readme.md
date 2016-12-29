@@ -35,7 +35,7 @@ Invoke-WebRequest https://raw.githubusercontent.com/Grinderofl/Tempest/develop/i
 
 ### Quick start to creating your own Generator
 
-1. Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its path
+1. Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its environment PATH variable
 2. Execute `tempest new {YourGeneratorName}`
 3. A directory {YourGeneratorName} will be created, and a ready-to-build new generator base will be created for you
 
@@ -44,27 +44,26 @@ Alternative manual steps:
 1. Create a new .NET Core Library
 2. Add dependency to `Tempest.Core`
 3. Inherit from `GeneratorBase`
-4. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject` (TODO)
-
+4. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject`
 
 ### Generating stuff
 
-When you inherit from GeneratorBase, you will implement ExecuteCore where you would place your generation methods
+When you inherit from GeneratorBase, you will implement ConfigureGenerator which has a parameter of type `IScaffoldBuilder` that can be used to set up scaffolding actions.
 
 ```c#
-protected override void ExecuteCore()
+protected override void ConfigureGenerator(IScaffoldBuilder builder)
 {
   // Copies a file in your template folder called "YourTemplateFile"
   // And places it into target folder as "YourTargetFile"
-  Copy.Template("YourTemplateFile").ToFile("YourTargetFile");
+  builder.Copy.Template("YourTemplateFile").ToFile("YourTargetFile");
   
   // Copies an embedded resource named "ResourceFile"
   // And places it into target folder as "YourTargetFile"
-  Copy.Resource("YourGenerator.Namespace.Path.To.ResourceFile").ToFile("YourTargetFile");
+  builder.Copy.Resource("YourGenerator.Namespace.Path.To.ResourceFile").ToFile("YourTargetFile");
   
   // Creates an empty file with contents "Foo!"
   // And places it into target folder as "YourTargetFile"
-  Write.Text("Foo!").ToFile("YourTargetFile");
+  builder.Create.Text("Foo!").ToFile("YourTargetFile");
   
 }
 ```
@@ -72,7 +71,7 @@ protected override void ExecuteCore()
 
 #### Configuring your generator
 
-Naturally you might want to add some parameters, selectable menu items, get input from user, etc. You can do that quite easily. There's a method that you need to override with the signature `IEnumerable<ConfigurationOption> SetupOptions()`. These options will be executed before `ExecuteCore()`, and everything you set through the actions will be available by that time.
+Naturally you might want to add some parameters, selectable menu items, get input from user, etc. that can be done quite easily. There's a method that you need to override with the signature `void ConfigureOptions(OptionsFactory options)`. These options will be executed before `ConfigureGenerator(IScaffoldBuilder)`, and everything you set through the actions will be available by that time.
 
 The best way to use this is by utilising the fluent API:
 
@@ -80,14 +79,13 @@ The best way to use this is by utilising the fluent API:
 private string _targetFileName = "YourTargetFile";
 private string _action;
 
-protected override IEnumerable<ConfigurationOption> SetupOptions()
+protected override void ConfigureOptions(OptionsFactory options)
 {
   // First option provides a list with two choices
   //   Generate default file (skip to generation)
   //   Specify a name
   
-  yield return 
-    Options
+  options
       .List("What would you like to do?", s => _action = s)
       .Choice("Just generate default file", "default")
       .Choice("Specify target file name", "specific");
@@ -95,8 +93,7 @@ protected override IEnumerable<ConfigurationOption> SetupOptions()
   // Second option is only displayed when the first option
   // yielded a "specific" action
   
-  yield return 
-    Options
+    options
       .Input("Please enter the name for the target file:", s => _targetFileName = s)
       .When(() => _action == "specific");
 }
