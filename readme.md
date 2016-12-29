@@ -107,6 +107,11 @@ These options are automatically available as command line parameters in a list a
 * `tempest YourGenerator specific YourNewTargetFile` to skip all options and generate 'YourNewTargetFile'
 * `tempest YourGenerator specific` to go directly to asking file name
 
+
+#### Self-hosting generators
+
+Sometimes you might want to have your generator without the extra `tempest` commands. There `(will be)` an option in New generator to create a fresh template with all prerequisites, there's also a sample with a self-hosted generator.
+
 #### Other parameters for tempest:
 
 `tempest -g|--generator GeneratorName` - Specifies generator name differently
