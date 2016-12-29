@@ -38,13 +38,16 @@ Invoke-WebRequest https://raw.githubusercontent.com/Grinderofl/Tempest/develop/i
 1. Navigate to the root of where you want your template to be on your favorite command processor that has `tempest` in its environment PATH variable
 2. Execute `tempest new {YourGeneratorName}`
 3. A directory {YourGeneratorName} will be created, and a ready-to-build new generator base will be created for you
+4. Update your template files to be included on compilation as resources or copied files
+5. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject`
 
 Alternative manual steps:
 
 1. Create a new .NET Core Library
 2. Add dependency to `Tempest.Core`
 3. Inherit from `GeneratorBase`
-4. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject`
+4. Add your template files to be included on compilation as resources or copied files
+5. Build, run Tempest with generator search directory parameter set to your build directory: `tempest -s|--search "C:/YourProject/bin/Debug" YourProject`
 
 ### Generating stuff
 
@@ -100,8 +103,7 @@ protected override void ConfigureOptions(OptionsFactory options)
 
 ```
 
-These options are automatically available as command line parameters in a list as their ordered indexes after the generator's name. In this case, you could do a
-
+These options are automatically available as command line parameters in a list as their ordered indexes after the generator's name. In this case, you could do:
 
 * `tempest YourGenerator default` to skip all options and generate the default file
 * `tempest YourGenerator specific YourNewTargetFile` to skip all options and generate 'YourNewTargetFile'
@@ -111,6 +113,13 @@ These options are automatically available as command line parameters in a list a
 #### Self-hosting generators
 
 Sometimes you might want to have your generator without the extra `tempest` commands. There `(will be)` an option in New generator to create a fresh template with all prerequisites, there's also a sample with a self-hosted generator.
+
+To describe the process of self-hosting:
+
+1) Create Generator Context (use `GeneratorContextFactory` static methods)
+2) Create Generator Bootstrapper (use `GeneratorBootstrapperFactory` instanced methods)
+3) Execute the strapper
+
 
 #### Other parameters for tempest:
 
@@ -122,6 +131,8 @@ Sometimes you might want to have your generator without the extra `tempest` comm
 
 
 #### Future plans:
+
+Complete filesystem abstraction
 
 `tempest --add-search "C:/Your/Generators/Search/Path"` - adds a path to look for generators
 
