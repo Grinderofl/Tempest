@@ -27,7 +27,10 @@
                 "Template/Library/project.json",
                 "Template/build.ps1",
                 "Template/Library/build.cake",
-                "Template/NuGet.config"
+                "Template/NuGet.config",
+                "Template/Template/Program.cs",
+                "Template/Template/project.json",
+                "Template/Template/ReplaceMeGreeter.cs"
             ]
         },
         "copyToOutput": {
@@ -40,7 +43,10 @@
                 "Template/Library/project.json",
                 "Template/build.ps1",
                 "Template/Library/build.cake",
-                "Template/NuGet.config"
+                "Template/NuGet.config",
+                "Template/Template/Program.cs",
+                "Template/Template/project.json",
+                "Template/Template/ReplaceMeGreeter.cs"
             ]
         }
     }
