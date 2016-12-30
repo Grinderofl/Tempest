@@ -52,7 +52,7 @@ namespace Tempest.Generator.New.Impl
                 .TransformToken("TEMPLATEMATCHINGPATTERN", $"Template\\\\**\\\\*.*");
 
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template.ReplaceMeGreeter.cs"))
-                .ToFile(BuildTarget($"{GeneratorOptions.GeneratorName}Greeter.cs"));
+                .ToFile(BuildTarget($"Template/{GeneratorOptions.GeneratorName}Greeter.cs"));
         }
 
         protected override void ConfigureScaffolder(IScaffoldBuilder builder)
