@@ -55,8 +55,6 @@ namespace Tempest.Core.Options.Rendering
             var origForeColor = Console.ForegroundColor;
             var origBackColor = Console.BackgroundColor;
 
-            var cursorTop = Console.CursorTop;
-            var cursorLeft = Console.CursorLeft;
             foreach (var option in optionChoices)
             {
                 if (currentlySelectedOption == option)

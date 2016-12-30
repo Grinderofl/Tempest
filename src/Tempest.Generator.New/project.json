@@ -22,6 +22,9 @@
   "buildOptions": {
     "compile": {
       "excludeFiles": [
+        "Template/SelfHosted/Program.cs",
+        "Template/HelloWorldGenerator.cs",
+
         "Template/ZingGenerator.cs",
         "Template/Library/project.json",
         "Template/build.ps1",

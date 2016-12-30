@@ -29,7 +29,7 @@ namespace Tempest.Core.Options.Rendering
             return "";
         }
 
-        protected void RenderMenu(IList<OptionChoice> optionChoices)
+        protected virtual void RenderMenu(IList<OptionChoice> optionChoices)
         {
             Console.CursorVisible = false;
             ConsoleKey? key = null;
@@ -40,7 +40,7 @@ namespace Tempest.Core.Options.Rendering
                 {
                     Console.SetCursorPosition(0, Console.CursorTop - optionChoices.Count);
                 }
-                RenderMenu(optionChoices, optionChoices[index]);
+                RenderMenuOptions(optionChoices, optionChoices[index]);
                 key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.UpArrow)
                     index = Math.Max(0, index - 1);
@@ -51,13 +51,10 @@ namespace Tempest.Core.Options.Rendering
             }
         }
 
-        private void RenderMenu(IList<OptionChoice> optionChoices, OptionChoice currentlySelected)
+        protected virtual void RenderMenuOptions(IList<OptionChoice> optionChoices, OptionChoice currentlySelected)
         {
             var origForeColor = Console.ForegroundColor;
             var origBackColor = Console.BackgroundColor;
-
-            var cursorTop = Console.CursorTop;
-            var cursorLeft = Console.CursorLeft;
 
             foreach (var option in optionChoices)
             {
