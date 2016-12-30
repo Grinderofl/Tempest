@@ -50,7 +50,7 @@ namespace Tempest.Generator.New
                 .Check("What build script would you like?")
                 .When(() => _options.IncludeBuildScript)
                 .Choice("I'll have me some AppVeyor!", "appveyor",
-                    () => _options.BuildScriptTypes =  _options.BuildScriptTypes |= BuildScriptTypes.AppVeyor);
+                    () => _options.BuildScriptTypes =  _options.BuildScriptTypes | BuildScriptTypes.AppVeyor);
         }
 
         protected override void ConfigureGenerator(IScaffoldBuilder builder)

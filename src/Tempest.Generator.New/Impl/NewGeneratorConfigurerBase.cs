@@ -31,7 +31,7 @@ namespace Tempest.Generator.New.Impl
         {
             Console.WriteLine("Copying build script");
             // Only supporting appveyor
-            if ((GeneratorOptions.BuildScriptTypes & BuildScriptTypes.AppVeyor) != 0)
+            if ((GeneratorOptions.BuildScriptTypes & BuildScriptTypes.AppVeyor) == BuildScriptTypes.AppVeyor)
             {
                 Console.WriteLine("Copying appveyor script...");
                 if (GeneratorOptions.SelfHosted)
