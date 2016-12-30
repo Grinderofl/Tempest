@@ -30,7 +30,8 @@
                 "Template/NuGet.config",
                 "Template/Template/Program.cs",
                 "Template/Template/project.json",
-                "Template/Template/ReplaceMeGreeter.cs"
+                "Template/Template/ReplaceMeGreeter.cs",
+                "Template/build.sh"
             ]
         },
         "copyToOutput": {
@@ -46,7 +47,8 @@
                 "Template/NuGet.config",
                 "Template/Template/Program.cs",
                 "Template/Template/project.json",
-                "Template/Template/ReplaceMeGreeter.cs"
+                "Template/Template/ReplaceMeGreeter.cs",
+                "Template/build.sh"
             ]
         }
     }

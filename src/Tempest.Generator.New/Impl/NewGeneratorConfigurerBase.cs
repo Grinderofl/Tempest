@@ -29,7 +29,7 @@ namespace Tempest.Generator.New.Impl
         protected virtual void CopyBuildScript(IScaffoldBuilder builder)
         {
             // Only supporting appveyor
-            if (GeneratorOptions.BuildScriptTypes != BuildScriptTypes.AppVeyor) return;
+            if ((GeneratorOptions.BuildScriptTypes & BuildScriptTypes.AppVeyor) == 0) return;
 
             if (GeneratorOptions.SelfHosted)
                 builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.build.cake"))
