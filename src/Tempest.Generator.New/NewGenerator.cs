@@ -22,9 +22,6 @@ namespace Tempest.Generator.New
         private bool _useConventionalStructure = false;
 
 
-
-        
-
         private readonly Func<string, string> _locateResource =
             templateFile => $"Tempest.Generator.New.Template.{templateFile}";
 
@@ -80,24 +77,5 @@ namespace Tempest.Generator.New
                 builder.Copy.ResourceOf<NewGenerator>(_locateResource("Library/build.cake")).ToFile("build.cake");
             }
         }
-    }
-
-    public class NewGeneratorConvention
-    {
-
-    }
-
-    public class NewGeneratorOptions
-    {
-        public string GeneratorName { get; set; }
-
-        public bool SelfHosted { get; set; }
-        public bool IncludeBuildScript { get; set; }
-        public BuildScriptTypes BuildScriptTypes { get; set; }
-    }
-
-    public enum BuildScriptTypes
-    {
-        AppVeyor
     }
 }

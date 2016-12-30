@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
-using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Operations;
 
-namespace Tempest.Core.Scaffolding
+namespace Tempest.Core.Scaffolding.Base
 {
     public abstract class ScaffolderConfigurerBase : IScaffoldConfigurer
     {

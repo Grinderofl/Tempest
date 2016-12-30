@@ -1,4 +1,5 @@
 ﻿using Tempest.Core.Configuration.Operations.OperationBuilding;
+using Tempest.Core.Scaffolding.Base;
 
 namespace Tempest.Core.Scaffolding
 {
@@ -35,11 +36,6 @@ namespace Tempest.Core.Scaffolding
         ///     Sets some internal variables
         /// </summary>
         public SetOperationBuilder Set { get; set; }
-
-        ///// <summary>
-        /////     Creates some configuration options
-        ///// </summary>
-        //public OptionsFactory Options { get; set; }
 
         /// <summary>
         ///     Globally uses transformers or emitters (executed for every source)
