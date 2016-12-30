@@ -9,7 +9,7 @@ using Tempest.Boot.Strappers.Execution;
 using Tempest.Core.Generator;
 using Tempest.Core.Utils;
 
-namespace Tempest.Generator.Zing
+namespace Tempest.Generator.HelloWorld
 {
     /// <summary>
     /// This sample demonstrates a self-hosted (no tempest frontend) generator.

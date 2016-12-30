@@ -139,7 +139,7 @@ Task(BuildTasks.Package)
             NoPackageAnalysis = true
         };
 
-        NuGetPack(config.NuspecDir + "Tempest.nuspec", nugetSettings);
+        NuGetPack("./nuspec/Tempest.nuspec", nugetSettings);
 
         //nugetSettings.BasePath = config.TempestGeneratorNewDir;
 

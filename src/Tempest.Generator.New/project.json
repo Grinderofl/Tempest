@@ -22,12 +22,12 @@
     "buildOptions": {
         "compile": {
             "excludeFiles": [
-                "Template/SelfHosted/Program.cs",
-                "Template/SelfHosted/project.json",
-                "Template/SelfHosted/build.cake",
+                "Template/SelfHosted.Program.cs",
+                "Template/SelfHosted.project.json",
+                "Template/SelfHosted.build.cake",
 
-                "Template/Library/project.json",
-                "Template/Library/build.cake",
+                "Template/Library.project.json",
+                "Template/Library.build.cake",
 
                 "Template/HelloWorldGenerator.cs",
 
@@ -45,12 +45,12 @@
         },
         "embed": {
             "includeFiles": [
-                "Template/SelfHosted/Program.cs",
-                "Template/SelfHosted/project.json",
-                "Template/SelfHosted/build.cake",
+                "Template/SelfHosted.Program.cs",
+                "Template/SelfHosted.project.json",
+                "Template/SelfHosted.build.cake",
 
-                "Template/Library/project.json",
-                "Template/Library/build.cake",
+                "Template/Library.project.json",
+                "Template/Library.build.cake",
 
                 "Template/HelloWorldGenerator.cs",
 
