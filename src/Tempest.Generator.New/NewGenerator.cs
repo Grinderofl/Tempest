@@ -37,10 +37,14 @@ namespace Tempest.Generator.New
                           "Please enter the name of your Generator",
                 s => _options.GeneratorName = s);
 
+            options.List("Self-hosted or Library?")
+                .Choice("Self-hosted", "selfhosted", () => _options.SelfHosted = true)
+                .Choice("Library", "library");
+
             options
-                    .List("Would you like to include a build script?")
-                    .Choice("Sure!", "build", () => _options.IncludeBuildScript = true)
-                    .Choice("I'll pass", "nobuild", () => { });
+                .List("Would you like to include a build script?")
+                .Choice("Sure!", "build", () => _options.IncludeBuildScript = true)
+                .Choice("I'll pass", "nobuild", () => { });
 
             options
                 .Check("What build script would you like?")
