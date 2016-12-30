@@ -32,7 +32,7 @@ namespace Tempest.Generator.New.Impl
         {
             // Copy project.json (with self-host enabled)
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.project.json"))
-                .ToFile(BuildTarget("Project.json"));
+                .ToFile(BuildTarget("project.json"));
 
             // Copy Program.cs
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.Program.cs"))

@@ -44,6 +44,8 @@ namespace Tempest.Generator.New.Impl
 
                 builder.Copy.ResourceOf<NewGenerator>(BuildResource("build.ps1"))
                     .ToFile("build.ps1");
+                builder.Copy.ResourceOf<NewGenerator>(BuildResource("build.sh"))
+                    .ToFile("build.sh");
             }
         }
 
@@ -54,8 +56,7 @@ namespace Tempest.Generator.New.Impl
                 .ToFile(BuildTarget("Template/Program.cs"));
 
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template.project.json"))
-                .ToFile(BuildTarget("Template/project.json"))
-                .TransformToken("TEMPLATEMATCHINGPATTERN", $"Template\\\\**\\\\*.*");
+                .ToFile(BuildTarget("Template/project.json"));
 
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template.ReplaceMeGreeter.cs"))
                 .ToFile(BuildTarget($"Template/{GeneratorOptions.GeneratorName}Greeter.cs"));
@@ -64,6 +65,7 @@ namespace Tempest.Generator.New.Impl
         protected override void ConfigureScaffolder(IScaffoldBuilder builder)
         {
             builder.Globally.TransformToken("HelloWorld", GeneratorOptions.GeneratorName);
+            builder.Globally.TransformToken("TEMPLATEMATCHINGPATTERN", $"Template\\\\**\\\\*.*");
             builder.Globally.TransformToken($"SRCDIRECTORY", BuildTarget(""));
 
             builder.Set.TargetSubDirectory(GeneratorOptions.GeneratorName);
