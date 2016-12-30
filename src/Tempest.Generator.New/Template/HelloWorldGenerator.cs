@@ -3,7 +3,7 @@ using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Generator;
 using Tempest.Core.Scaffolding;
 
-namespace Tempest.Generator.Zing
+namespace Tempest.Generator.HelloWorld
 {
     public class HelloWorldGenerator : GeneratorBase
     {
@@ -19,7 +19,7 @@ namespace Tempest.Generator.Zing
             builder.Globally.TransformToken("ReplaceMe", _name);
             builder.Set.TargetSubDirectory(_name);
 
-            Func<string, string> resource = templateFile => $"SelfHostedGenerator.Template.{templateFile}";
+            Func<string, string> resource = templateFile => $"HelloWorldGenerator.Template.{templateFile}";
 
             builder.Copy.ResourceOf<HelloWorldGenerator>(resource("project.json")).ToFile("project.json");
             builder.Copy.ResourceOf<HelloWorldGenerator>(resource("Program.cs")).ToFile("Program.cs");

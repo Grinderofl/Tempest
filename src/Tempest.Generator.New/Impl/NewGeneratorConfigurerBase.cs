@@ -32,10 +32,10 @@ namespace Tempest.Generator.New.Impl
             if (GeneratorOptions.BuildScriptTypes != BuildScriptTypes.AppVeyor) return;
 
             if (GeneratorOptions.SelfHosted)
-                builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted/build.cake"))
+                builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.build.cake"))
                     .ToFile(BuildTarget("build.cake"));
             else
-                builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library/build.cake"))
+                builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library.build.cake"))
                     .ToFile(BuildTarget("build.cake"));
 
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("build.ps1"))
@@ -44,20 +44,20 @@ namespace Tempest.Generator.New.Impl
 
         protected virtual void CopyGeneratorTemplateFiles(IScaffoldBuilder builder)
         {
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template/Program.cs"))
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template.Program.cs"))
                 .ToFile(BuildTarget("Template/Program.cs"));
 
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template/project.json"))
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template.project.json"))
                 .ToFile(BuildTarget("Template/project.json"))
                 .TransformToken("TEMPLATEMATCHINGPATTERN", $"Template\\\\**\\\\*.*");
 
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template/ReplaceMeGreeter.cs"))
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Template.ReplaceMeGreeter.cs"))
                 .ToFile(BuildTarget($"{GeneratorOptions.GeneratorName}Greeter.cs"));
         }
 
         protected override void ConfigureScaffolder(IScaffoldBuilder builder)
         {
-            builder.Globally.TransformToken("ReplaceMe", GeneratorOptions.GeneratorName);
+            builder.Globally.TransformToken("HelloWorld", GeneratorOptions.GeneratorName);
             builder.Globally.TransformToken($"SRCDIRECTORY", BuildTarget(""));
 
             builder.Set.TargetSubDirectory(GeneratorOptions.GeneratorName);

@@ -28,7 +28,7 @@ Task("Package")
 	.IsDependentOn("Build")
     .Does(() =>
     {
-        var publishRoot = "./artifacts/Zing/";
+        var publishRoot = "./artifacts/HelloWorld/";
 
         var settings = new DotNetCorePublishSettings
         {
@@ -36,7 +36,7 @@ Task("Package")
             OutputDirectory = publishRoot
         };
         DotNetCorePublish("SRCDIRECTORY", settings);
-        Zip(publishRoot, "./artifacts/Zing.zip");
+        Zip(publishRoot, "./artifacts/HelloWorld.zip");
     });
     
 Task("Upload-AppVeyor-Artifacts")
@@ -44,7 +44,7 @@ Task("Upload-AppVeyor-Artifacts")
     .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
     .Does(() =>
 {
-    var artifact = MakeAbsolute(File(@"./artifacts/Zing.zip"));
+    var artifact = MakeAbsolute(File(@"./artifacts/HelloWorld.zip"));
     AppVeyor.AddInformationalMessage("Uploading artifacts");
     AppVeyor.UploadArtifact(artifact, settings => settings
         .SetArtifactType(AppVeyorUploadArtifactType.NuGetPackage)

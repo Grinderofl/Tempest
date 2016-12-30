@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
 
-  "description": "Zing Class Library",
+  "description": "HelloWorld self-hosted scaffolder",
   "packOptions": {
     "licenseUrl": ""
   },
