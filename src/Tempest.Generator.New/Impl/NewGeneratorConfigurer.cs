@@ -24,18 +24,18 @@ namespace Tempest.Generator.New.Impl
         private void CopyLibraryFiles(IScaffoldBuilder builder)
         {
             // Copy project.json (library enabled)
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library/project.json"))
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library.project.json"))
                 .ToFile(BuildTarget($"project.json"));
         }
 
         private void CopySelfHostedFiles(IScaffoldBuilder builder)
         {
             // Copy project.json (with self-host enabled)
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted/project.json"))
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.project.json"))
                 .ToFile(BuildTarget("Project.json"));
 
             // Copy Program.cs
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted/Program.cs"))
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.Program.cs"))
                 .ToFile(BuildTarget("Program.cs"));
         }
     }
