@@ -23,15 +23,21 @@
         "compile": {
             "excludeFiles": [
                 "Template/SelfHosted/Program.cs",
-                "Template/HelloWorldGenerator.cs",
+                "Template/SelfHosted/project.json",
+                "Template/SelfHosted/build.cake",
+
                 "Template/Library/project.json",
-                "Template/build.ps1",
                 "Template/Library/build.cake",
+
+                "Template/HelloWorldGenerator.cs",
+
                 "Template/NuGet.config",
+                "Template/build.sh",
+                "Template/build.ps1",
+
                 "Template/Template/Program.cs",
                 "Template/Template/project.json",
-                "Template/Template/ReplaceMeGreeter.cs",
-                "Template/build.sh"
+                "Template/Template/ReplaceMeGreeter.cs"
             ]
         },
         "copyToOutput": {
@@ -40,15 +46,21 @@
         "embed": {
             "includeFiles": [
                 "Template/SelfHosted/Program.cs",
-                "Template/HelloWorldGenerator.cs",
+                "Template/SelfHosted/project.json",
+                "Template/SelfHosted/build.cake",
+
                 "Template/Library/project.json",
-                "Template/build.ps1",
                 "Template/Library/build.cake",
+
+                "Template/HelloWorldGenerator.cs",
+
                 "Template/NuGet.config",
+                "Template/build.sh",
+                "Template/build.ps1",
+
                 "Template/Template/Program.cs",
                 "Template/Template/project.json",
-                "Template/Template/ReplaceMeGreeter.cs",
-                "Template/build.sh"
+                "Template/Template/ReplaceMeGreeter.cs"
             ]
         }
     }
