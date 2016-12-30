@@ -1,4 +1,5 @@
-﻿using Tempest.Core.Scaffolding;
+﻿using System;
+using Tempest.Core.Scaffolding;
 
 namespace Tempest.Generator.New.Impl
 {
@@ -28,18 +29,22 @@ namespace Tempest.Generator.New.Impl
 
         protected virtual void CopyBuildScript(IScaffoldBuilder builder)
         {
+            Console.WriteLine("Creating build script");
             // Only supporting appveyor
-            if ((GeneratorOptions.BuildScriptTypes & BuildScriptTypes.AppVeyor) == 0) return;
+            if ((GeneratorOptions.BuildScriptTypes & BuildScriptTypes.AppVeyor) != 0)
+            {
+                Console.WriteLine("Creating appveyor script");
+                if (GeneratorOptions.SelfHosted)
+                    builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.build.cake"))
+                        .ToFile("build.cake");
+                else
+                    builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library.build.cake"))
+                        .ToFile("build.cake");
 
-            if (GeneratorOptions.SelfHosted)
-                builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.build.cake"))
-                    .ToFile("build.cake");
-            else
-                builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library.build.cake"))
-                    .ToFile("build.cake");
 
-            builder.Copy.ResourceOf<NewGenerator>(BuildResource("build.ps1"))
-                .ToFile("build.ps1");
+                builder.Copy.ResourceOf<NewGenerator>(BuildResource("build.ps1"))
+                    .ToFile("build.ps1");
+            }
         }
 
         protected virtual void CopyGeneratorTemplateFiles(IScaffoldBuilder builder)
