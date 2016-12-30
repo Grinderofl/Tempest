@@ -139,7 +139,9 @@ Task(BuildTasks.Package)
             NoPackageAnalysis = true
         };
 
-        NuGetPack("./nuspec/Tempest.nuspec", nugetSettings);
+        var nuspec = MakeAbsolute(File("./nuspec/Tempest.nuspec"));
+        Information("Publishing using " + nuspec);
+        NuGetPack(nuspec, nugetSettings);
 
         //nugetSettings.BasePath = config.TempestGeneratorNewDir;
 
