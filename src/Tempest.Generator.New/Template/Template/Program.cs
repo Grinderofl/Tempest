@@ -1,4 +1,4 @@
-namespace SelfHostedGenerator.Template
+namespace ReplaceMeGenerator
 {
     public class Program
     {

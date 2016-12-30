@@ -1,6 +1,6 @@
 using System;
 
-namespace SelfHostedGenerator.Template
+namespace ReplaceMeGenerator
 {
     public class ReplaceMeGreeter
     {
