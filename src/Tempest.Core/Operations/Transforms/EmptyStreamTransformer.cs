@@ -12,5 +12,9 @@ namespace Tempest.Core.Operations.Transforms
         }
 
         public override Stream Transform(Stream stream) => "".ToStream();
+        protected override string GetTransformerDescription()
+        {
+            return "Empty";
+        }
     }
 }

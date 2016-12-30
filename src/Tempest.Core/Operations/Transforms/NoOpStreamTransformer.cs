@@ -16,5 +16,10 @@ namespace Tempest.Core.Operations.Transforms
         {
             return stream;
         }
+
+        protected override string GetTransformerDescription()
+        {
+            return "Nothing";
+        }
     }
 }

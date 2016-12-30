@@ -32,14 +32,21 @@ namespace Tempest.Core.Operations
 
         public virtual void Execute()
         {
-            var stream = _streamProvider.Provide();
-            var transformedStream = _transformer.Transform(stream);
-            _persister.Persist(transformedStream);
+            try
+            {
+                var stream = _streamProvider.Provide();
+                var transformedStream = _transformer.Transform(stream);
+                _persister.Persist(transformedStream);
+            }
+            catch (Exception e)
+            {
+                throw new AggregateException($"Unable to perform transformation {Describe()}", e);
+            }
         }
 
         public virtual string Describe()
         {
-            return $"{_streamProvider.Describe()} {_transformer.Describe()}";
+            return $"From '{_streamProvider.Describe()}' using '{_transformer.Describe()}' to {_persister.Describe()}";
         }
     }
 }

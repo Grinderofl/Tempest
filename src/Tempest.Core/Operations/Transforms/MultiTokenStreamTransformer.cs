@@ -24,5 +24,10 @@ namespace Tempest.Core.Operations.Transforms
             }
             return @string.ToStream();
         }
+
+        protected override string GetTransformerDescription()
+        {
+            return $"Replace {_tokenReplacers.Count} tokens";
+        }
     }
 }

@@ -23,5 +23,10 @@ namespace Tempest.Core.Operations.Transforms
             }
             return outputStream;
         }
+
+        protected override string GetTransformerDescription()
+        {
+            return "Multiple";
+        }
     }
 }
