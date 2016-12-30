@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Tempest.Core.IntegrationTests.EndToEnd.GeneratorWithScaffolderTests
 {
-    public class SimpleGeneratorTests
+    public class GeneratorAndConfigurerTests
     {
         private class TestGenerator : GeneratorBase
         {

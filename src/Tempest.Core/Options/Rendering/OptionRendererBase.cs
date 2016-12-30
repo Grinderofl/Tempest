@@ -13,7 +13,7 @@ namespace Tempest.Core.Options.Rendering
         protected ConfigurationOptionBase AssociatedOption { get; }
 
         /// <summary>
-        ///     Render the option. Should have a RenderContext to output to - an abstraction around console possibly? at some point
+        ///     Render the option. Should have a RenderContext to output to an abstraction around console possibly? at some point
         /// </summary>
         /// <returns></returns>
         public virtual string Render()

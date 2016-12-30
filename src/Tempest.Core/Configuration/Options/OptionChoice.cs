@@ -20,6 +20,7 @@ namespace Tempest.Core.Configuration.Options
 
         public string Id { get; set; }
         public string Title { get; set; }
+        public bool Selected { get; set; }
         public Action Action { get; set; }
     }
 }

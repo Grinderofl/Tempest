@@ -42,5 +42,15 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
         {
             return CreateOption(new ListConfigurationOption(optionTitle, resultingAction));
         }
+
+        public CheckConfigurationOption Check(string optionTitle)
+        {
+            return CreateOption(new CheckConfigurationOption(optionTitle));
+        }
+
+        public CheckConfigurationOption Check(Func<string> optionTitle)
+        {
+            return CreateOption(new CheckConfigurationOption(optionTitle));
+        }
     }
 }

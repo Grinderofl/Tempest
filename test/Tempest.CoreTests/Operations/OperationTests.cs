@@ -61,14 +61,11 @@ namespace Tempest.CoreTests.Operations
             [Fact]
             public void executes_operation()
             {
-                // Arrange
                 var result = "";
                 var operation = CreateOperation(s => result = s.ReadAsString());
 
-                // Act
                 operation.Execute();
 
-                // Assert
                 Assert.Equal("Foo", result);
             }
         }
@@ -89,14 +86,11 @@ namespace Tempest.CoreTests.Operations
             [Fact]
             public void executes_operation()
             {
-                // Arrange
                 var result = "";
                 var operation = CreateOperation(s => result = s.ReadAsString());
 
-                //Act
                 operation.Execute();
                 
-                // Assert
                 Assert.Equal("Fzz", result);
             }
         }

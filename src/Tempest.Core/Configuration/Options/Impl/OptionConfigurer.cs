@@ -43,5 +43,7 @@ namespace Tempest.Core.Configuration.Options.Impl
         {
             return AddOption(new ListConfigurationOption(optionTitle, resultingAction));
         }
+
+
     }
 }
