@@ -33,13 +33,13 @@ namespace Tempest.Generator.New.Impl
 
             if (GeneratorOptions.SelfHosted)
                 builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted.build.cake"))
-                    .ToFile(BuildTarget("build.cake"));
+                    .ToFile("build.cake");
             else
                 builder.Copy.ResourceOf<NewGenerator>(BuildResource("Library.build.cake"))
-                    .ToFile(BuildTarget("build.cake"));
+                    .ToFile("build.cake");
 
             builder.Copy.ResourceOf<NewGenerator>(BuildResource("build.ps1"))
-                .ToFile(BuildTarget("build.ps1"));
+                .ToFile("build.ps1");
         }
 
         protected virtual void CopyGeneratorTemplateFiles(IScaffoldBuilder builder)
