@@ -56,7 +56,7 @@ namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
             new TestBootstrapperFactory(
                     x =>
                         x.RegisterConvention(new ActionBasedServiceConfigurationConvention(s => s.AddSingleton(helper))))
-                .Create(context).Execute(new GeneratorExecutor());
+                .Create(context).Execute();
 
             Assert.Equal("base", helper.Stream2.ReadAsString());
             Assert.Equal("AllYourBase", helper.Stream1.ReadAsString());

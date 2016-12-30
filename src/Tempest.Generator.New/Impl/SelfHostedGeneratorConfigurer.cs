@@ -1,4 +1,5 @@
-﻿using Tempest.Core.Operations;
+﻿using System;
+using Tempest.Core.Operations;
 using Tempest.Core.Scaffolding;
 
 namespace Tempest.Generator.New.Impl
@@ -9,22 +10,26 @@ namespace Tempest.Generator.New.Impl
         {
         }
 
-        public override int Order => 1;
-        protected override void ConfigureScaffolder(IScaffoldBuilder scaffolder)
+
+
+
+        protected override void CopyGeneratorFiles(IScaffoldBuilder builder)
         {
+            base.CopyGeneratorFiles(builder);
+
             // Copy project.json (with self-host enabled)
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted/project.json")).ToFile("Project.json");
             // Copy Program.cs
-            // Copy HelloWorldGenerator.cs
+            builder.Copy.ResourceOf<NewGenerator>(BuildResource("SelfHosted/Program.cs")).ToFile("Program.cs");
 
-            // Copy Template/Program.cs
-            // Copy Template/project.json
-            // Copy Template/ReplaceMeGreeter.cs
+        }
 
+        protected override bool ShouldExecuteScaffolder()
+        {
+            // Alternative way to do this:
+            // Do default stuff in Generator, and supplement this additional configurer as
 
-            // Copy build.cake (with dotnetpublish)
-            // Copy build.ps1
-
-
+            return GeneratorOptions.SelfHosted;
         }
     }
 }

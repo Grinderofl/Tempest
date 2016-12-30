@@ -10,6 +10,7 @@ namespace Tempest.Core.Scaffolding
         {
             var scaffolder = new ScaffolderConfigurer();
             ConfigureScaffolder((IScaffoldBuilder) scaffolder);
+            ((IScaffoldConfigurer)scaffolder).ConfigureOperations(configuration);
         }
 
         protected abstract void ConfigureScaffolder(IScaffoldBuilder scaffolder);
