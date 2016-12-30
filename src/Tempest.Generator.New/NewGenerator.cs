@@ -44,11 +44,6 @@ namespace Tempest.Generator.New
                     .When(() => _includeBuildScript)
                     .Choice("I'll have me some AppVeyor!", "appveyor")
                     .Choice("Oops, pressed wrong button, don't really need.", "nobuild");
-
-            options
-                .List(() => $"Care for your project to be prefixed with 'Tempest.Generator.{_generatorName}'?")
-                .Choice("No problem m8", "conventional", () => { _useConventionalStructure = true; })
-                .Choice("Sod off", "standard");
         }
 
         protected override void ConfigureGenerator(IScaffoldBuilder builder)
@@ -85,5 +80,24 @@ namespace Tempest.Generator.New
                 builder.Copy.ResourceOf<NewGenerator>(_locateResource("Library/build.cake")).ToFile("build.cake");
             }
         }
+    }
+
+    public class NewGeneratorConvention
+    {
+
+    }
+
+    public class NewGeneratorOptions
+    {
+        public string GeneratorName { get; set; }
+
+        public bool SelfHosted { get; set; }
+        public bool IncludeBuildScript { get; set; }
+        public BuildScriptTypes BuildScriptTypes { get; set; }
+    }
+
+    public enum BuildScriptTypes
+    {
+        AppVeyor
     }
 }

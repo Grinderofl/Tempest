@@ -4,9 +4,9 @@ using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Tempest.Boot.Conventions.Defaults;
 using Tempest.Boot.Strappers.Defaults;
 using Tempest.Boot.Strappers.Execution;
+using Tempest.Core.Conventions.Defaults;
 using Xunit;
 
 namespace Tempest.CoreTests.Boot

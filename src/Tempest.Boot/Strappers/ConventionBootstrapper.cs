@@ -4,7 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Tempest.Boot.Conventions;
-using Tempest.Boot.Conventions.Defaults;
+using Tempest.Core.Conventions;
+using Tempest.Core.Conventions.Defaults;
 
 namespace Tempest.Boot.Strappers
 {

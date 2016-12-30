@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Tempest.Boot.Conventions;
 using Tempest.Boot.Strappers.Execution;
 
 namespace Tempest.Boot.Strappers.Defaults

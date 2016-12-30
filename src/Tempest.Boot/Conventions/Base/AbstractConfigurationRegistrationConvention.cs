@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tempest.Core.Conventions;
 
 namespace Tempest.Boot.Conventions.Base
 {

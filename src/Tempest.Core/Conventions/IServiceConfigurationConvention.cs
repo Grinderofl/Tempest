@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Tempest.Boot.Conventions
+namespace Tempest.Core.Conventions
 {
     public interface IServiceConfigurationConvention
     {

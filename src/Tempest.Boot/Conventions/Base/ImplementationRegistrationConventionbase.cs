@@ -2,6 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
+using Tempest.Core.Conventions;
 
 namespace Tempest.Boot.Conventions.Base
 {

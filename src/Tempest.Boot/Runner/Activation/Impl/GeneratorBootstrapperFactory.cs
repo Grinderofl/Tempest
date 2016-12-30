@@ -1,8 +1,9 @@
 using System;
 using System.Reflection;
-using Tempest.Boot.Conventions.Defaults;
+using Tempest.Boot.Conventions;
 using Tempest.Boot.Strappers.Defaults;
 using Tempest.Core;
+using Tempest.Core.Conventions.Defaults;
 using Tempest.Core.Generator;
 using Tempest.Core.Operations;
 using Tempest.Core.Utils;

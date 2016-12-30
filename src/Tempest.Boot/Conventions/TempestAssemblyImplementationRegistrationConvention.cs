@@ -4,7 +4,7 @@ using Tempest.Boot.Conventions.Base;
 using Tempest.Boot.Runner.Impl;
 using Tempest.Core.Scaffolding;
 
-namespace Tempest.Boot.Conventions.Defaults
+namespace Tempest.Boot.Conventions
 {
     public class TempestAssemblyImplementationRegistrationConvention : ImplementationRegistrationConventionBase
     {

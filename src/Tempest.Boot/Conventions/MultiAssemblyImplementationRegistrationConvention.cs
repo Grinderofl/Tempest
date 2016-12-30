@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Tempest.Boot.Conventions.Defaults
+namespace Tempest.Boot.Conventions
 {
     public class MultiAssemblyImplementationRegistrationConvention : TempestAssemblyImplementationRegistrationConvention
     {

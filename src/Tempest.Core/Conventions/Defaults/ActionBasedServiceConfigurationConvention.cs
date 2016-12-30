@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Tempest.Boot.Conventions.Defaults
+namespace Tempest.Core.Conventions.Defaults
 {
     public class ActionBasedServiceConfigurationConvention : IServiceConfigurationConvention
     {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Tempest.Boot.Configuration;
 using Tempest.Boot.Conventions.Base;
 
-namespace Tempest.Boot.Conventions.Defaults
+namespace Tempest.Boot.Conventions
 {
     public class TempestConfigurationRegistrationConvention : AbstractConfigurationRegistrationConvention
     {
