@@ -11,7 +11,7 @@ namespace Tempest.Core.Operations.Persistence
         public abstract void Persist(Stream sourceStream);
         public virtual string Describe()
         {
-            return $"{GetStreamDescriptor()} {GetType()}";
+            return $"{GetStreamDescriptor()}";
         }
     }
 }

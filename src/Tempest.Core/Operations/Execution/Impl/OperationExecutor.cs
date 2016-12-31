@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Tempest.Core.Logging;
 
 namespace Tempest.Core.Operations.Execution.Impl
 {
     public class OperationExecutor : IOperationExecutor
     {
-        private readonly ILogger<OperationExecutor> _logger;
-        
-        public OperationExecutor(ILogger<OperationExecutor> logger)
+        private readonly IEmitter _emitter;
+
+        public OperationExecutor(IEmitter emitter)
         {
-            if (logger == null) throw new ArgumentNullException(nameof(logger));
-            _logger = logger;
+            if (emitter == null) throw new ArgumentNullException(nameof(emitter));
+            _emitter = emitter;
         }
 
         public virtual void Execute(IEnumerable<Operation> operations)
         {
             foreach (var operation in operations)
             {
-                if(_logger.IsEnabled(LogLevel.Information))
-                    _logger.LogInformation($"Scaffolding: {operation.Describe()}");
-
+                _emitter.SetForegroundColor(ConsoleColor.Cyan);
+                _emitter.Emit($"Scaffolding {operation.Describe()}");
                 operation.Execute();
             }
         }
