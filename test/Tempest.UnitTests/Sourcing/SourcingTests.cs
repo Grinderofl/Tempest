@@ -61,7 +61,7 @@ namespace Tempest.CoreTests.Sourcing
             [Fact]
             public void generates_valid_stream()
             {
-                var source = new ResourceFileSourceFactory("Tempest.CoreTests.Sourcing.EmbeddedResource.txt",
+                var source = new ResourceFileSourceFactory("Tempest.UnitTests.Sourcing.EmbeddedResource.txt",
                     typeof(TemplateFileSourceTests).GetTypeInfo().Assembly);
                 var context = new SourcingContext();
                 var result = source.Generate(context);

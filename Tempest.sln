@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
@@ -22,13 +22,13 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.Generator.Empty", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{91BD1DEF-1C41-4D8E-B557-95E8A09642CB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.CoreTests", "test\Tempest.CoreTests\Tempest.CoreTests.xproj", "{28F57139-C517-4792-917A-F27776E8F7AE}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.UnitTests", "test\Tempest.UnitTests\Tempest.UnitTests.xproj", "{28F57139-C517-4792-917A-F27776E8F7AE}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.Core", "src\Tempest.Core\Tempest.Core.xproj", "{13CF9118-62FC-45EA-B74F-B31E750A6B11}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.Generator.New", "src\Tempest.Generator.New\Tempest.Generator.New.xproj", "{39B37504-FF50-468F-928C-217F3CD01887}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.Core.IntegrationTests", "test\Tempest.Core.IntegrationTests\Tempest.Core.IntegrationTests.xproj", "{DBFFC82F-2A0F-487F-A8DB-393F363D740C}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.IntegrationTests", "test\Tempest.IntegrationTests\Tempest.IntegrationTests.xproj", "{DBFFC82F-2A0F-487F-A8DB-393F363D740C}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tempest.Boot", "src\Tempest.Boot\Tempest.Boot.xproj", "{986D54DC-B149-483C-B935-3B50EC96859A}"
 EndProject

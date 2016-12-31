@@ -19,7 +19,7 @@ namespace Tempest.Core.Operations.Persistence
 
         protected override string GetStreamDescriptor()
         {
-            return $"[New stream]";
+            return $"(Stream)<{_destinationStream.GetType().Name}>";
         }
     }
 }

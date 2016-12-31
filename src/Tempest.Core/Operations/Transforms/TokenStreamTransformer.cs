@@ -23,7 +23,7 @@ namespace Tempest.Core.Operations.Transforms
 
         protected override string GetTransformerDescription()
         {
-            return $"Replace '{_searchForToken}' with '{_replaceWith}'";
+            return $"'{_searchForToken}'=>'{_replaceWith}'";
         }
     }
 }
