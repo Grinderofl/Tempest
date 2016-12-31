@@ -20,7 +20,7 @@ namespace Tempest.Core.Operations.Execution.Impl
             foreach (var operation in operations)
             {
                 _emitter.SetForegroundColor(ConsoleColor.Cyan);
-                _emitter.Emit($"Scaffolding {operation.Describe()}");
+                _emitter.Emit($"{operation.Describe()}");
                 operation.Execute();
             }
         }

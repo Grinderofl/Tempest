@@ -46,7 +46,9 @@ namespace Tempest.Core.Operations
 
         public virtual string Describe()
         {
-            return $"'{_streamProvider.Describe()}' {_transformer.Describe()} '{_persister.Describe()}'";
+            var transformerDescriber = _transformer.Describe();
+            transformerDescriber = transformerDescriber.Trim().Length > 0 ? $"{transformerDescriber} =>" : "";
+            return $"'{_streamProvider.Describe()}' => {transformerDescriber} '{_persister.Describe()}'";
         }
     }
 }
