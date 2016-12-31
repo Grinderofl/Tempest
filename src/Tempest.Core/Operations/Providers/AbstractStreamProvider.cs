@@ -8,7 +8,7 @@ namespace Tempest.Core.Operations.Providers
         public abstract Stream Provide();
         public virtual string Describe()
         {
-            return $"{GetStreamDescriptor()} - {GetType()}";
+            return $"{GetStreamDescriptor()}";
         }
 
         protected abstract string GetStreamDescriptor();

@@ -7,7 +7,7 @@ namespace Tempest.Core.Operations.Transforms
         public abstract Stream Transform(Stream stream);
         public virtual string Describe()
         {
-            return $"{GetTransformerDescription()}{GetType()}";
+            return $"{GetTransformerDescription()}";
         }
 
         protected abstract string GetTransformerDescription();

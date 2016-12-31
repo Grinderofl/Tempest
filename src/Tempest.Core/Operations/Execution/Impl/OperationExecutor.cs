@@ -18,7 +18,8 @@ namespace Tempest.Core.Operations.Execution.Impl
         {
             foreach (var operation in operations)
             {
-                _logger.LogInformation($"Scaffolding: {operation.Describe()}");
+                if(_logger.IsEnabled(LogLevel.Information))
+                    _logger.LogInformation($"Scaffolding: {operation.Describe()}");
 
                 operation.Execute();
             }

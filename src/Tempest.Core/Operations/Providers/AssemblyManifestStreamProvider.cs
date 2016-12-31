@@ -21,7 +21,7 @@ namespace Tempest.Core.Operations.Providers
 
         protected override string GetStreamDescriptor()
         {
-            return $"{_resource} ({_assembly.FullName})";
+            return $"<{_assembly.GetName().Name}> {_resource}";
         }
     }
 }

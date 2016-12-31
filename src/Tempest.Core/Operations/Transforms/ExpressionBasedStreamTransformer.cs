@@ -17,7 +17,7 @@ namespace Tempest.Core.Operations.Transforms
         public override Stream Transform(Stream stream) => _transformerFunc(stream);
         protected override string GetTransformerDescription()
         {
-            return "Expression";
+            return $"Expression";
         }
     }
 }

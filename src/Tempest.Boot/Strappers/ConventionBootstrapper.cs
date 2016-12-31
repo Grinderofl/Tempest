@@ -61,11 +61,15 @@ namespace Tempest.Boot.Strappers
         {
             loggerFactory.AddDebug();
             var loggingConfiguration = configuration.GetSection("Logging");
-            if (loggingConfiguration != null)
+            if (loggingConfiguration.Value != null)
+            {
+                Console.WriteLine("Configuring logger factory");
                 loggerFactory.AddConsole(loggingConfiguration);
+            }
             else
             {
-                
+                Console.WriteLine("Configuring logger factory with information");
+                loggerFactory.AddConsole(LogLevel.Information, true);
             }
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Tempest.Core.Operations.Transforms
 {
@@ -26,7 +27,7 @@ namespace Tempest.Core.Operations.Transforms
 
         protected override string GetTransformerDescription()
         {
-            return "Multiple";
+            return string.Join(", ", _transformers.Select(x => $"[{x.Describe()}]"));
         }
     }
 }
