@@ -4,7 +4,7 @@ using Tempest.Core.Operations.Transforms;
 using Tempest.Core.Utils;
 using Xunit;
 
-namespace Tempest.CoreTests.Transformation
+namespace Tempest.UnitTests.Transformation
 {
     public class TransformersTests
     {

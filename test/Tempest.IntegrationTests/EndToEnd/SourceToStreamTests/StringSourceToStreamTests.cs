@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using Tempest.Boot.Strappers.Execution;
-using Tempest.Core.IntegrationTests.EndToEnd.Base;
 using Tempest.Core.Utils;
+using Tempest.IntegrationTests.EndToEnd.Base;
 using Xunit;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd.SourceToStreamTests
+namespace Tempest.IntegrationTests.EndToEnd.SourceToStreamTests
 {
     public class StringSourceToStreamTests : ScaffoldingTestBase
     {

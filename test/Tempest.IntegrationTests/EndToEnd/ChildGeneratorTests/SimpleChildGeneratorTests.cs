@@ -7,13 +7,13 @@ using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Conventions.Defaults;
 using Tempest.Core.Generator;
-using Tempest.Core.IntegrationTests.EndToEnd.Helpers;
 using Tempest.Core.Operations;
 using Tempest.Core.Scaffolding;
 using Tempest.Core.Utils;
+using Tempest.IntegrationTests.EndToEnd.Helpers;
 using Xunit;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd.ChildGeneratorTests
+namespace Tempest.IntegrationTests.EndToEnd.ChildGeneratorTests
 {
     public class SimpleChildGeneratorTests
     {

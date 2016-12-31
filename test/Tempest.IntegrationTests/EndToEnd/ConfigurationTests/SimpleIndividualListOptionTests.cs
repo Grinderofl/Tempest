@@ -5,12 +5,12 @@ using Tempest.Boot.Strappers.Execution;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Conventions.Defaults;
 using Tempest.Core.Generator;
-using Tempest.Core.IntegrationTests.EndToEnd.Helpers;
 using Tempest.Core.Scaffolding;
 using Tempest.Core.Utils;
+using Tempest.IntegrationTests.EndToEnd.Helpers;
 using Xunit;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd.ConfigurationTests
+namespace Tempest.IntegrationTests.EndToEnd.ConfigurationTests
 {
     public class SimpleIndividualListOptionTests
     {

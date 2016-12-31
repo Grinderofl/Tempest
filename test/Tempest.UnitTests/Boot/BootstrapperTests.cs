@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Tempest.Boot.Strappers.Defaults;
 using Tempest.Boot.Strappers.Execution;
 using Tempest.Core.Conventions.Defaults;
 using Xunit;
 
-namespace Tempest.CoreTests.Boot
+namespace Tempest.UnitTests.Boot
 {
     public class BootstrapperTests
     {

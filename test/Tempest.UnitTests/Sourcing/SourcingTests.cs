@@ -6,7 +6,7 @@ using Tempest.Core.Configuration.Operations.Sourcing;
 using Tempest.Core.Utils;
 using Xunit;
 
-namespace Tempest.CoreTests.Sourcing
+namespace Tempest.UnitTests.Sourcing
 {
     public class SourcingTests
     {

@@ -9,7 +9,7 @@ using Tempest.Core.Operations.Transforms;
 using Tempest.Core.Utils;
 using Xunit;
 
-namespace Tempest.CoreTests.Operations
+namespace Tempest.UnitTests.Operations
 {
     public class OperationTests
     {

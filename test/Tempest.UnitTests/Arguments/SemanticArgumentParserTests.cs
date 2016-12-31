@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Tempest.Boot;
-using Tempest.Boot.Configuration.Impl;
-//using Tempest.Boot.Arguments.Impl;
+﻿using Tempest.Boot.Configuration.Impl;
 using Xunit;
+//using Tempest.Boot.Arguments.Impl;
 
-namespace Tempest.CoreTests.Arguments
+namespace Tempest.UnitTests.Arguments
 {
     public class SemanticArgumentParserTests
     {

@@ -3,7 +3,7 @@ using Tempest.Boot.Runner.Activation.Impl;
 using Tempest.Boot.Strappers.Defaults;
 using Tempest.Core.Generator;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd.Helpers
+namespace Tempest.IntegrationTests.EndToEnd.Helpers
 {
     public class TestBootstrapperFactory : GeneratorBootstrapperFactory
     {

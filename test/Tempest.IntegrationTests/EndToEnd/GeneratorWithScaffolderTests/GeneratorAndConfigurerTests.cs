@@ -5,12 +5,12 @@ using Tempest.Boot.Helpers;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Conventions.Defaults;
 using Tempest.Core.Generator;
-using Tempest.Core.IntegrationTests.EndToEnd.Helpers;
 using Tempest.Core.Scaffolding;
 using Tempest.Core.Utils;
+using Tempest.IntegrationTests.EndToEnd.Helpers;
 using Xunit;
 
-namespace Tempest.Core.IntegrationTests.EndToEnd.GeneratorWithScaffolderTests
+namespace Tempest.IntegrationTests.EndToEnd.GeneratorWithScaffolderTests
 {
     public class GeneratorAndConfigurerTests
     {
