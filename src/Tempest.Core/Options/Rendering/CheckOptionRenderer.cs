@@ -26,7 +26,8 @@ namespace Tempest.Core.Options.Rendering
 
             Console.WriteLine("Here are the options:");
             RenderMenu(optionChoices);
-            return "";
+            var responses = string.Join(" ", optionChoices.Where(x => x.Selected).Select(x => x.Id));
+            return responses;
         }
 
         protected virtual void RenderMenu(IList<OptionChoice> optionChoices)

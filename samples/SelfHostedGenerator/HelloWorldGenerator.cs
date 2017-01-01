@@ -20,7 +20,6 @@ namespace SelfHostedGenerator
             builder.Set.TargetSubDirectory(_name);
 
             Func<string, string> resource = templateFile => $"SelfHostedGenerator.Template.{templateFile}";
-
             builder.Copy.ResourceOf<HelloWorldGenerator>(resource("project.json")).ToFile("project.json");
             builder.Copy.ResourceOf<HelloWorldGenerator>(resource("Program.cs")).ToFile("Program.cs");
             builder.Copy.ResourceOf<HelloWorldGenerator>(resource("ReplaceMeGreeter.cs")).ToFile($"{_name}.cs");
