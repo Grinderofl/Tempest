@@ -15,6 +15,13 @@ namespace Tempest.Core.Configuration.Operations.Sourcing
             => new ResourceFileSourceFactory(resourcePath, resourceAssembly);
         public static SourceFactory FromResource(string resourcePath, Func<Assembly> assemblyFunc)
             => new ResourceFileSourceFuncFactory(resourcePath, assemblyFunc);
+
+        public static SourceFactory FromResourcePath(string resourcePath, Assembly resourceAssembly) => new
+            ResourcePathFileSourceFactory(resourcePath, resourceAssembly);
+
+        public static SourceFactory FromResourcePathOf<T>(string resourcePath) => FromResourcePath(resourcePath,
+            typeof(T).GetAssembly());
+
         public static SourceFactory FromTarget(string filePath) =>new TargetFileSourceFactory(filePath);
         public static SourceFactory FromTemplateGlob(string glob) => new TemplateGlobSourceFactory(glob);
         public static SourceFactory FromUri(Uri uri) => new WebSourceFactory(uri);

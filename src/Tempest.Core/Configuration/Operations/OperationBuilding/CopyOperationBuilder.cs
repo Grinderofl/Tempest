@@ -31,5 +31,11 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
             => CreateStep(Sources.FromResource(resourcePath, assembly));
 
         public OperationStep ResourceOf<T>(string resourcePath) => CreateStep(Sources.FromResourceOf<T>(resourcePath));
+
+        public OperationStep ResourcePath(string resourcePath, Assembly assembly)
+            => CreateStep(Sources.FromResourcePath(resourcePath, assembly));
+
+        public OperationStep ResourcePathOf<T>(string resourcePath) => CreateStep(
+            Sources.FromResourcePathOf<T>(resourcePath));
     }
 }

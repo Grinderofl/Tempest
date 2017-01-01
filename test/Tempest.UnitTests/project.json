@@ -18,7 +18,10 @@
 
   "buildOptions": {
     "embed": {
-      "includeFiles": ["Sourcing/EmbeddedResource.txt"]
+      "includeFiles": [
+          "Sourcing/EmbeddedResource.txt",
+          "Sourcing/EmbeddedResource2.txt"
+      ]
     }
   },
 

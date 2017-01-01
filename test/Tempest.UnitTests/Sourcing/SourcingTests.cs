@@ -68,6 +68,20 @@ namespace Tempest.UnitTests.Sourcing
                 var resultValue = result.First().Provider.Provide().ReadAsString();
                 Assert.Equal("FOOBAR", resultValue);
             }
+
+            [Fact]
+            public void generates_valid_stream_from_path()
+            {
+                var source = new ResourcePathFileSourceFactory("Tempest.UnitTests.Sourcing", GetType().GetAssembly());
+                var context = new SourcingContext();
+                var result = source.Generate(context);
+                var resultValue1 = result.First().Provider.Provide().ReadAsString();
+                var resultValue2 = result.ElementAt(1).Provider.Provide().ReadAsString();
+
+                Assert.Equal("FOOBAR", resultValue1);
+                Assert.Equal("BARFOO", resultValue2);
+
+            }
         }
     }
 }
