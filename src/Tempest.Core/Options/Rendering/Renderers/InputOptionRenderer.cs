@@ -1,7 +1,8 @@
 using System;
 using Tempest.Core.Configuration.Options.Defaults;
+using Tempest.Core.Options.Impl;
 
-namespace Tempest.Core.Options.Rendering
+namespace Tempest.Core.Options.Rendering.Renderers
 {
     public class InputOptionRenderer : OptionRendererBase
     {
@@ -9,7 +10,7 @@ namespace Tempest.Core.Options.Rendering
         {
         }
 
-        protected override string RenderOptionCore()
+        protected override string RenderOptionCore(RenderContext renderContext)
         {
             var answer = Console.ReadLine();
             return answer;

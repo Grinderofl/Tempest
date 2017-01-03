@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Tempest.Core.Options.Impl;
 using Tempest.Core.Options.Rendering;
+using Tempest.Core.Options.Rendering.Renderers;
 
 namespace Tempest.Core.Configuration.Options.Base
 {
@@ -18,11 +20,11 @@ namespace Tempest.Core.Configuration.Options.Base
 
         public string Title => _titleAction();
 
-        string IConfigurationOption.Render()
+        string IConfigurationOption.Render(RenderContext renderContext)
         {
             if (Renderer == null)
                 throw new NullReferenceException($"The Option Renderer for Option {Title} is null");
-            return Renderer.Render();
+            return Renderer.Render(renderContext);
         }
 
         bool IConfigurationOption.ShouldRender(List<string> results) => ShouldRenderCore(results);

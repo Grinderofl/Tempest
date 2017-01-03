@@ -4,11 +4,19 @@ using System.Linq;
 using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Operations.Transforms;
+using Tempest.Core.Options.Rendering;
 
 namespace Tempest.Core.Options.Impl
 {
     public class OptionExecutor : IOptionExecutor
     {
+        private RenderOptions _renderOptions;
+
+        public OptionExecutor(RenderOptions renderOptions)
+        {
+            _renderOptions = renderOptions;
+        }
+
         public virtual void Execute(IConfigurationOption[] options, string[] selectedOptions)
         {
             var results = new List<string>();
@@ -18,6 +26,8 @@ namespace Tempest.Core.Options.Impl
                 option.ActOn(choice);
                 results.Add(choice);
             };
+
+            var renderContext = new RenderContext(_renderOptions);
 
             for (var i = 0; i < options.Length; i++)
             {
@@ -35,7 +45,7 @@ namespace Tempest.Core.Options.Impl
                     // Maybe we throw something here if we can't find a launch argument because we can't do magic matchup?
                 }
 
-                var choice = option.Render();
+                var choice = option.Render(renderContext);
                 actOnOption(option, choice);
             }
         }

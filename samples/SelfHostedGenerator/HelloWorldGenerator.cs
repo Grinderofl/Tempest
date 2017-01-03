@@ -1,6 +1,8 @@
 ﻿using System;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Generator;
+using Tempest.Core.Options.Impl;
+using Tempest.Core.Options.Rendering;
 using Tempest.Core.Scaffolding;
 
 namespace SelfHostedGenerator
@@ -9,17 +11,25 @@ namespace SelfHostedGenerator
     {
         private string _name;
 
+        public HelloWorldGenerator(RenderOptions renderOptions)
+        {
+            renderOptions.RenderColors[ColorType.SpecialTextHighlightForeground] = ConsoleColor.Red;
+        }
+
         protected override void ConfigureOptions(OptionsFactory options)
         {
-            options.Input("Welcome to Hello World generator. Please enter the name: ", s => _name = s);
-
+            
             options.Check("Just a check that does nothing")
                 .Choice("Choice 1", "1", () => {})
-                .Choice("Choice 2", "2", () => {});
+                .Choice("Choice 2", "2", () => {})
+                .Choice("Choice 3", "3", () => {});
 
             options.List("Just a list that does nothing")
                 .Choice("Choice 1", "1")
                 .Choice("Choice 2", "2");
+
+            options.Input("Welcome to Hello World generator. Please enter the name: ", s => _name = s);
+
         }
 
         protected override void ConfigureGenerator(IScaffoldBuilder builder)

@@ -11,6 +11,7 @@ using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Scaffolding.Impl;
 using Tempest.Core.Generator;
 using Tempest.Core.Options.Impl;
+using Tempest.Core.Options.Rendering;
 using Tempest.Core.Utils;
 
 namespace Tempest.Boot.Runner.Impl
@@ -22,7 +23,7 @@ namespace Tempest.Boot.Runner.Impl
         private readonly IDirectoryFinder _directoryFinder;
         private readonly IGeneratorFinder _generatorFinder;
         private readonly IGeneratorRunner _generatorRunner;
-        private OptionsFactory _optionsFactory = new OptionsFactory();
+        private readonly OptionsFactory _optionsFactory = new OptionsFactory();
 
         public TempestRunner(IGeneratorRunner generatorRunner, IDirectoryFinder directoryFinder, IGeneratorFinder generatorFinder)
         {
@@ -90,7 +91,7 @@ namespace Tempest.Boot.Runner.Impl
                 generatorMap.Add(generatorName.ToLower(), generatorType);
                 options.Choice($"{generatorName}", generatorName.ToLower());
             }
-            var generatorChoice = ((IConfigurationOption) options).Render();
+            var generatorChoice = ((IConfigurationOption) options).Render(new RenderContext(new RenderOptions()));
             var generator = generatorMap[generatorChoice];
             return generator;
         }

@@ -4,8 +4,9 @@ using System.Linq;
 using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Configuration.Options.Defaults;
+using Tempest.Core.Options.Impl;
 
-namespace Tempest.Core.Options.Rendering
+namespace Tempest.Core.Options.Rendering.Renderers
 {
     public class ListOptionRenderer : OptionRendererBase
     {
@@ -13,16 +14,16 @@ namespace Tempest.Core.Options.Rendering
         {
         }
 
-        protected virtual string RenderListOptionCore(ListConfigurationOption configurationOption)
+        protected virtual string RenderListOptionCore(ListConfigurationOption configurationOption, RenderContext context)
         {
             var optionChoices = configurationOption.Choices as IList<OptionChoice> ??
                                 configurationOption.Choices.ToList();
 
             Console.WriteLine("Here are the options:\n");
-            return RenderMenu(optionChoices);
+            return RenderMenu(optionChoices, context);
         }
 
-        protected virtual string RenderMenu(IList<OptionChoice> optionChoices)
+        protected virtual string RenderMenu(IList<OptionChoice> optionChoices, RenderContext context)
         {
             Console.CursorVisible = false;
             ConsoleKey? key = null;
@@ -34,7 +35,7 @@ namespace Tempest.Core.Options.Rendering
                 {
                     Console.SetCursorPosition(0, Console.CursorTop - optionChoices.Count);
                 }
-                RenderMenu(optionChoices, optionChoices[index]);
+                RenderMenu(optionChoices, optionChoices[index], context);
 
                 key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.UpArrow)
@@ -50,34 +51,33 @@ namespace Tempest.Core.Options.Rendering
             return optionChoices[index].Id;
         }
 
-        protected virtual void RenderMenu(IList<OptionChoice> optionChoices, OptionChoice currentlySelectedOption)
+        protected virtual void RenderMenu(IList<OptionChoice> optionChoices, OptionChoice currentlySelectedOption, RenderContext context)
         {
-            var origForeColor = Console.ForegroundColor;
-            var origBackColor = Console.BackgroundColor;
-
             foreach (var option in optionChoices)
             {
                 if (currentlySelectedOption == option)
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = context.ColorFor(ColorType.SpecialTextHighlightForeground);
+                    Console.BackgroundColor = context.ColorFor(ColorType.SpecialTextHighlightBackground);
                     Console.Write("> ");
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = context.ColorFor(ColorType.SpecialTextForeground);
+                    Console.BackgroundColor = context.ColorFor(ColorType.SpecialTextBackground);
                     Console.Write("  ");
                 }
 
                 Console.Write($"{option.Title} [{option.Id}]");
-                Console.ForegroundColor = origForeColor;
-                Console.BackgroundColor = origBackColor;
+                Console.ForegroundColor = context.ColorFor(ColorType.NormalTextForeground);
+                Console.BackgroundColor = context.ColorFor(ColorType.NormalTextBackground);
                 Console.Write("\n");
             }
         }
 
-        protected override string RenderOptionCore()
+        protected override string RenderOptionCore(RenderContext context)
         {
-            return RenderListOptionCore((ListConfigurationOption) AssociatedOption);
+            return RenderListOptionCore((ListConfigurationOption) AssociatedOption, context);
         }
     }
 }

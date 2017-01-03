@@ -8,6 +8,7 @@ using Scrutor;
 using Tempest.Core.Conventions;
 using Tempest.Core.Generator;
 using Tempest.Core.Operations;
+using Tempest.Core.Utils;
 
 namespace Tempest.Boot.Conventions
 {
@@ -55,7 +56,9 @@ namespace Tempest.Boot.Conventions
 
         protected virtual IEnumerable<Assembly> FindAssemblies()
         {
-            return _additionalAssemblies.Union(new[] {_context.GeneratorType.GetTypeInfo().Assembly});
+            return
+                _additionalAssemblies.Except(new[] {typeof(GeneratorRegistrationConvention).GetAssembly()})
+                    .Union(new[] {_context.GeneratorType.GetTypeInfo().Assembly});
         }
 
         protected virtual IEnumerable<IServiceConfigurationConvention> FindConventions(IEnumerable<Assembly> assemblies)
@@ -65,7 +68,7 @@ namespace Tempest.Boot.Conventions
             services.Scan(
                 s =>
                     s.FromAssemblies(assemblies)
-                        .AddClasses(c => c.AssignableTo<IServiceConfigurationConvention>())
+                        .AddClasses(c => c.AssignableTo<IServiceConfigurationConvention>().Where(t => t != typeof(GeneratorRegistrationConvention)))
                         .As<IServiceConfigurationConvention>());
             var provider = services.BuildServiceProvider();
             return provider.GetServices<IServiceConfigurationConvention>();

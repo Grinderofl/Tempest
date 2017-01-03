@@ -4,8 +4,9 @@ using System.Linq;
 using Tempest.Core.Configuration.Options;
 using Tempest.Core.Configuration.Options.Base;
 using Tempest.Core.Configuration.Options.Defaults;
+using Tempest.Core.Options.Impl;
 
-namespace Tempest.Core.Options.Rendering
+namespace Tempest.Core.Options.Rendering.Renderers
 {
     public class CheckOptionRenderer : OptionRendererBase
     {
@@ -15,22 +16,22 @@ namespace Tempest.Core.Options.Rendering
 
 
 
-        protected override string RenderOptionCore()
+        protected override string RenderOptionCore(RenderContext context)
         {
-            return RenderCheckOptionsCore((CheckConfigurationOption) AssociatedOption);
+            return RenderCheckOptionsCore((CheckConfigurationOption) AssociatedOption, context);
         }
 
-        private string RenderCheckOptionsCore(CheckConfigurationOption associatedOption)
+        private string RenderCheckOptionsCore(CheckConfigurationOption associatedOption, RenderContext context)
         {
             var optionChoices = associatedOption.Choices as IList<OptionChoice> ?? associatedOption.Choices.ToList();
 
             Console.WriteLine("Here are the options:\n");
-            RenderMenu(optionChoices);
+            RenderMenu(optionChoices, context);
             var responses = string.Join(" ", optionChoices.Where(x => x.Selected).Select(x => x.Id));
             return responses;
         }
 
-        protected virtual void RenderMenu(IList<OptionChoice> optionChoices)
+        protected virtual void RenderMenu(IList<OptionChoice> optionChoices, RenderContext context)
         {
             Console.CursorVisible = false;
             ConsoleKey? key = null;
@@ -41,7 +42,7 @@ namespace Tempest.Core.Options.Rendering
                 {
                     Console.SetCursorPosition(0, Console.CursorTop - optionChoices.Count);
                 }
-                RenderMenuOptions(optionChoices, optionChoices[index]);
+                RenderMenuOptions(optionChoices, optionChoices[index], context);
                 key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.UpArrow)
                     index = Math.Max(0, index - 1);
@@ -52,27 +53,26 @@ namespace Tempest.Core.Options.Rendering
             }
         }
 
-        protected virtual void RenderMenuOptions(IList<OptionChoice> optionChoices, OptionChoice currentlySelected)
+        protected virtual void RenderMenuOptions(IList<OptionChoice> optionChoices, OptionChoice currentlySelected, RenderContext context)
         {
-            var origForeColor = Console.ForegroundColor;
-            var origBackColor = Console.BackgroundColor;
-
             foreach (var option in optionChoices)
             {
                 if (currentlySelected == option)
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = context.ColorFor(ColorType.SpecialTextHighlightForeground);
+                    Console.BackgroundColor = context.ColorFor(ColorType.SpecialTextHighlightBackground);
                     Console.Write("> ");
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = context.ColorFor(ColorType.SpecialTextForeground);
+                    Console.BackgroundColor = context.ColorFor(ColorType.SpecialTextBackground);
                     Console.Write("  ");
                 }
 
                 Console.Write($"[{(option.Selected ? "x" : " ")}] {option.Title} [{option.Id}]");
-                Console.ForegroundColor = origForeColor;
-                Console.BackgroundColor = origBackColor;
+                Console.ForegroundColor = context.ColorFor(ColorType.NormalTextForeground);
+                Console.BackgroundColor = context.ColorFor(ColorType.NormalTextBackground);
                 Console.Write("\n");
             }
         }
