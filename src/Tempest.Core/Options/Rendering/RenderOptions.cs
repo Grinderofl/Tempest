@@ -12,7 +12,9 @@ namespace Tempest.Core.Options.Rendering
             [ColorType.SpecialTextForeground] = ConsoleColor.White,
             [ColorType.SpecialTextBackground] = Console.BackgroundColor,
             [ColorType.SpecialTextHighlightForeground] = ConsoleColor.Cyan,
-            [ColorType.SpecialTextHighlightBackground] = Console.BackgroundColor
+            [ColorType.SpecialTextHighlightBackground] = Console.BackgroundColor,
+            [ColorType.EmitterForeground] = ConsoleColor.Cyan,
+            [ColorType.EmitterBackground] = Console.BackgroundColor
         };
     }
 }
