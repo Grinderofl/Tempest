@@ -13,6 +13,7 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
         private readonly SourceFactory _sourceFactory;
         protected IList<PersisterFactoryBase> InternalEmitters = new List<PersisterFactoryBase>();
         protected IList<OperationTransformerBase> InternalTransformers = new List<OperationTransformerBase>();
+        protected TransformationScope TransformationScope = TransformationScope.BeforeGlobals;
 
         protected OperationStepBase(SourceFactory sourceFactory)
         {
@@ -29,5 +30,9 @@ namespace Tempest.Core.Configuration.Operations.OperationBuilding
         public IEnumerable<OperationTransformerBase> GetTransformers() => InternalTransformers;
 
         public IEnumerable<PersisterFactoryBase> GetEmitters() => InternalEmitters;
+
+        public virtual TransformationScope GetScope() => TransformationScope;
+
+
     }
 }

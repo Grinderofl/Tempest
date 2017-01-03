@@ -2,6 +2,7 @@
 using System.Linq;
 using Tempest.Core.Configuration.Operations.OperationBuilding;
 using Tempest.Core.Configuration.Operations.Sourcing;
+using Tempest.Core.Configuration.Operations.Transformation;
 using Tempest.Core.Operations.Persistence;
 using Tempest.Core.Operations.Transforms;
 
@@ -16,6 +17,13 @@ namespace Tempest.Core.Operations.Execution.Impl
                 foreach (var operation in BuildOperations(step, configuration, sourcingContext))
                     yield return operation;
             }
+        }
+
+        protected virtual IEnumerable<OperationTransformerBase> ObtainTransformers(OperationStep step, ScaffoldOperationConfiguration configuration)
+        {
+            if (step.GetScope() == TransformationScope.AfterGlobals)
+                return configuration.GlobalTransformers.Union(step.GetTransformers());
+            return step.GetTransformers().Union(configuration.GlobalTransformers);
         }
 
         protected virtual IEnumerable<Operation> BuildOperations(OperationStep step, ScaffoldOperationConfiguration configuration, SourcingContext context)
