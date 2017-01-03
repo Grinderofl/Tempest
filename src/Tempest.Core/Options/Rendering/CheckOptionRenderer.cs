@@ -24,7 +24,7 @@ namespace Tempest.Core.Options.Rendering
         {
             var optionChoices = associatedOption.Choices as IList<OptionChoice> ?? associatedOption.Choices.ToList();
 
-            Console.WriteLine("Here are the options:");
+            Console.WriteLine("Here are the options:\n");
             RenderMenu(optionChoices);
             var responses = string.Join(" ", optionChoices.Where(x => x.Selected).Select(x => x.Id));
             return responses;
@@ -61,12 +61,12 @@ namespace Tempest.Core.Options.Rendering
             {
                 if (currentlySelected == option)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.BackgroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write("> ");
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.Write("  ");
                 }
 

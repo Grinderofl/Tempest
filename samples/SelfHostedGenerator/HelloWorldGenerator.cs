@@ -12,6 +12,14 @@ namespace SelfHostedGenerator
         protected override void ConfigureOptions(OptionsFactory options)
         {
             options.Input("Welcome to Hello World generator. Please enter the name: ", s => _name = s);
+
+            options.Check("Just a check that does nothing")
+                .Choice("Choice 1", "1", () => {})
+                .Choice("Choice 2", "2", () => {});
+
+            options.List("Just a list that does nothing")
+                .Choice("Choice 1", "1")
+                .Choice("Choice 2", "2");
         }
 
         protected override void ConfigureGenerator(IScaffoldBuilder builder)
