@@ -1,3 +1,10 @@
+# This project has been deprecated in favour of the new templating engine:
+
+https://github.com/dotnet/templating
+
+
+
+
 [![Build status](https://ci.appveyor.com/api/projects/status/ntpiso2gjotxmrmd?svg=true)](https://ci.appveyor.com/project/Grinderofl/tempest)
 
 
